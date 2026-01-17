@@ -6,6 +6,7 @@ import { usePerformance } from '@/providers/performance.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import Head from 'next/head';
 import { useRef } from 'react';
 
 const ProjectStudioPage = () => {
@@ -94,36 +95,50 @@ const ProjectStudioPage = () => {
   }, [isFrench]);
 
   return (
-    <section className="px-x-default py-y-default">
-      <div className="pt-y-default mx-auto w-full space-y-3 pb-14 md:text-center">
-        <h1 ref={titleRef} className="text-blue">
-          PROJECT STUDIO
-        </h1>
-        <p ref={subtitleRef} className="p1">
-          {isFrench
-            ? 'Partagez votre vision, nous la concrétiserons ensemble.'
-            : "Share your vision, and we'll bring it to life together."}
-        </p>
-        <p ref={descriptionRef} className="p3 text-black-70">
-          {isFrench ? (
-            <>
-              <span>
-                Sélectionnez vos pages, votre style d'animation préféré, et vos besoins spécifiques.
-              </span>
-              <br />
-              <span>Nous vous recontacterons rapidement pour discuter de votre projet.</span>
-            </>
-          ) : (
-            <>
-              <span>Select your pages, preferred animation style, and specific needs.</span>
-              <br />
-              <span>We'll get back to you quickly to discuss your project.</span>
-            </>
-          )}
-        </p>
-      </div>
-      <ProjectStudio />
-    </section>
+    <>
+      <Head>
+        <title>Metabole - Creative Studio | Metabole STUDIO</title>
+        <link
+          href={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/offers/project-studio'}
+          rel="canonical"
+        />
+        <meta
+          content={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/offers/project-studio'}
+          property="og:url"
+        />
+      </Head>
+      <section className="px-x-default py-y-default">
+        <div className="pt-y-default mx-auto w-full space-y-3 pb-14 md:text-center">
+          <h1 ref={titleRef} className="text-blue">
+            PROJECT STUDIO
+          </h1>
+          <p ref={subtitleRef} className="p1">
+            {isFrench
+              ? 'Partagez votre vision, nous la concrétiserons ensemble.'
+              : "Share your vision, and we'll bring it to life together."}
+          </p>
+          <p ref={descriptionRef} className="p3 text-black-70">
+            {isFrench ? (
+              <>
+                <span>
+                  Sélectionnez vos pages, votre style d'animation préféré, et vos besoins
+                  spécifiques.
+                </span>
+                <br />
+                <span>Nous vous recontacterons rapidement pour discuter de votre projet.</span>
+              </>
+            ) : (
+              <>
+                <span>Select your pages, preferred animation style, and specific needs.</span>
+                <br />
+                <span>We'll get back to you quickly to discuss your project.</span>
+              </>
+            )}
+          </p>
+        </div>
+        <ProjectStudio />
+      </section>
+    </>
   );
 };
 

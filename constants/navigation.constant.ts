@@ -39,6 +39,10 @@ export const SOCIALS = [
     text: 'CSS DA',
   },
   {
+    href: 'https://wdawards.com/find/metabole%20studio',
+    text: 'WD Awards',
+  },
+  {
     href: 'https://instagram.com/metabole.studio',
     text: 'Instagram',
   },

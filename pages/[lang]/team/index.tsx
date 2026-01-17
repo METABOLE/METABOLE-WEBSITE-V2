@@ -3,11 +3,26 @@ import Faq from '@/features/shared/Faq';
 import Hero from '@/features/team/Hero';
 import Inspiration from '@/features/team/Inspiration';
 import Us from '@/features/team/Us';
+import { useLanguage } from '@/providers/language.provider';
 import { fetchProjects } from '@/services/projects.service';
+import Head from 'next/head';
 
 export default function Services() {
+  const { isFrench } = useLanguage();
+
   return (
     <>
+      <Head>
+        <title>Metabole - Creative Studio | Metabole STUDIO</title>
+        <link
+          href={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/team'}
+          rel="canonical"
+        />
+        <meta
+          content={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/team'}
+          property="og:url"
+        />
+      </Head>
       <Hero />
       <Inspiration />
       <Us isPageTeam />

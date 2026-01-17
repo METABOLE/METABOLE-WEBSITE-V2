@@ -6,22 +6,32 @@ import Faq from '@/features/shared/Faq';
 import Timeline from '@/features/shared/timeline/Timeline';
 import TrustedBy from '@/features/shared/TrustedBy/TrustedBy';
 import Us from '@/features/team/Us';
+import { useLanguage } from '@/providers/language.provider';
+import Head from 'next/head';
 
 export default function Home() {
+  const { isFrench } = useLanguage();
   return (
-    <div className="relative overflow-hidden">
-      <FloatingHalo
-        className="pointer-events-none absolute top-0 left-full -z-10 h-[150vw] w-[150vw] opacity-40"
-        from="#1b17ee"
-        to="#f1f2ff00"
-      />
-      <Hero />
-      <Philosophy />
-      <Expertise />
-      <Timeline />
-      <Us />
-      <TrustedBy />
-      <Faq />
-    </div>
+    <>
+      <Head>
+        <title>Metabole - Creative Studio | Metabole STUDIO</title>
+        <link href={'https://metabole.studio/' + isFrench ? 'fr' : 'en'} rel="canonical" />
+        <meta content={'https://metabole.studio/' + isFrench ? 'fr' : 'en'} property="og:url" />
+      </Head>
+      <div className="relative overflow-hidden">
+        <FloatingHalo
+          className="pointer-events-none absolute top-0 left-full -z-10 h-[150vw] w-[150vw] opacity-40"
+          from="#1b17ee"
+          to="#f1f2ff00"
+        />
+        <Hero />
+        <Philosophy />
+        <Expertise />
+        <Timeline />
+        <Us />
+        <TrustedBy />
+        <Faq />
+      </div>
+    </>
   );
 }
