@@ -8,6 +8,7 @@ import { usePerformance } from '@/providers/performance.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import Head from 'next/head';
 import { useRef } from 'react';
 
 gsap.registerPlugin(SplitText);
@@ -71,56 +72,69 @@ const ContactPage = () => {
   }, [isFrench]);
 
   return (
-    <div className="px-x-default py-y-double-default gap-x-x-default gap-y-default grid md:grid-cols-2 md:grid-rows-2 md:gap-y-0">
-      <div>
-        <h1 ref={titleRef} className="uppercase">
-          {isFrench ? (
-            <>
-              Un <span className="text-blue">projet</span> ou une{' '}
-              <span className="text-blue">question</span> ?
-            </>
-          ) : (
-            <>
-              A <span className="text-blue">project</span> or a{' '}
-              <span className="text-blue">question</span>?
-            </>
-          )}
-        </h1>
-        <h3 ref={descriptionRef} className="p2 pt-6">
-          {isFrench ? (
-            <>
-              Partagez-nous les grandes lignes via le formulaire ci-dessous.{' '}
-              <span className="text-blue">On revient vers vous sous 48h</span> pour faire avancer
-              les choses ensemble.
-            </>
-          ) : (
-            <>
-              Share the key details with us using the form below.{' '}
-              <span className="text-blue">We’ll get back to you within 48 hours</span> to move
-              forward together.
-            </>
-          )}
-        </h3>
+    <>
+      <Head>
+        <title>Metabole - Creative Studio | Metabole STUDIO</title>
+        <link
+          href={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/contact'}
+          rel="canonical"
+        />
+        <meta
+          content={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/contact'}
+          property="og:url"
+        />
+      </Head>
+      <div className="px-x-default py-y-double-default gap-x-x-default gap-y-default grid md:grid-cols-2 md:grid-rows-2 md:gap-y-0">
+        <div>
+          <h1 ref={titleRef} className="uppercase">
+            {isFrench ? (
+              <>
+                Un <span className="text-blue">projet</span> ou une{' '}
+                <span className="text-blue">question</span> ?
+              </>
+            ) : (
+              <>
+                A <span className="text-blue">project</span> or a{' '}
+                <span className="text-blue">question</span>?
+              </>
+            )}
+          </h1>
+          <h3 ref={descriptionRef} className="p2 pt-6">
+            {isFrench ? (
+              <>
+                Partagez-nous les grandes lignes via le formulaire ci-dessous.{' '}
+                <span className="text-blue">On revient vers vous sous 48h</span> pour faire avancer
+                les choses ensemble.
+              </>
+            ) : (
+              <>
+                Share the key details with us using the form below.{' '}
+                <span className="text-blue">We’ll get back to you within 48 hours</span> to move
+                forward together.
+              </>
+            )}
+          </h3>
+        </div>
+        <ContactForm className="row-span-2" />
+        <div className="mt-auto">
+          <h3 className="block md:hidden">
+            {isFrench ? 'Ou sinon, directement ici :' : 'Or directly here :'}
+          </h3>
+          <CopyButton className="flex w-fit flex-col" value={CONTACT.EMAIL}>
+            <p className="text-black-30 pt-12 uppercase">MAIL : </p>
+            <a className="pt-2" href={'mailto:' + CONTACT.EMAIL}>
+              {CONTACT.EMAIL}
+            </a>
+          </CopyButton>
+          <CopyButton className="flex w-fit flex-col" value={CONTACT.PHONE}>
+            <p className="text-black-30 pt-6 uppercase">TELEPHONE : </p>
+            <a className="pt-2" href={'tel:' + CONTACT.PHONE}>
+              {CONTACT.PHONE}
+            </a>
+          </CopyButton>
+        </div>
       </div>
-      <ContactForm className="row-span-2" />
-      <div className="mt-auto">
-        <h3 className="block md:hidden">
-          {isFrench ? 'Ou sinon, directement ici :' : 'Or directly here :'}
-        </h3>
-        <CopyButton className="flex w-fit flex-col" value={CONTACT.EMAIL}>
-          <p className="text-black-30 pt-12 uppercase">MAIL : </p>
-          <a className="pt-2" href={'mailto:' + CONTACT.EMAIL}>
-            {CONTACT.EMAIL}
-          </a>
-        </CopyButton>
-        <CopyButton className="flex w-fit flex-col" value={CONTACT.PHONE}>
-          <p className="text-black-30 pt-6 uppercase">TELEPHONE : </p>
-          <a className="pt-2" href={'tel:' + CONTACT.PHONE}>
-            {CONTACT.PHONE}
-          </a>
-        </CopyButton>
-      </div>
-    </div>
+    </>
   );
 };
 
