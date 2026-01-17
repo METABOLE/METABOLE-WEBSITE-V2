@@ -6,17 +6,15 @@ import Faq from '@/features/shared/Faq';
 import Timeline from '@/features/shared/timeline/Timeline';
 import TrustedBy from '@/features/shared/TrustedBy/TrustedBy';
 import Us from '@/features/team/Us';
-import { useLanguage } from '@/providers/language.provider';
 import Head from 'next/head';
 
 export default function Home() {
-  const { isFrench } = useLanguage();
   return (
     <>
       <Head>
         <title>Metabole - Creative Studio | Metabole STUDIO</title>
-        <link href={'https://metabole.studio/' + isFrench ? 'fr' : 'en'} rel="canonical" />
-        <meta content={'https://metabole.studio/' + isFrench ? 'fr' : 'en'} property="og:url" />
+        <link href="https://metabole.studio/fr" rel="canonical" />
+        <meta content="https://metabole.studio/fr" property="og:url" />
       </Head>
       <div className="relative overflow-hidden">
         <FloatingHalo

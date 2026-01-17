@@ -75,14 +75,8 @@ const ContactPage = () => {
     <>
       <Head>
         <title>Metabole - Creative Studio | Metabole STUDIO</title>
-        <link
-          href={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/contact'}
-          rel="canonical"
-        />
-        <meta
-          content={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/contact'}
-          property="og:url"
-        />
+        <link href="https://metabole.studio/fr/contact" rel="canonical" />
+        <meta content="https://metabole.studio/fr/contact" property="og:url" />
       </Head>
       <div className="px-x-default py-y-double-default gap-x-x-default gap-y-default grid md:grid-cols-2 md:grid-rows-2 md:gap-y-0">
         <div>
