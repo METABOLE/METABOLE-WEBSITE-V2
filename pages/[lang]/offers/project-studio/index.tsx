@@ -98,14 +98,8 @@ const ProjectStudioPage = () => {
     <>
       <Head>
         <title>Metabole - Creative Studio | Metabole STUDIO</title>
-        <link
-          href={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/offers/project-studio'}
-          rel="canonical"
-        />
-        <meta
-          content={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/offers/project-studio'}
-          property="og:url"
-        />
+        <link href="https://metabole.studio/fr/offers/project-studio" rel="canonical" />
+        <meta content="https://metabole.studio/fr/offers/project-studio" property="og:url" />
       </Head>
       <section className="px-x-default py-y-default">
         <div className="pt-y-default mx-auto w-full space-y-3 pb-14 md:text-center">

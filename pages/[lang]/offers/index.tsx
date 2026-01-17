@@ -16,14 +16,8 @@ const Offers = () => {
     <>
       <Head>
         <title>Metabole - Creative Studio | Metabole STUDIO</title>
-        <link
-          href={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/offers'}
-          rel="canonical"
-        />
-        <meta
-          content={'https://metabole.studio/' + isFrench ? 'fr' : 'en' + '/offers'}
-          property="og:url"
-        />
+        <link href="https://metabole.studio/fr/offers" rel="canonical" />
+        <meta content="https://metabole.studio/fr/offers" property="og:url" />
       </Head>
       <section className="py-y-default px-x-default flex flex-col">
         <div className="pt-y-default">
