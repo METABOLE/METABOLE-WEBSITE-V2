@@ -2,7 +2,7 @@ import { forwardRef, ReactNode, useImperativeHandle, useRef } from 'react';
 import { COLORS } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ShapeCorner } from '../ui/icon';
+import { ShapeCorner } from '../ui/icons';
 
 export interface AnimatedCutoutWrapperRef {
   openCutoutWrapper: () => void;

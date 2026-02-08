@@ -13,9 +13,9 @@ import { useRef } from 'react';
 import FloatingHalo from '../shared/floating-halo';
 import Language from '../shared/language';
 import NewsletterForm from '../shared/newsletter-form';
-import Time from '../shared/tim';
+import Time from '../shared/time';
 import Hint from '../ui/hint';
-import { IconArrow, LogoSmall } from '../ui/icon';
+import { IconArrow, LogoSmall } from '../ui/icons';
 
 const Footer = () => {
   const animatedTitleRef = useRef<SVGSVGElement>(null);

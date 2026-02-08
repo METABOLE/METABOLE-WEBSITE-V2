@@ -1,7 +1,7 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
-import { IconCross } from './icon';
+import { IconCross } from './icons';
 
 type ButtonCheckboxProps = {
   id: string;
