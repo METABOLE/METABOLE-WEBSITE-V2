@@ -11,7 +11,7 @@ import NewsletterForm, { AnimatedNewsletterFormRef } from '../shared/newsletter-
 import Sound from '../shared/sound';
 import Time from '../shared/time';
 import AnimatedLink from '../ui/animated-link';
-import Hint from '../ui/hint';
+import Hint from '../ui/hin';
 import { LogoFull } from '../ui/icons';
 import Tag, { AnimatedTagRef } from '../ui/tag';
 import CutoutWrapper, { AnimatedCutoutWrapperRef } from './cutout-wrapper';
