@@ -3,24 +3,35 @@ import { clsx } from 'clsx';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import Link from 'next/link';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, HTMLAttributes, useRef } from 'react';
 
 gsap.registerPlugin(SplitText);
 
-interface AnimatedLinkProps {
-  href: string;
+interface BaseAnimatedLinkProps {
   children: React.ReactNode;
   className?: string;
-  scroll?: boolean;
   onClick?: () => void;
-  target?: string;
 }
 
-const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
-  ({ href, children, className, scroll = false, onClick, target, ...props }, ref) => {
+type LinkAnimatedLinkProps = BaseAnimatedLinkProps & {
+  href: string;
+  scroll?: boolean;
+  target?: string;
+  color?: 'black' | 'white';
+};
+
+type ButtonAnimatedLinkProps = BaseAnimatedLinkProps &
+  Omit<HTMLAttributes<HTMLButtonElement>, keyof BaseAnimatedLinkProps> & {
+    href?: never;
+  };
+
+type AnimatedLinkProps = LinkAnimatedLinkProps | ButtonAnimatedLinkProps;
+
+const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedLinkProps>(
+  ({ children, className, color = 'black', onClick, ...props }, ref) => {
     const { contextSafe } = useGSAP();
 
-    const linkRef = useRef<HTMLAnchorElement>(null);
+    const elementRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
     const currentChildRef = useRef(null);
     const absoluteChildRef = useRef(null);
     const timelineRef = useRef(gsap.timeline({ paused: true }));
@@ -77,32 +88,60 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
       initSplitText();
     }, [children]);
 
-    return (
-      <Link
-        ref={(el) => {
-          if (typeof ref === 'function') {
-            ref(el);
-          } else if (ref) {
-            ref.current = el;
-          }
-          linkRef.current = el;
-        }}
-        className={clsx('relative flex flex-col overflow-hidden', className)}
-        href={href}
-        scroll={scroll}
-        target={target}
-        onClick={onClick}
-        onMouseEnter={showHoverAnimation}
-        onMouseLeave={hideHoverAnimation}
-        {...props}
-      >
-        <span ref={currentChildRef} className="text-black-70 relative z-10">
+    const setRef = (el: HTMLAnchorElement | HTMLButtonElement | null) => {
+      elementRef.current = el;
+      if (typeof ref === 'function') {
+        ref(el);
+      } else if (ref) {
+        ref.current = el;
+      }
+    };
+
+    const content = (
+      <>
+        <span
+          ref={currentChildRef}
+          className={clsx(
+            'relative z-10',
+            color === 'white' && 'text-white',
+            color === 'black' && 'text-black-70',
+          )}
+        >
           {children}
         </span>
         <span ref={absoluteChildRef} aria-hidden={true} className="text-blue absolute z-10">
           {children}
         </span>
-      </Link>
+      </>
+    );
+
+    const commonProps = {
+      ref: setRef,
+      className: clsx('relative flex cursor-pointer flex-col overflow-hidden', className),
+      onClick,
+      onMouseEnter: showHoverAnimation,
+      onMouseLeave: hideHoverAnimation,
+    };
+
+    if ('href' in props && props.href != null) {
+      const linkProps = props as LinkAnimatedLinkProps;
+      return (
+        <Link
+          {...commonProps}
+          href={linkProps.href}
+          scroll={linkProps.scroll ?? false}
+          target={linkProps.target}
+        >
+          {content}
+        </Link>
+      );
+    }
+
+    const buttonProps = props as ButtonAnimatedLinkProps;
+    return (
+      <button {...commonProps} type="button" {...buttonProps}>
+        {content}
+      </button>
     );
   },
 );

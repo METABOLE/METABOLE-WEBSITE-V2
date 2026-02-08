@@ -205,7 +205,7 @@ const Burger = () => {
           <Link className="shrink-0" href={getInternalPath('/')} scroll={false}>
             <LogoSmall className="h-10 w-10" />
           </Link>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
             <Sound ref={soundRef} />
             <button
               aria-label="Menu"
