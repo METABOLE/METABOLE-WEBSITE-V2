@@ -1,5 +1,5 @@
 import SEO from '@/components/ui/SEO';
-import Hero from '@/features/index/Hero';
+import Hero from '@/features/home/hero';
 
 export default function Home() {
   return (
