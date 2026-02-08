@@ -14,7 +14,7 @@ import AnimatedLink from '../ui/animated-link';
 import Hint from '../ui/hint';
 import { LogoFull } from '../ui/icons';
 import Tag, { AnimatedTagRef } from '../ui/tag';
-import CutoutWrapper, { AnimatedCutoutWrapperRef } from './cutout-wrappe';
+import CutoutWrapper, { AnimatedCutoutWrapperRef } from './cutout-wrapper';
 import Button from '../ui/button';
 
 const TEXT_BUTTON = {
