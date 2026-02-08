@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button';
+import Button from '@/components/ui/butto';
 import { IconArrow } from '@/components/ui/icons';
 import Input from '@/components/ui/input';
 import Typography from '@/components/ui/typography';
