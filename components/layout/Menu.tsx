@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import Language from '../shared/language';
+import Language from '../shared/languag';
 import NewsletterForm, { AnimatedNewsletterFormRef } from '../shared/newsletter-form';
 import Sound from '../shared/sound';
 import Time from '../shared/time';
