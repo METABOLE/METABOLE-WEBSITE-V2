@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRef, useState } from 'react';
 import Language from '../shared/language';
-import Sound from '../shared/soun';
+import Sound from '../shared/sound';
 import Time from '../shared/time';
 import { LogoSmall } from '../ui/icons';
 import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
