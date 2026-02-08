@@ -24,7 +24,7 @@ const ScreenLoader = () => {
   const progressRef = useRef({ value: 0 });
 
   const { contextSafe } = useGSAP();
-  const { lockScroll } = useScroll();
+  const { unlockScroll } = useScroll();
   const { isLoading } = usePerformance();
 
   const revealAnimation = contextSafe(() => {
@@ -148,7 +148,7 @@ const ScreenLoader = () => {
         },
         'disappear',
       )
-      .add(() => lockScroll(false), 'disappear+=0.5')
+      .add(() => unlockScroll(), 'disappear+=0.5')
       .set(screenLoaderRef.current, {
         display: 'none',
       });

@@ -11,7 +11,6 @@ import '@/styles/tailwind.css';
 import { ProjectType } from '@/types';
 import { AnimatePresence } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLenis } from 'lenis/react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
@@ -32,8 +31,7 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   const pathname = usePathname();
   const isScreenLoader = useIsScreenLoader();
   const { isDev } = useEnvironment();
-  const { lockScroll } = useScroll();
-  const lenis = useLenis();
+  const { resetScroll } = useScroll();
 
   const getLayout =
     Component.getLayout || ((page) => <Layout projects={globalProps.projects}>{page}</Layout>);
@@ -59,12 +57,8 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   }, []);
 
   useEffect(() => {
-    if (isScreenLoader && !isDev) {
-      lockScroll(true);
-    } else {
-      lockScroll(false);
-    }
-  }, [isScreenLoader, isDev, lenis]);
+    resetScroll(isScreenLoader && !isDev);
+  }, [isScreenLoader, isDev, resetScroll]);
 
   return (
     <AppProvider>
