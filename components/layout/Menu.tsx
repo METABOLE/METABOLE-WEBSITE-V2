@@ -15,7 +15,7 @@ import Hint from '../ui/hint';
 import { LogoFull } from '../ui/icons';
 import Tag, { AnimatedTagRef } from '../ui/tag';
 import CutoutWrapper, { AnimatedCutoutWrapperRef } from './cutout-wrapper';
-import Button from '../ui/butto';
+import Button from '../ui/button';
 
 const TEXT_BUTTON = {
   fr: {
