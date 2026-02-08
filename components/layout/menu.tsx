@@ -1,8 +1,10 @@
 import { CONTACT, LINKS, SOCIALS } from '@/constants';
 import { useMenu } from '@/hooks/menu/useMenu';
 import { useLanguage } from '@/providers/language.provider';
+import { useLayoutColor } from '@/providers/layout-color.provider';
 import { ProjectType, TAG_TYPE } from '@/types';
 import Link from 'next/link';
+import { clsx } from 'clsx';
 import Language from '../shared/language';
 import NewsletterForm from '../shared/newsletter-form';
 import Sound from '../shared/sound';
@@ -49,6 +51,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
   } = useMenu();
 
   const { isFrench, getInternalPath } = useLanguage();
+  const { isLayoutDark } = useLayoutColor();
 
   return (
     <>
@@ -64,7 +67,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
           </p>
         )}
       </Hint>
-      <header ref={headerRef} className="px-x-default fixed z-[900] w-full mix-blend-difference">
+      <header ref={headerRef} className="px-x-default fixed z-[900] w-full">
         <div className="flex items-center justify-between py-8">
           <Link
             ref={logoRef}
@@ -74,15 +77,20 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
             scroll={false}
             onClick={closeMenu}
           >
-            <LogoFull className="h-auto w-24 fill-white" />
+            <LogoFull
+              className={clsx(
+                'h-auto w-24 transition-colors',
+                isLayoutDark ? 'fill-white' : 'fill-black',
+              )}
+            />
           </Link>
-          <div ref={wrapperButtonRef} className="flex items-center gap-4">
-            <Sound ref={soundRef} className="shrink-0" />
+          <div ref={wrapperButtonRef} className="flex items-center gap-10">
+            <Sound ref={soundRef} className="shrink-0" isDark={isLayoutDark} />
             <AnimatedLink
               ref={contactMenuRef}
-              className="label whitespace-nowrap"
-              color="white"
+              className="p3 whitespace-nowrap"
               href={getInternalPath('/contact')}
+              isDark={isLayoutDark}
               scroll={false}
               onClick={closeMenu}
             >
@@ -90,8 +98,8 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
             </AnimatedLink>
             <AnimatedLink
               ref={buttonMenuRef}
-              className="label whitespace-nowrap"
-              color="white"
+              className="p3 whitespace-nowrap"
+              isDark={isLayoutDark}
               onClick={isMenuOpen ? closeMenu : openMenu}
             >
               {TEXT_BUTTON[isFrench ? 'fr' : 'en'][isMenuOpen ? 'close' : 'open']}

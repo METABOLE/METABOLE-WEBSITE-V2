@@ -1,11 +1,45 @@
+import Time from '@/components/shared/time';
+import { useLayoutColor } from '@/providers/layout-color.provider';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Hero = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { setIsLayoutDark } = useLayoutColor();
+
+  useGSAP(() => {
+    if (!sectionRef.current) return;
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: '50px bottom',
+      end: 'bottom 50px',
+      onEnter: () => setIsLayoutDark(true),
+      onEnterBack: () => setIsLayoutDark(true),
+      onLeave: () => setIsLayoutDark(false),
+      onLeaveBack: () => setIsLayoutDark(false),
+    });
+  }, []);
+
   return (
     <>
-      <div className="gap-y-default relative flex h-screen w-screen flex-col items-center justify-center bg-black text-center text-white">
+      <div
+        ref={sectionRef}
+        className="gap-y-default relative flex h-screen w-screen flex-col items-center justify-center bg-black text-center text-white"
+      >
         <h1 className="h1 max-w-5xl">Le studio créatif premium des entreprises de demain.</h1>
         <p className="p3 max-w-5xl uppercase">
           Stratégie - Direction artistique - Développement web
         </p>
+        <div className="px-x-default absolute bottom-0 left-0 z-50 flex w-full items-center justify-between pb-8">
+          <p className="text-sm!">Metabole® 2025</p>
+          <p className="text-sm!">Paris | Rotterdam</p>
+          <Time className="block text-sm! md:hidden lg:block" isDark={true} />
+        </div>
       </div>
     </>
   );

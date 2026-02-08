@@ -28,15 +28,15 @@ export default function ScrollBar() {
   }, []);
 
   return (
-    <div className="bg-blur-glass pointer-events-none fixed top-1/2 right-10 z-[500] h-48 w-0.5 -translate-y-1/2">
-      <div ref={progressBarRef} className="bg-blue absolute h-full w-0.5">
+    <div className="bg-white-30 pointer-events-none fixed top-1/2 right-10 z-[500] h-48 w-0.5 -translate-y-1/2 mix-blend-difference">
+      <div ref={progressBarRef} className="absolute h-full w-0.5 bg-white">
         <SafeNumberFlow
-          className="label text-blue absolute right-2 -bottom-[19px] min-w-[3ch] tabular-nums"
+          className="label absolute right-2 -bottom-[19px] min-w-[3ch] text-white tabular-nums"
           suffix="%"
           value={Math.min(Math.round(percent * 100), 100)}
         />
         <svg
-          className="stroke-blue absolute -right-[3px] -bottom-3"
+          className="absolute -right-[3px] -bottom-3 stroke-white"
           fill="none"
           height="8"
           viewBox="0 0 8 8"

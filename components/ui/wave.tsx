@@ -176,15 +176,18 @@ const Wave = forwardRef<WaveHandles, WaveProps>(
       <div ref={containerRef}>
         <svg
           ref={svgRef}
-          className={clsx('h-auto w-full', className)}
           preserveAspectRatio="xMidYMid meet"
           viewBox={`0 0 ${width} ${height}`}
+          className={clsx(
+            'h-auto w-full transition-colors',
+            color === COLORS.WHITE ? 'stroke-white' : 'stroke-black',
+            className,
+          )}
         >
           <g transform={`translate(0, ${height / 2})`}>
             <polyline
               ref={polylineRef}
               fill="none"
-              stroke={color}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="1.5"

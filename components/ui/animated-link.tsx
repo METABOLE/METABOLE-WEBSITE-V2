@@ -11,13 +11,13 @@ interface BaseAnimatedLinkProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  isDark?: boolean;
 }
 
 type LinkAnimatedLinkProps = BaseAnimatedLinkProps & {
   href: string;
   scroll?: boolean;
   target?: string;
-  color?: 'black' | 'white';
 };
 
 type ButtonAnimatedLinkProps = BaseAnimatedLinkProps &
@@ -28,7 +28,7 @@ type ButtonAnimatedLinkProps = BaseAnimatedLinkProps &
 type AnimatedLinkProps = LinkAnimatedLinkProps | ButtonAnimatedLinkProps;
 
 const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedLinkProps>(
-  ({ children, className, color = 'black', onClick, ...props }, ref) => {
+  ({ children, className, isDark = false, onClick, ...props }, ref) => {
     const { contextSafe } = useGSAP();
 
     const elementRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
@@ -101,15 +101,15 @@ const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedL
       <>
         <span
           ref={currentChildRef}
-          className={clsx(
-            'relative z-10',
-            color === 'white' && 'text-white',
-            color === 'black' && 'text-black-70',
-          )}
+          className={clsx('relative z-10 transition-colors', isDark ? 'text-white' : 'text-black')}
         >
           {children}
         </span>
-        <span ref={absoluteChildRef} aria-hidden={true} className="text-blue absolute z-10">
+        <span
+          ref={absoluteChildRef}
+          aria-hidden={true}
+          className={clsx('absolute z-10 transition-colors', isDark ? 'text-yellow' : 'text-blue')}
+        >
           {children}
         </span>
       </>
