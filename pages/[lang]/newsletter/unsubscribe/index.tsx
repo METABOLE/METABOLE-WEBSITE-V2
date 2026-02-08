@@ -1,5 +1,5 @@
 import Button from '@/components/ui/button';
-import { IconArrow } from '@/components/ui/icons';
+import { IconArrow } from '@/components/ui/icon';
 import Input from '@/components/ui/input';
 import Typography from '@/components/ui/typography';
 import NewsletterLayout from '@/layout/newsletter';

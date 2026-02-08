@@ -11,8 +11,8 @@ import { usePathname } from 'next/navigation';
 import { useRef, useState } from 'react';
 import Language from '../shared/language';
 import Sound from '../shared/sound';
-import Time from '../shared/time';
-import { LogoSmall } from '../ui/icons';
+import Time from '../shared/tim';
+import { LogoSmall } from '../ui/icon';
 import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
 
 const Burger = () => {

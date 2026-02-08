@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IconCross } from './icons';
+import { IconCross } from './icon';
 
 enum CURSOR_STATE {
   DEFAULT = 'DEFAULT',
