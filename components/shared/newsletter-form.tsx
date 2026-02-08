@@ -8,8 +8,8 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { IconArrow, IconQuestionMark } from '../ui/icons';
-import Input, { AnimatedInputRef } from '../ui/inpu';
-import Typography, { AnimatedTypoRef } from '../ui/typograph';
+import Input, { AnimatedInputRef } from '../ui/input';
+import Typography, { AnimatedTypoRef } from '../ui/typography';
 
 interface LeadFormProps {
   className?: string;
