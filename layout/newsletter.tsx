@@ -1,5 +1,5 @@
 import FloatingHalo from '@/components/shared/floating-halo';
-import Lottie from '@/components/shared/lotti';
+import Lottie from '@/components/shared/lottie';
 import SEO from '@/components/ui/SEO';
 import { useLanguage } from '@/providers/language.provider';
 import Link from 'next/link';
