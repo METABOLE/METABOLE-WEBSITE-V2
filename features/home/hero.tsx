@@ -1,4 +1,5 @@
 import Time from '@/components/shared/time';
+import Showreel from '@/components/ui/showreel';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -29,12 +30,15 @@ const Hero = () => {
     <>
       <div
         ref={sectionRef}
-        className="gap-y-default relative flex h-screen w-screen flex-col items-center justify-center bg-black text-center text-white"
+        className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center bg-black text-center text-white"
       >
-        <h1 className="h1 max-w-5xl">Le studio créatif premium des entreprises de demain.</h1>
+        <h1 className="h1 font-safiro-regular! max-w-5xl">
+          Le studio créatif premium des entreprises de demain.
+        </h1>
         <p className="p3 max-w-5xl uppercase">
           Stratégie - Direction artistique - Développement web
         </p>
+        <Showreel />
         <div className="px-x-default absolute bottom-0 left-0 z-50 flex w-full items-center justify-between pb-8">
           <p className="text-sm!">Metabole® 2025</p>
           <p className="text-sm!">Paris | Rotterdam</p>
