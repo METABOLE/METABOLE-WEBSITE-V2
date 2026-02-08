@@ -1,5 +1,5 @@
-import PageTransition from '@/components/layout/PageTransition';
-import ScreenLoader from '@/components/layout/ScreenLoader';
+import PageTransition from '@/components/layout/page-transition';
+import ScreenLoader from '@/components/layout/screen-loader';
 import { useEnvironment } from '@/hooks/useEnvironment';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useScroll } from '@/hooks/useScroll';

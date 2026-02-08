@@ -1,6 +1,6 @@
 import { numberFormat, useTime } from '@/hooks/useTime';
 import clsx from 'clsx';
-import SafeNumberFlow from './SafeNumberFlow';
+import SafeNumberFlow from './safe-number-flow';
 
 const Time = ({ isDark = false, className }: { isDark?: boolean; className?: string }) => {
   const { hours, minutes, period } = useTime();

@@ -9,10 +9,10 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRef, useState } from 'react';
-import Language from '../shared/Language';
-import Sound from '../shared/Sound';
-import Time from '../shared/Time';
-import { LogoSmall } from '../ui/Icons';
+import Language from '../shared/language';
+import Sound from '../shared/sound';
+import Time from '../shared/time';
+import { LogoSmall } from '../ui/icons';
 import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
 
 const Burger = () => {

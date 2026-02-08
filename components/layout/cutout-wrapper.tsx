@@ -2,7 +2,7 @@ import { forwardRef, ReactNode, useImperativeHandle, useRef } from 'react';
 import { COLORS } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ShapeCorner } from '../ui/Icons';
+import { ShapeCorner } from '../ui/icons';
 
 export interface AnimatedCutoutWrapperRef {
   openCutoutWrapper: () => void;
@@ -72,7 +72,7 @@ const CutoutWrapper = forwardRef<AnimatedCutoutWrapperRef, { children: ReactNode
         .to(
           sectionRef.current,
           {
-            paddingInline: 'clamp(20px, 8vw, 100px)',
+            paddingInline: 'var(--x-default)',
             paddingBlock: 32,
           },
           'start',
@@ -112,19 +112,22 @@ const CutoutWrapper = forwardRef<AnimatedCutoutWrapperRef, { children: ReactNode
           <div className="relative h-full w-full">
             <div ref={cornersRef.topLeft} className="absolute top-0 left-0 z-10 origin-top-left">
               <ShapeCorner
-                className="-translate-x-1/2 -translate-y-1/2 -rotate-90"
+                className="h-2 w-2 -translate-x-1/2 -translate-y-1/2 -rotate-90"
                 color={COLORS.BLACK}
               />
             </div>
             <div ref={cornersRef.topRight} className="absolute top-0 right-0 z-10 origin-top-right">
-              <ShapeCorner className="translate-x-1/2 -translate-y-1/2" color={COLORS.BLACK} />
+              <ShapeCorner
+                className="h-2 w-2 translate-x-1/2 -translate-y-1/2"
+                color={COLORS.BLACK}
+              />
             </div>
             <div
               ref={cornersRef.bottomRight}
               className="absolute right-0 bottom-0 z-10 origin-bottom-right"
             >
               <ShapeCorner
-                className="translate-x-1/2 translate-y-1/2 rotate-90"
+                className="h-2 w-2 translate-x-1/2 translate-y-1/2 rotate-90"
                 color={COLORS.BLACK}
               />
             </div>
@@ -133,7 +136,7 @@ const CutoutWrapper = forwardRef<AnimatedCutoutWrapperRef, { children: ReactNode
               className="absolute bottom-0 left-0 z-10 origin-bottom-left"
             >
               <ShapeCorner
-                className="-translate-x-1/2 translate-y-1/2 rotate-180"
+                className="h-2 w-2 -translate-x-1/2 translate-y-1/2 rotate-180"
                 color={COLORS.BLACK}
               />
             </div>

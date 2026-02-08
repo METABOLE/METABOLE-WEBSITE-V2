@@ -1,11 +1,9 @@
-import BackgroundInteractive from '@/components/layout/BackgroundInteractive';
-import BackgroundStatic from '@/components/layout/BackgroundStatic';
-import Burger from '@/components/layout/Burger';
-import Footer from '@/components/layout/Footer';
-import GradientBlur from '@/components/layout/GradientBlur';
-import Menu from '@/components/layout/Menu';
-import ScrollBar from '@/components/layout/ScrollBar';
-import PerformanceIndicator from '@/components/ui/PerformanceIndicator';
+import Burger from '@/components/layout/burger';
+import Footer from '@/components/layout/footer';
+import GradientBlur from '@/components/layout/gradient-blur';
+import Menu from '@/components/layout/menu';
+import ScrollBar from '@/components/layout/scroll-bar';
+import PerformanceIndicator from '@/components/ui/performance-indicator';
 import SEO from '@/components/ui/SEO';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useEnvironment } from '@/hooks/useEnvironment';
@@ -52,11 +50,6 @@ const Layout = ({ projects, children }: { projects: ProjectType[]; children: Rea
               </>
             )}
             {!isMobile && <ScrollBar />}
-            {performanceLevel === PERFORMANCE_LEVEL.HIGH ? (
-              <BackgroundInteractive />
-            ) : (
-              <BackgroundStatic />
-            )}
             {isDev && <PerformanceIndicator />}
           </>
         )}

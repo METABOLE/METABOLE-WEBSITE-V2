@@ -1,11 +1,10 @@
-import FloatingHalo from '@/components/shared/FloatingHalo';
-import Lottie from '@/components/shared/Lottie';
+import FloatingHalo from '@/components/shared/floating-halo';
+import Lottie from '@/components/shared/lottie';
 import SEO from '@/components/ui/SEO';
 import { useLanguage } from '@/providers/language.provider';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import metaboleFull from '../public/lotties/metabole-full-yellow.json';
-import Background from '@/components/layout/BackgroundInteractive';
 
 interface NewsletterLayoutProps {
   children: ReactNode;
@@ -28,7 +27,6 @@ export default function NewsletterLayout({ children }: NewsletterLayoutProps) {
           from="#1b17ee"
           to="#1A1A1A00"
         />
-        <Background />
       </div>
     </>
   );

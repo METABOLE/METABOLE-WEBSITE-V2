@@ -256,7 +256,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         <DynamicElement
           ref={ref}
           className={clsx(
-            'label inline-block h-11 w-fit cursor-pointer overflow-hidden rounded-full uppercase transition-colors duration-200',
+            'label inline-block h-11 w-fit cursor-pointer overflow-hidden rounded-sm uppercase transition-colors duration-200',
             color === 'primary' && 'bg-menu hover:bg-blue text-black hover:text-white',
             color === 'primary' && isDark && 'text-black hover:text-white',
             color === 'secondary' && 'bg-blue text-white hover:bg-black hover:text-white',
@@ -282,7 +282,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         <DynamicElement
           ref={ref}
           className={clsx(
-            'label group/button inline-block h-11 w-fit cursor-pointer overflow-hidden rounded-full uppercase backdrop-blur-xl',
+            'label group/button inline-block h-11 w-fit cursor-pointer overflow-hidden rounded-sm uppercase backdrop-blur-xl',
             color === 'primary' && 'bg-blur-glass text-black',
             color === 'primary' && isDark && 'text-white',
             color === 'secondary' && 'bg-blue text-white',

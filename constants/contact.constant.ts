@@ -1,5 +1,5 @@
 export const CONTACT = {
   EMAIL: 'contact@metabole.studio',
   ADDRESS: 'Paris | Rotterdam',
-  PHONE: '+33 6 64 58 32 72',
+  PHONE: '+33 6 52 64 71 10',
 };

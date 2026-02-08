@@ -4,32 +4,20 @@ export const LINKS = [
     text: { en: 'Home', fr: 'Accueil' },
   },
   {
-    href: '/services',
-    text: { en: 'Services', fr: 'Services' },
+    href: '/projects',
+    text: { en: 'Projects', fr: 'Projets' },
   },
   {
-    href: '/team',
-    text: { en: 'Team', fr: 'Équipe' },
-  },
-  {
-    href: '/offers',
-    text: { en: 'Offers', fr: 'Offres' },
+    href: '/about',
+    text: { en: 'About', fr: 'À propos' },
   },
   {
     href: '/contact',
     text: { en: 'Contact', fr: 'Contact' },
   },
-  // {
-  //   href: '/works',
-  //   text: { en: 'Works', fr: 'Réalisations' },
-  // },
 ];
 
 export const SOCIALS = [
-  // {
-  //   href: 'https://bento.me/metabole-studio',
-  //   text: 'Bento',
-  // },
   {
     href: 'https://awwwards.com/metabole-studio/',
     text: 'Awwwards',

@@ -6,16 +6,16 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import Language from '../shared/Language';
-import NewsletterForm, { AnimatedNewsletterFormRef } from '../shared/NewsletterForm';
-import Sound from '../shared/Sound';
-import Time from '../shared/Time';
-import AnimatedLink from '../ui/AnimatedLink';
-import Button from '../ui/Button';
-import Hint from '../ui/Hint';
-import { LogoFull } from '../ui/Icons';
-import Tag, { AnimatedTagRef } from '../ui/Tag';
-import CutoutWrapper, { AnimatedCutoutWrapperRef } from './CutoutWrapper';
+import Language from '../shared/language';
+import NewsletterForm, { AnimatedNewsletterFormRef } from '../shared/newsletter-form';
+import Sound from '../shared/sound';
+import Time from '../shared/time';
+import AnimatedLink from '../ui/animated-link';
+import Hint from '../ui/hint';
+import { LogoFull } from '../ui/icons';
+import Tag, { AnimatedTagRef } from '../ui/tag';
+import CutoutWrapper, { AnimatedCutoutWrapperRef } from './cutout-wrapper';
+import Button from '../ui/button';
 
 const TEXT_BUTTON = {
   fr: {

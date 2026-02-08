@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef, useState } from 'react';
-import SafeNumberFlow from '../shared/SafeNumberFlow';
+import SafeNumberFlow from '../shared/safe-number-flow';
 
 export default function ScrollBar() {
   const progressBarRef = useRef<HTMLDivElement>(null);

@@ -1,6 +1,6 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
-import { IconChevron } from './Icons';
+import { IconChevron } from './icons';
 
 const ScrollButton = () => {
   const { scrollToNextSection } = useSmoothScroll();

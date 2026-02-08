@@ -10,12 +10,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { useRef } from 'react';
-import FloatingHalo from '../shared/FloatingHalo';
-import Language from '../shared/Language';
-import NewsletterForm from '../shared/NewsletterForm';
-import Time from '../shared/Time';
-import Hint from '../ui/Hint';
-import { IconArrow, LogoSmall } from '../ui/Icons';
+import FloatingHalo from '../shared/floating-halo';
+import Language from '../shared/language';
+import NewsletterForm from '../shared/newsletter-form';
+import Time from '../shared/time';
+import Hint from '../ui/hint';
+import { IconArrow, LogoSmall } from '../ui/icons';
 
 const Footer = () => {
   const animatedTitleRef = useRef<SVGSVGElement>(null);
@@ -153,7 +153,7 @@ const Footer = () => {
             to="#141418"
           />
           <div ref={sectionRef} className="pt-y-default h-full w-full" id="footer">
-            <div className="gap-y-y-default mx-auto flex w-[calc(100vw-(var(--x-default)*2))] flex-col">
+            <div className="gap-y-y-default mx-auto flex w-[calc(100vw-(var(--x-double-default)*2))] flex-col">
               <div className="gap-y-y-default grid h-full grid-cols-1 gap-x-5 sm:grid-cols-2 md:grid-cols-6">
                 <Link
                   aria-label="Logo"
@@ -224,7 +224,7 @@ const Footer = () => {
             <Link aria-label="Contact" href={getInternalPath('/contact')} scroll={false}>
               <svg
                 ref={animatedTitleRef}
-                className="mx-auto h-auto w-[calc(100vw-(var(--x-default)*2))]"
+                className="mx-auto h-auto w-[calc(100vw-(var(--x-double-default)*2))]"
                 fill="none"
                 height="231"
                 viewBox="0 0 1120 231"

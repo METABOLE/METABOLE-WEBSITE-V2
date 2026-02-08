@@ -2,7 +2,7 @@ import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useSound } from '@/providers/sound.provider';
 import clsx from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
-import Wave, { WaveHandles } from '../ui/Wave';
+import Wave, { WaveHandles } from '../ui/wave';
 import { COLORS } from '@/types';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
 
@@ -29,7 +29,7 @@ const Sound = forwardRef<HTMLDivElement, { className?: string; isDark?: boolean 
       <div
         ref={ref}
         className={clsx(
-          'flex h-11 w-11 cursor-pointer items-center justify-center rounded-full',
+          'flex h-11 w-11 cursor-pointer items-center justify-center rounded-sm',
           isDark ? 'bg-blue' : 'bg-menu',
           className,
         )}

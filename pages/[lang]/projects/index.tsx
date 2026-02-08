@@ -1,5 +1,5 @@
 import SEO from '@/components/ui/SEO';
-import Contact from '@/features/contact/contact';
+import Projects from '@/features/projects/projects';
 
 const Index = () => {
   return (
@@ -11,7 +11,7 @@ const Index = () => {
         title="Metabole Studio - Agence de Design et Développement Web"
         url="https://metabole.studio"
       />
-      <Contact />
+      <Projects />
     </>
   );
 };
