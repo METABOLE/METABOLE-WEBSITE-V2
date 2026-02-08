@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import Language from '../shared/language';
 import NewsletterForm, { AnimatedNewsletterFormRef } from '../shared/newsletter-form';
-import Sound from '../shared/sound';
+import Sound from '../shared/soun';
 import Time from '../shared/time';
 import AnimatedLink from '../ui/animated-link';
 import Hint from '../ui/hint';
