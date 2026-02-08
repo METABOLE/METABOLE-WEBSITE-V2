@@ -1,4 +1,4 @@
-import Cursor from '@/components/ui/curso';
+import Cursor from '@/components/ui/cursor';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ReactNode } from 'react';
