@@ -6,7 +6,7 @@ import {
   LogoJabCoach,
   LogoMomArchitecture,
   LogoTechunt,
-} from '@/features/shared/TrustedBy/ClientsLogo';
+} from '@/features/shared/clients-logo';
 
 export const CLIENTS = [
   {
