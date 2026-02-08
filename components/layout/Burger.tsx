@@ -9,7 +9,7 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRef, useState } from 'react';
-import Language from '../shared/languag';
+import Language from '../shared/language';
 import Sound from '../shared/sound';
 import Time from '../shared/time';
 import { LogoSmall } from '../ui/icons';

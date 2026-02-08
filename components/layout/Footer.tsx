@@ -11,7 +11,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { useRef } from 'react';
 import FloatingHalo from '../shared/floating-halo';
-import Language from '../shared/languag';
+import Language from '../shared/language';
 import NewsletterForm from '../shared/newsletter-form';
 import Time from '../shared/time';
 import Hint from '../ui/hint';
