@@ -1,4 +1,4 @@
-import Hero from '@/features/home/her';
+import Hero from '@/features/home/hero';
 import Head from 'next/head';
 
 export default function Home() {
