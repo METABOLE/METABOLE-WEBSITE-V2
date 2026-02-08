@@ -1,7 +1,7 @@
 import Button from '@/components/ui/button';
 import { IconArrow } from '@/components/ui/icons';
-import Input from '@/components/ui/input';
-import Typography from '@/components/ui/typography';
+import Input from '@/components/ui/inpu';
+import Typography from '@/components/ui/typograph';
 import NewsletterLayout from '@/layout/newsletter';
 import { NextPageWithLayout } from '@/pages/_app';
 import { useLanguage } from '@/providers/language.provider';
