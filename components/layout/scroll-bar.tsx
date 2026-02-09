@@ -1,11 +1,10 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useRef, useState } from 'react';
-import SafeNumberFlow from '../shared/safe-number-flow';
+import { useRef } from 'react';
 
 export default function ScrollBar() {
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const [percent, setPercent] = useState(0);
+  // const [percent, setPercent] = useState(0);
 
   const { contextSafe } = useGSAP();
 
@@ -18,23 +17,25 @@ export default function ScrollBar() {
       ease: 'none',
       scrollTrigger: {
         scrub: true,
-        onUpdate: (self) => setPercent(self.progress),
+        // onUpdate: (self) => setPercent(self.progress),
       },
     });
   });
 
   useGSAP(() => {
-    requestAnimationFrame(() => scrollAnim());
+    setTimeout(() => {
+      requestAnimationFrame(() => scrollAnim());
+    }, 200);
   }, []);
 
   return (
     <div className="bg-white-30 pointer-events-none fixed top-1/2 right-10 z-[500] h-48 w-0.5 -translate-y-1/2 mix-blend-difference">
       <div ref={progressBarRef} className="absolute h-full w-0.5 bg-white">
-        <SafeNumberFlow
+        {/* <SafeNumberFlow
           className="label absolute right-2 -bottom-[19px] min-w-[3ch] text-white tabular-nums"
           suffix="%"
           value={Math.min(Math.round(percent * 100), 100)}
-        />
+        /> */}
         <svg
           className="absolute -right-[3px] -bottom-3 stroke-white"
           fill="none"

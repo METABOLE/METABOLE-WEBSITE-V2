@@ -1,5 +1,5 @@
 import Time from '@/components/shared/time';
-import Showreel from '@/components/ui/showreel';
+import Showreel from '@/features/home/showreel';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';

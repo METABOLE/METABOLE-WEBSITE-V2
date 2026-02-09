@@ -1,18 +1,23 @@
+import Player, { type PlayerHandle } from '@/components/ui/player';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { useScroll } from '@/hooks/useScroll';
+import { useShortcut } from '@/hooks/useShortcut';
 import { clsx } from 'clsx';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 type AnchorRect = { left: number; top: number; width: number; height: number };
 
+const SHOWREEL_VIDEO_SRC = '/videos/showreel.mp4';
+
 const Showreel = () => {
   const { lockScroll, unlockScroll } = useScroll();
   const containerRef = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<PlayerHandle>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [anchorRect, setAnchorRect] = useState<AnchorRect | null>(null);
   const [expandTarget, setExpandTarget] = useState<'anchor' | 'center'>('anchor');
-  // const [isPlaying, setIsPlaying] = useState(true);
 
   const open = useCallback(() => {
     const el = containerRef.current;
@@ -25,6 +30,7 @@ const Showreel = () => {
       height: rect.height,
     });
     setExpandTarget('anchor');
+    setIsClosing(false);
     setIsExpanded(true);
   }, []);
 
@@ -42,6 +48,7 @@ const Showreel = () => {
       });
     }
     isClosingRef.current = true;
+    setIsClosing(true);
     setExpandTarget('anchor');
   }, []);
 
@@ -53,8 +60,10 @@ const Showreel = () => {
       if (!isClosingRef.current) return;
       if (expandTarget !== 'anchor') return;
       isClosingRef.current = false;
+      setIsClosing(false);
       setIsExpanded(false);
       setAnchorRect(null);
+      playerRef.current?.play();
     },
     [expandTarget],
   );
@@ -76,18 +85,8 @@ const Showreel = () => {
     else open();
   }, [isExpanded, open, close]);
 
-  // const togglePlay = useCallback((e: React.MouseEvent) => {
-  //   e.stopPropagation();
-  //   const video = videoRef.current;
-  //   if (!video) return;
-  //   if (video.paused) {
-  //     video.play();
-  //     setIsPlaying(true);
-  //   } else {
-  //     video.pause();
-  //     setIsPlaying(false);
-  //   }
-  // }, []);
+  useShortcut('Escape', () => isExpanded && toggleExpanded());
+  useClickOutside(containerRef, () => isExpanded && toggleExpanded());
 
   const isFixed = isExpanded && anchorRect !== null;
   const style = (() => {
@@ -110,8 +109,17 @@ const Showreel = () => {
     };
   })();
 
+  const backdropVisible = isExpanded && !isClosing;
+
   return (
     <>
+      <div
+        className={clsx(
+          'ease-power4-in-out fixed inset-0 z-100 bg-black/20 backdrop-blur-3xl transition-opacity duration-1000',
+          backdropVisible ? 'opacity-100' : 'pointer-events-none opacity-0',
+        )}
+        aria-hidden
+      />
       {isExpanded && (
         <div
           ref={placeholderRef}
@@ -126,51 +134,41 @@ const Showreel = () => {
         style={style}
         tabIndex={0}
         className={clsx(
-          'ease-power4-in-out z-40 origin-center cursor-pointer overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
+          'ease-power4-in-out z-120 origin-center overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
           !isFixed && 'bottom-y-default right-x-default absolute w-[170px]',
         )}
-        onClick={toggleExpanded}
+        onClick={() => !isExpanded && open()}
         onKeyDown={(e) => e.key === 'Enter' && toggleExpanded()}
         onTransitionEnd={handleTransitionEnd}
       >
-        <video
-          ref={videoRef}
-          aria-label="Showreel Metabole"
-          className="aspect-video w-full object-cover"
-          preload="auto"
-          src="/videos/showreel.mp4"
+        <Player
+          ref={playerRef}
+          ariaLabel="Showreel Metabole"
+          showControls={isExpanded}
+          src={SHOWREEL_VIDEO_SRC}
           autoPlay
           loop
           muted
           playsInline
-          // onPause={() => setIsPlaying(false)}
-          // onPlay={() => setIsPlaying(true)}
         />
+
+        {!isExpanded && <div className="absolute inset-0 z-10 cursor-pointer" aria-hidden />}
 
         <div
           className={clsx(
-            'p3 absolute inset-0 flex items-center justify-center bg-black/70 text-white transition-opacity select-none',
+            'p3 pointer-events-none absolute inset-0 flex items-center justify-center bg-black/70 text-white transition-opacity duration-300 select-none',
             isExpanded ? 'opacity-0' : 'opacity-100',
           )}
         >
-          <p>SHOWREEL</p>
-        </div>
-
-        {/* <div
-          className={clsx(
-            'absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-black/70 px-3 py-2 text-white transition-opacity duration-200',
-            isExpanded ? 'opacity-100' : 'pointer-events-none opacity-0',
-          )}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            className="text-xs tracking-wider uppercase hover:underline"
-            type="button"
-            onClick={togglePlay}
+          <p
+            className={clsx(
+              'ease-power4-in-out transition-transform duration-300',
+              isExpanded ? 'scale-0' : 'scale-100',
+            )}
           >
-            {isPlaying ? 'Pause' : 'Play'}
-          </button>
-        </div> */}
+            SHOWREEL
+          </p>
+        </div>
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import { useTouchDevice } from '@/hooks/useTouchDevice';
+import { CURSOR_TYPE, useCursor } from '@/providers/cursor.provider';
 import { COLORS } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
@@ -7,14 +8,9 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { IconCross } from './icons';
 
-enum CURSOR_STATE {
-  DEFAULT = 'DEFAULT',
-  POINTER = 'POINTER',
-  SEE_MORE = 'SEE_MORE',
-}
-
 const Cursor = () => {
   const isTouchDevice = useTouchDevice();
+  const { cursor, setCursor } = useCursor();
 
   if (isTouchDevice) return null;
 
@@ -27,8 +23,11 @@ const Cursor = () => {
   const clickDownRef = useRef<HTMLAudioElement | null>(null);
   const clickUpSoundRef = useRef<HTMLAudioElement | null>(null);
 
-  const [cursorState, setCursorState] = useState(CURSOR_STATE.DEFAULT);
   const [isActive, setIsActive] = useState(false);
+
+  const isPointerStyle =
+    cursor.variant === CURSOR_TYPE.POINTER || cursor.variant === CURSOR_TYPE.SEE_MORE;
+  const isPlayer = cursor.variant === CURSOR_TYPE.PLAYER;
 
   useEffect(() => {
     clickDownRef.current = new Audio('/sounds/clickDown.mp3');
@@ -40,9 +39,9 @@ const Cursor = () => {
   }, []);
 
   const cursorStateHandlers = {
-    changeToSeeMore: useCallback(() => setCursorState(CURSOR_STATE.POINTER), []),
-    changeToButton: useCallback(() => setCursorState(CURSOR_STATE.POINTER), []),
-    changeToDefault: useCallback(() => setCursorState(CURSOR_STATE.DEFAULT), []),
+    changeToSeeMore: useCallback(() => setCursor(CURSOR_TYPE.SEE_MORE), [setCursor]),
+    changeToButton: useCallback(() => setCursor(CURSOR_TYPE.POINTER), [setCursor]),
+    changeToDefault: useCallback(() => setCursor(CURSOR_TYPE.DEFAULT), [setCursor]),
   };
 
   const playClickDownSound = () => {
@@ -139,36 +138,60 @@ const Cursor = () => {
   }, [cursorHandlers, manageCursorEvents]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCursorState(CURSOR_STATE.DEFAULT);
-    }, 500);
-  }, [pathname]);
+    setTimeout(() => setCursor(CURSOR_TYPE.DEFAULT), 500);
+  }, [pathname, setCursor]);
+
+  const showCross = !isPointerStyle && !isPlayer;
+  const showPlay = isPlayer && !cursor.isPlaying;
+  const showPause = isPlayer && cursor.isPlaying;
 
   return (
     <>
       <div
         ref={wrapperPointerRef}
         className={clsx(
-          'pointer-events-none fixed top-0 left-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0 mix-blend-difference',
+          'pointer-events-none fixed top-0 left-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0',
+          !isPlayer && 'mix-blend-difference',
         )}
       >
         <div
           className={clsx(
-            'border-yellow h-16 w-16 rounded-full border-[1px] transition-[transform,scale,background-color]',
-            cursorState === CURSOR_STATE.POINTER && 'bg-yellow scale-50',
+            'border-yellow h-16 w-16 origin-center rounded-full border-[1px] transition-[transform,scale,background-color] duration-300 ease-out',
+            isPlayer && 'scale-120 border-none bg-black',
+            isPlayer && isActive && 'scale-100!',
+            isPointerStyle && 'bg-yellow scale-50',
             isActive && 'scale-75',
           )}
-        ></div>
+        />
       </div>
       <div
         ref={pointerRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] -translate-x-1/2 -translate-y-1/2 opacity-0 mix-blend-difference"
+        className={clsx(
+          'text-yellow pointer-events-none fixed top-0 left-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0',
+          !isPlayer && 'mix-blend-difference',
+        )}
       >
+        <p
+          className={clsx(
+            'absolute flex h-14 w-14 origin-center items-center justify-center transition-transform duration-300 ease-out',
+            showPause ? 'scale-100' : 'pointer-events-none scale-0',
+          )}
+        >
+          PAUSE
+        </p>
+        <p
+          className={clsx(
+            'absolute flex h-14 w-14 origin-center items-center justify-center transition-transform duration-300 ease-out',
+            showPlay ? 'scale-100' : 'pointer-events-none scale-0',
+          )}
+        >
+          PLAY
+        </p>
         <IconCross
           color={COLORS.YELLOW}
           className={clsx(
-            'transition-transform',
-            cursorState === CURSOR_STATE.POINTER && 'scale-0',
+            'absolute origin-center transition-transform duration-300 ease-out',
+            showCross ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         />
       </div>
