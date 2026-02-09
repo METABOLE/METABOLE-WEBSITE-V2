@@ -1,5 +1,6 @@
 import PageTransition from '@/components/layout/page-transition';
 import ScreenLoader from '@/components/layout/screen-loader';
+import SanityVisualEditing from '@/components/sanity/sanity-visual-editing';
 import { useEnvironment } from '@/hooks/useEnvironment';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useScroll } from '@/hooks/useScroll';
@@ -8,11 +9,11 @@ import { AppProvider } from '@/providers/root';
 import { fetchProjects } from '@/services/projects.service';
 import '@/styles/main.scss';
 import '@/styles/tailwind.css';
-import { ProjectType } from '@/types';
+import { ProjectType, SanityProps } from '@/types';
 import { AnimatePresence } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
 import { useEffect, type ReactElement, type ReactNode } from 'react';
 
@@ -23,7 +24,8 @@ export type NextPageWithLayout = NextPage & {
 interface CustomAppProps extends AppProps {
   Component: NextPageWithLayout;
   globalProps: {
-    projects: ProjectType[];
+    projects: SanityProps<ProjectType[]>;
+    draftMode: boolean;
   };
 }
 
@@ -32,6 +34,7 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   const isScreenLoader = useIsScreenLoader();
   const { isDev } = useEnvironment();
   const { resetScroll } = useScroll();
+  const { draftMode } = globalProps;
 
   const getLayout =
     Component.getLayout || ((page) => <Layout projects={globalProps.projects}>{page}</Layout>);
@@ -61,37 +64,62 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   }, [isScreenLoader, isDev, resetScroll]);
 
   return (
-    <AppProvider>
-      {getLayout(
-        <>
-          {isScreenLoader && !isDev && <ScreenLoader />}
-          <AnimatePresence
-            mode="wait"
-            onExitComplete={() => {
-              handdlePageChange();
-              requestAnimationFrame(() => {
-                setTimeout(() => {
-                  ScrollTrigger.refresh();
-                }, 300);
-              });
-            }}
-          >
-            <PageTransition key={pathname}>
-              <Component {...pageProps} />
-            </PageTransition>
-          </AnimatePresence>
-        </>,
+    <>
+      {pathname.includes('/studio') ? (
+        <Component {...pageProps} />
+      ) : (
+        <AppProvider>
+          {getLayout(
+            <>
+              {isScreenLoader && !isDev && <ScreenLoader />}
+              <AnimatePresence
+                mode="wait"
+                onExitComplete={() => {
+                  handdlePageChange();
+                  requestAnimationFrame(() => {
+                    setTimeout(() => {
+                      ScrollTrigger.refresh();
+                    }, 300);
+                  });
+                }}
+              >
+                <PageTransition key={pathname}>
+                  <Component {...pageProps} />
+                </PageTransition>
+              </AnimatePresence>
+            </>,
+          )}
+        </AppProvider>
       )}
-    </AppProvider>
+      {draftMode && <SanityVisualEditing />}
+    </>
   );
 }
 
-App.getInitialProps = async () => {
-  const projects = await fetchProjects();
+App.getInitialProps = async (context: AppContext) => {
+  if (!context.ctx.req) {
+    return {
+      globalProps: {
+        projects: {
+          initial: { data: [] },
+          draftMode: false,
+        },
+        draftMode: false,
+      },
+    };
+  }
+
+  const draftMode = !!(
+    context.ctx.req.headers.cookie?.includes('__prerender_bypass') ||
+    context.ctx.req.headers.cookie?.includes('__next_preview_data')
+  );
+
+  const projects = await fetchProjects({ draftMode });
 
   return {
     globalProps: {
       projects,
+      draftMode: projects.draftMode || draftMode,
     },
   };
 };

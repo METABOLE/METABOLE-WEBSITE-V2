@@ -3,8 +3,8 @@ import { useMenu } from '@/hooks/menu/useMenu';
 import { useLanguage } from '@/providers/language.provider';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { ProjectType, TAG_TYPE } from '@/types';
-import Link from 'next/link';
 import { clsx } from 'clsx';
+import Link from 'next/link';
 import Language from '../shared/language';
 import NewsletterForm from '../shared/newsletter-form';
 import Sound from '../shared/sound';
@@ -144,23 +144,27 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
                     </Link>
                   </li>
                   {SLICED_PROJECTS.map((link, index) => (
-                    <li key={link.title + index}>
+                    <li key={link.name + index}>
                       <Tag
                         ref={(el) => {
                           if (el) projectTagsRefs.current[index] = el;
                         }}
                         className="cursor-pointer"
-                        href={link.title}
+                        href={link.name}
                         type={TAG_TYPE.WHTIE}
                       >
-                        {link.title}
+                        {link.name}
                       </Tag>
                     </li>
                   ))}
                   <li>
                     <Tag
                       ref={(el) => {
-                        if (el) projectTagsRefs.current[SLICED_PROJECTS.length + 1] = el;
+                        if (el) {
+                          const next = [...projectTagsRefs.current];
+                          next[SLICED_PROJECTS.length + 1] = el;
+                          projectTagsRefs.current = next;
+                        }
                       }}
                       className="cursor-pointer"
                       href="/projects"

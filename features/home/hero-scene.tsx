@@ -3,7 +3,15 @@ import { useGLTF, Environment, useEnvironment } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
 import { useRef, useMemo, useEffect } from 'react';
-import * as THREE from 'three';
+import {
+  type Group,
+  Box3,
+  Color,
+  Mesh,
+  MeshPhysicalMaterial,
+  Vector3,
+  ACESFilmicToneMapping,
+} from 'three';
 
 const ROTATION_SCALE = Math.PI * 0.4;
 const POSITION_SCALE = 0.4;
@@ -11,7 +19,7 @@ const SMOOTH_DURATION = 0.5;
 const GRADIENT = 'linear-gradient(to bottom, #01021b 0%, #000040 100%)';
 
 function LogoModel() {
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
   const { x: mouseX, y: mouseY } = useMousePosition();
   const proxy = useRef({
     rotationX: 0,
@@ -24,8 +32,8 @@ function LogoModel() {
   const envMap = useEnvironment({ files: '/3d/hdri/env.hdr' });
 
   const material = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
+    (): MeshPhysicalMaterial =>
+      new MeshPhysicalMaterial({
         color: 0x1b17ee,
         metalness: 0.85,
         roughness: 0.25,
@@ -34,7 +42,7 @@ function LogoModel() {
         clearcoat: 0.35,
         clearcoatRoughness: 0.4,
         reflectivity: 0.8,
-        emissive: new THREE.Color(0x1b17ee).multiplyScalar(0.15),
+        emissive: new Color(0x1b17ee).multiplyScalar(0.15),
         emissiveIntensity: 0.2,
       }),
     [envMap],
@@ -42,17 +50,23 @@ function LogoModel() {
 
   const preparedScene = useMemo(() => {
     const clone = scene.clone();
-    const box = new THREE.Box3().setFromObject(clone);
-    const c = new THREE.Vector3(),
-      s = new THREE.Vector3();
+    const box = new Box3().setFromObject(clone);
+    const c = new Vector3();
+    const s = new Vector3();
     box.getCenter(c);
     box.getSize(s);
     clone.position.sub(c);
     clone.scale.setScalar(1.4 / Math.max(s.x, s.y, s.z));
     clone.traverse((child) => {
-      if (child instanceof THREE.Mesh && child.geometry) {
+      if (child instanceof Mesh && child.geometry) {
         const old = child.material;
-        if (old) Array.isArray(old) ? old.forEach((m) => m.dispose()) : old.dispose();
+        if (old) {
+          if (Array.isArray(old)) {
+            old.forEach((m) => m.dispose());
+          } else {
+            old.dispose();
+          }
+        }
         child.material = material;
       }
     });
@@ -101,7 +115,7 @@ function HeroScene() {
           onCreated={({ gl }) => {
             gl.setClearColor(0x000000, 0);
             Object.assign(gl, {
-              toneMapping: THREE.ACESFilmicToneMapping,
+              toneMapping: ACESFilmicToneMapping,
               toneMappingExposure: 1.25,
             });
           }}

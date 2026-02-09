@@ -10,9 +10,10 @@ import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useEnvironment } from '@/hooks/useEnvironment';
 import { useFontReady } from '@/hooks/useFontReady';
 import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
+import { useSanityData } from '@/hooks/useSanityData';
 import { useLanguage } from '@/providers/language.provider';
 import { usePerformance } from '@/providers/performance.provider';
-import { BREAKPOINTS, ProjectType } from '@/types';
+import { BREAKPOINTS, ProjectType, SanityProps } from '@/types';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -21,7 +22,13 @@ import { ReactNode } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const Layout = ({ projects, children }: { projects: ProjectType[]; children: ReactNode }) => {
+const Layout = ({
+  projects,
+  children,
+}: {
+  projects: SanityProps<ProjectType[]>;
+  children: ReactNode;
+}) => {
   const { isFrench } = useLanguage();
   const router = useRouter();
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
@@ -30,7 +37,7 @@ const Layout = ({ projects, children }: { projects: ProjectType[]; children: Rea
   const { isDev } = useEnvironment();
   const { isLoading } = usePerformance();
   const isFontReady = useFontReady();
-
+  const projectsData = useSanityData(projects);
   const isHomePage = router.asPath === '/en' || router.asPath === '/fr';
 
   return (
@@ -43,7 +50,7 @@ const Layout = ({ projects, children }: { projects: ProjectType[]; children: Rea
         ) : (
           <>
             <BackgroundLines className="fixed" />
-            {isTablet ? <Burger /> : <Menu projects={projects} />}
+            {isTablet ? <Burger /> : <Menu projects={projectsData.data} />}
             {children}
             {performanceLevel === PERFORMANCE_LEVEL.HIGH && (
               <>

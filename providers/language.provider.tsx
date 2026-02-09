@@ -44,8 +44,12 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return `/${isFrench ? 'fr' : 'en'}${pathWithoutLang}`;
   };
 
+  const isStudioRoute = typeof router.asPath === 'string' && router.asPath.startsWith('/studio');
+
   useEffect(() => {
     if (!router.isReady) return;
+
+    if (isStudioRoute) return;
 
     if (router.query.lang !== 'en' && router.query.lang !== 'fr') {
       router.push('/404');
@@ -53,7 +57,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     }
 
     _setIsFrench(router.query.lang === 'fr');
-  }, [router.isReady, router.query.lang]);
+  }, [router.isReady, router.query.lang, isStudioRoute]);
 
   return (
     <LanguageContext.Provider
