@@ -9,14 +9,17 @@ body {
 html {
   scrollbar-width: none;
   -ms-overflow-style: none;
+
   ::-moz-selection {
     background: var(--color-blue);
     color: var(--color-white);
   }
+
   ::selection {
-    background: var(--color-blue);
-    color: var(--color-white);
+    background: var(--color-yellow);
+    color: var(--color-black);
   }
+
   &::-webkit-scrollbar {
     display: none;
   }

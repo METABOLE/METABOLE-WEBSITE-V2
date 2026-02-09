@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { forwardRef, useEffect, useRef } from 'react';
 import Wave, { WaveHandles } from '../ui/wave';
 
-const Sound = forwardRef<HTMLDivElement, { className?: string; isDark?: boolean }>(
+const Sound = forwardRef<HTMLButtonElement, { className?: string; isDark?: boolean }>(
   ({ className, isDark }, ref) => {
     const animatedWaveRef = useRef<WaveHandles>(null);
     const { isSoundOn, toggleSound, initializeAudio } = useSound();
@@ -26,8 +26,9 @@ const Sound = forwardRef<HTMLDivElement, { className?: string; isDark?: boolean 
     }, [isSoundOn]);
 
     return (
-      <div
+      <button
         ref={ref}
+        aria-label="Toggle sound"
         className={clsx('flex h-fit w-6 cursor-pointer items-center justify-center', className)}
         onClick={toggleSound}
         onMouseMove={(e) => useMagnet(e, 0.8)}
@@ -40,7 +41,7 @@ const Sound = forwardRef<HTMLDivElement, { className?: string; isDark?: boolean 
         >
           <Wave ref={animatedWaveRef} color={isDark ? COLORS.WHITE : COLORS.BLACK} />
         </div>
-      </div>
+      </button>
     );
   },
 );

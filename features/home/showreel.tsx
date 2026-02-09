@@ -11,7 +11,7 @@ const SHOWREEL_VIDEO_SRC = '/videos/showreel.mp4';
 
 const Showreel = () => {
   const { lockScroll, unlockScroll } = useScroll();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLButtonElement>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<PlayerHandle>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -127,18 +127,17 @@ const Showreel = () => {
           aria-hidden
         />
       )}
-      <div
+      <button
         ref={containerRef}
         aria-label="Showreel"
         role="button"
         style={style}
         tabIndex={0}
         className={clsx(
-          'ease-power4-in-out origin-center overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
+          'ease-power4-in-out z-120 origin-center overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
           !isFixed && 'bottom-y-default right-x-default absolute w-[170px]',
         )}
         onClick={() => !isExpanded && open()}
-        onKeyDown={(e) => e.key === 'Enter' && toggleExpanded()}
         onTransitionEnd={handleTransitionEnd}
       >
         <Player
@@ -167,7 +166,7 @@ const Showreel = () => {
             SHOWREEL
           </p>
         </div>
-      </div>
+      </button>
     </>
   );
 };
