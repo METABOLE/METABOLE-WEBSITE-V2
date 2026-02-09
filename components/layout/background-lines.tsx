@@ -10,7 +10,7 @@ const BackgroundLines = ({
   return (
     <div
       className={clsx(
-        'px-x-default pointer-events-none absolute inset-0 -z-10 grid h-full grid-cols-12 gap-5',
+        'px-x-default pointer-events-none absolute inset-0 -z-10 grid h-full w-screen grid-cols-12 gap-5',
         className,
       )}
       aria-hidden

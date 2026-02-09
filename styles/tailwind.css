@@ -2,6 +2,7 @@
 
 :root {
   /* SPACINGS */
+  --x-triple-default: calc(var(--x-default) * 3);
   --x-double-default: calc(var(--x-default) * 2);
   --y-double-default: calc(var(--y-default) * 2);
   --x-default: clamp(20px, 4vw, 40px);
@@ -70,7 +71,6 @@
   --inset-x-default: var(--x-default);
   --inset-y-default: var(--y-default);
   --inset-x-half-default: var(--x-half-default);
-  --inset-y-half-default: var(--y-half-default);
 
   /* GAP */
   --gap-x-default: var(--x-default);

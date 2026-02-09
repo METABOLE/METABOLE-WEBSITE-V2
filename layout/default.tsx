@@ -37,7 +37,7 @@ const Layout = ({ projects, children }: { projects: ProjectType[]; children: Rea
     <>
       <SEO isFrench={isFrench} isHomePage={isHomePage} />
 
-      <main className="min-h-screen w-screen overflow-hidden md:pb-[300px]">
+      <main className="min-h-screen w-screen md:pb-[300px]">
         {isLoading || !isFontReady ? (
           <div className="fixed z-[950] h-screen w-screen bg-black" />
         ) : (

@@ -90,12 +90,12 @@ const Footer = () => {
       })
       .to(containerSectionRef.current, {
         transform: 'translateY(0px)',
-        borderRadius: '24 24 0 0',
+        borderRadius: '4 4 0 0',
       })
       .to(
         wrapperRef.current,
         {
-          paddingInline: 20,
+          paddingInline: 'var(--x-default)',
         },
         '<',
       );
@@ -153,7 +153,7 @@ const Footer = () => {
             to="#141418"
           />
           <div ref={sectionRef} className="pt-y-default h-full w-full" id="footer">
-            <div className="gap-y-y-default mx-auto flex w-[calc(100vw-(var(--x-double-default)*2))] flex-col">
+            <div className="gap-y-y-default mx-auto flex w-[calc(100vw-(var(--x-triple-default)*2))] flex-col">
               <div className="gap-y-y-default grid h-full grid-cols-1 gap-x-5 sm:grid-cols-2 md:grid-cols-6">
                 <Link
                   aria-label="Logo"
@@ -224,7 +224,7 @@ const Footer = () => {
             <Link aria-label="Contact" href={getInternalPath('/contact')} scroll={false}>
               <svg
                 ref={animatedTitleRef}
-                className="mx-auto h-auto w-[calc(100vw-(var(--x-double-default)*2))]"
+                className="mx-auto h-auto w-[calc(100vw-(var(--x-triple-default)*2))]"
                 fill="none"
                 height="231"
                 viewBox="0 0 1120 231"

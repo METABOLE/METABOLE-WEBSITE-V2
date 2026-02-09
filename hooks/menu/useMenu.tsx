@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import type { AnimatedNewsletterFormRef } from '@/components/shared/newsletter-form';
 import type { AnimatedTagRef } from '@/components/ui/tag';
 import type { AnimatedCutoutWrapperRef } from '@/components/layout/cutout-wrapper';
+import { useLayoutColor } from '@/providers/layout-color.provider';
 
 export function useMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,6 +28,7 @@ export function useMenu() {
 
   const timelineRef = useRef<gsap.core.Timeline>(gsap.timeline());
 
+  const { setIsLayoutDark } = useLayoutColor();
   const { contextSafe } = useGSAP();
 
   const revealAnimation = contextSafe(() => {
@@ -60,6 +62,8 @@ export function useMenu() {
       !infosRef.current
     )
       return;
+
+    setIsLayoutDark(false);
 
     timelineRef.current = gsap
       .timeline()
@@ -183,6 +187,8 @@ export function useMenu() {
       !infosRef.current
     )
       return;
+
+    setIsLayoutDark(true);
 
     timelineRef.current = gsap
       .timeline()
