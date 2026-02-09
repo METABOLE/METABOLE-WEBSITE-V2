@@ -2,64 +2,65 @@
 .h1,
 h1 {
   font-size: clamp(38px, 5vw, 70px);
-  line-height: clamp(38px, 5vw, 70px);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
   font-family: var(--font-safiro-medium);
 }
 
 .h2,
 h2 {
   font-size: clamp(26px, 5vw, 48px);
-  line-height: clamp(26px, 5vw, 48px);
+  line-height: 1.2;
   font-family: var(--font-safiro-regular);
 }
 
 .h3,
 h3 {
   font-size: 24px;
-  line-height: 24px;
+  line-height: 1.2;
   font-family: var(--font-safiro-medium);
 }
 
 // PARAGRAPHS
 .p1 {
   font-size: clamp(26px, 5vw, 30px);
-  line-height: clamp(26px, 5vw, 30px);
+  line-height: 1.2;
   font-family: var(--font-safiro-medium);
 }
 
 .p2 {
   font-size: 20px;
-  line-height: 24px;
+  line-height: 1.2;
   font-family: var(--font-safiro-medium);
 }
 
 p,
 .p3 {
   font-size: 16px;
-  line-height: 18px;
+  line-height: 1.2;
   font-family: var(--font-safiro-medium);
 }
 
 // OTHERS
 .label {
   font-size: 14px;
-  line-height: 14px;
+  line-height: 1.2;
   font-family: var(--font-safiro-semibold);
 }
 
 .legend {
   font-size: 18px;
-  line-height: 18px;
+  line-height: 1.2;
   font-family: var(--font-safiro-regular-italic);
 }
 
 .disclaimer {
   font-size: 12px;
-  line-height: 12px;
+  line-height: 1.2;
   font-family: var(--font-safiro-regular-italic);
 }
 
 .input {
   font-size: 20px;
-  line-height: 20px;
+  line-height: 1.2;
 }

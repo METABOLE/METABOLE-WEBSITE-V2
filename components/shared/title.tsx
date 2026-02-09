@@ -5,7 +5,7 @@ import { useRef } from 'react';
 
 const SLASH_FULL = 'polygon(6px 0%, calc(100% + 0px) 0%, calc(100% - 6px) 100%, 0% 100%)';
 
-const RevealTitle = ({
+const Title = ({
   children,
   isDark,
   className,
@@ -60,4 +60,4 @@ const RevealTitle = ({
   );
 };
 
-export default RevealTitle;
+export default Title;
