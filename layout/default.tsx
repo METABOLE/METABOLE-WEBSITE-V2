@@ -1,3 +1,4 @@
+import BackgroundLines from '@/components/layout/background-lines';
 import Burger from '@/components/layout/burger';
 import Footer from '@/components/layout/footer';
 import GradientBlur from '@/components/layout/gradient-blur';
@@ -41,6 +42,7 @@ const Layout = ({ projects, children }: { projects: ProjectType[]; children: Rea
           <div className="fixed z-[950] h-screen w-screen bg-black" />
         ) : (
           <>
+            <BackgroundLines className="fixed" />
             {isTablet ? <Burger /> : <Menu projects={projects} />}
             {children}
             {performanceLevel === PERFORMANCE_LEVEL.HIGH && (

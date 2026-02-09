@@ -69,6 +69,8 @@
   /* INSET */
   --inset-x-default: var(--x-default);
   --inset-y-default: var(--y-default);
+  --inset-x-half-default: var(--x-half-default);
+  --inset-y-half-default: var(--y-half-default);
 
   /* GAP */
   --gap-x-default: var(--x-default);

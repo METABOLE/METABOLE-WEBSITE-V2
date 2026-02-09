@@ -1,4 +1,6 @@
+import BackgroundLines from '@/components/layout/background-lines';
 import Time from '@/components/shared/time';
+import { IconCross } from '@/components/ui/icons';
 import Showreel from '@/features/home/showreel';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
@@ -33,6 +35,7 @@ const Hero = () => {
         ref={sectionRef}
         className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center text-center text-white"
       >
+        <BackgroundLines className="z-0" isDark={true} />
         <Image
           alt="Metabole"
           className="absolute inset-0 -z-10 h-full w-full object-cover"
@@ -47,10 +50,16 @@ const Hero = () => {
           Stratégie - Direction artistique - Développement web
         </p>
         <Showreel />
-        <div className="px-x-default absolute bottom-0 left-0 z-50 flex w-full items-center justify-between pb-8">
-          <p className="text-sm!">Metabole® 2025</p>
-          <p className="text-sm!">Paris | Rotterdam</p>
-          <Time className="block text-sm! md:hidden lg:block" isDark={true} />
+        <div className="px-x-default absolute bottom-0 left-0 z-50 grid w-full grid-cols-12 items-center justify-between gap-5 pb-8">
+          <p className="col-span-3 text-left text-sm!">Metabole® 2025</p>
+          <div className="">
+            <IconCross className="-translate-x-[5px] fill-white" />
+          </div>
+          <p className="col-span-4 text-sm!">Paris | Rotterdam</p>
+          <div className="flex justify-end">
+            <IconCross className="translate-x-[5px] fill-white" />
+          </div>
+          <Time className="col-span-3 text-right text-sm!" isDark={true} />
         </div>
       </div>
     </>

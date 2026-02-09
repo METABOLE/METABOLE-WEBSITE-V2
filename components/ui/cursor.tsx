@@ -1,6 +1,5 @@
 import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { CURSOR_TYPE, useCursor } from '@/providers/cursor.provider';
-import { COLORS } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -188,9 +187,8 @@ const Cursor = () => {
           PLAY
         </p>
         <IconCross
-          color={COLORS.YELLOW}
           className={clsx(
-            'absolute origin-center transition-transform duration-300 ease-out',
+            'fill-yellow absolute origin-center transition-transform duration-300 ease-out',
             showCross ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         />

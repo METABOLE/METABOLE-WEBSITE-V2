@@ -1,7 +1,7 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
-import { IconCross } from './icons';
+import { IconClose } from './icons';
 
 type ButtonCheckboxProps = {
   id: string;
@@ -68,7 +68,7 @@ const ButtonCheckbox = ({ id, title, selected, onToggle, onDelete }: ButtonCheck
               }, 100);
             }}
           >
-            <IconCross
+            <IconClose
               className={clsx(
                 isCrossHovered && '!stroke-red',
                 selected
