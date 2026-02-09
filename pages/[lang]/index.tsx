@@ -1,3 +1,4 @@
+import Expertise from '@/features/home/expertise';
 import Hero from '@/features/home/hero';
 import Head from 'next/head';
 
@@ -10,6 +11,7 @@ export default function Home() {
         <meta content="https://metabole.studio/fr" property="og:url" />
       </Head>
       <Hero />
+      <Expertise />
     </>
   );
 }

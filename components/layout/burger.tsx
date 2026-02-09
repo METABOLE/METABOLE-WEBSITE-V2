@@ -20,7 +20,7 @@ const Burger = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
 
   const menuRef = useRef(null);
-  const soundRef = useRef<HTMLDivElement>(null);
+  const soundRef = useRef<HTMLButtonElement>(null);
   const linksRef = useRef<HTMLUListElement>(null);
   const titleProjectsRef = useRef(null);
   const socialsRef = useRef<HTMLUListElement>(null);
