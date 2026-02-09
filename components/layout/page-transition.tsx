@@ -25,7 +25,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       scaleX: 1,
       transition: {
         duration: 1,
-        ease: [0.72, 0, 0.3, 0.99],
+        ease: [0.72, 0, 0.3, 0.99] as const,
       },
     },
   };
@@ -44,7 +44,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       scaleX: 1,
       transition: {
         duration: 1,
-        ease: [0.72, 0, 0.3, 0.99],
+        ease: [0.72, 0, 0.3, 0.99] as const,
       },
     },
   };
@@ -57,7 +57,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       scaleY: 0,
       transition: {
         duration: 1,
-        ease: [0.72, 0, 0.3, 0.99],
+        ease: [0.72, 0, 0.3, 0.99] as const,
       },
     },
     exit: {
@@ -76,7 +76,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       scaleY: 0,
       transition: {
         duration: 1,
-        ease: [0.72, 0, 0.3, 0.99],
+        ease: [0.72, 0, 0.3, 0.99] as const,
       },
     },
     exit: {
