@@ -4,6 +4,7 @@ import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 import { useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -30,8 +31,15 @@ const Hero = () => {
     <>
       <div
         ref={sectionRef}
-        className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center bg-black text-center text-white"
+        className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center text-center text-white"
       >
+        <Image
+          alt="Metabole"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          height={1920}
+          src="/images/home/hero.png"
+          width={1920}
+        />
         <h1 className="h1 font-safiro-regular! max-w-5xl">
           Le studio créatif premium des entreprises de demain.
         </h1>
