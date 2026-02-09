@@ -3,14 +3,14 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { useRef } from 'react';
 
-const Typography = ({
+const RevealText = ({
   children,
   className,
   variant = 'p',
 }: {
   children: string;
   className?: string;
-  variant?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  variant?: 'p' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }) => {
   const textRef = useRef(null);
 
@@ -52,4 +52,4 @@ const Typography = ({
   );
 };
 
-export default Typography;
+export default RevealText;

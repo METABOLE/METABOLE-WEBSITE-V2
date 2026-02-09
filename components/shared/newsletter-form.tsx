@@ -9,7 +9,7 @@ import gsap from 'gsap';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { IconArrow, IconQuestionMark } from '../ui/icons';
 import Input, { AnimatedInputRef } from '../ui/input';
-import Typography, { AnimatedTypoRef } from '../ui/typography';
+import { SplitText } from 'gsap/SplitText';
 
 interface LeadFormProps {
   className?: string;
@@ -30,7 +30,8 @@ export interface AnimatedNewsletterFormRef {
 
 const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
   ({ className, isDark, animate, hintId }, ref) => {
-    const typographyRef = useRef<AnimatedTypoRef>(null);
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const splitTitleRef = useRef<SplitText>(null);
     const inputRef = useRef<AnimatedInputRef>(null);
     const arrowRef = useRef(null);
     const buttonQuestionMarkRef = useRef(null);
@@ -40,21 +41,30 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
 
     useGSAP(() => {
       if (!animate) return;
-      typographyRef.current?.reset();
+      splitTitleRef.current = new SplitText(titleRef.current, {
+        type: 'words',
+        mask: 'words',
+      });
+      gsap.set(splitTitleRef.current.words, { y: 100 });
       gsap.set(arrowRef.current, { x: -50, y: 50 });
       gsap.set(buttonQuestionMarkRef.current, { scale: 0 });
     }, [animate]);
 
     const play = contextSafe(() => {
-      if (!typographyRef.current) return gsap.timeline();
+      if (!titleRef.current) return gsap.timeline();
 
-      gsap.killTweensOf([typographyRef.current, arrowRef.current]);
+      gsap.killTweensOf([titleRef.current, arrowRef.current]);
 
       return gsap
         .timeline()
         .set(arrowRef.current, { x: -50, y: 50 })
         .add(() => inputRef.current?.play())
-        .add(typographyRef.current.play())
+        .to(splitTitleRef.current?.words ?? [], {
+          y: 0,
+          stagger: 0.02,
+          duration: 1.2,
+          ease: 'power2.out',
+        })
         .to(buttonQuestionMarkRef.current, { scale: 1, duration: 0.6, ease: 'bounce.out' })
         .to(
           arrowRef.current,
@@ -69,15 +79,20 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
     });
 
     const reverse = contextSafe(() => {
-      if (!typographyRef.current) return gsap.timeline();
+      if (!titleRef.current) return gsap.timeline();
 
-      gsap.killTweensOf([typographyRef.current, arrowRef.current]);
+      gsap.killTweensOf([titleRef.current, arrowRef.current]);
 
       return gsap
         .timeline()
         .add(() => inputRef.current?.reverse())
         .to(buttonQuestionMarkRef.current, { scale: 0, duration: 0.4, ease: 'power2.in' })
-        .add(typographyRef.current.reverse())
+        .to(splitTitleRef.current?.words ?? [], {
+          y: 100,
+          stagger: 0.02,
+          duration: 1.2,
+          ease: 'power2.out',
+        })
         .to(
           arrowRef.current,
           {
@@ -139,14 +154,12 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
     return (
       <div className={className}>
         <div className="flex items-center justify-between gap-5 pb-3 md:justify-start">
-          <Typography
-            ref={typographyRef}
-            animate={animate}
+          <h2
+            ref={titleRef}
             className={clsx('p3 whitespace-nowrap', isDark ? 'text-black' : 'text-white')}
-            variant="h2"
           >
             {isFrench ? 'Rejoignez notre newsletter ' : 'Join our newsletter '}
-          </Typography>
+          </h2>
           <button ref={buttonQuestionMarkRef} aria-label="Hint" className="cursor-help" id={hintId}>
             <IconQuestionMark color={isDark ? COLORS.BLUE : COLORS.YELLOW} />
           </button>

@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
 import HeroScene from './hero-scene';
 import Manifesto from './manifesto';
+import Typography from '@/components/ui/typography';
 
 const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -37,12 +38,12 @@ const Hero = () => {
       <BackgroundLines className="z-0" isDark={true} />
       <div className="relative z-10">
         <div className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center text-center text-white">
-          <h1 className="h1 font-safiro-regular! max-w-5xl">
+          <Typography className="h1 font-safiro-regular! max-w-5xl" variant="h1">
             Le studio créatif premium des entreprises de demain.
-          </h1>
-          <p className="p3 max-w-5xl uppercase">
+          </Typography>
+          <Typography className="p3 max-w-5xl uppercase" variant="p">
             Stratégie - Direction artistique - Développement web
-          </p>
+          </Typography>
         </div>
         <Manifesto />
       </div>

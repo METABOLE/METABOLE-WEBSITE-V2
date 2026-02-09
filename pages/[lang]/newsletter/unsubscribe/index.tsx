@@ -1,7 +1,6 @@
 import Button from '@/components/ui/button';
 import { IconArrow } from '@/components/ui/icons';
 import Input from '@/components/ui/input';
-import Typography from '@/components/ui/typography';
 import NewsletterLayout from '@/layout/newsletter';
 import { NextPageWithLayout } from '@/pages/_app';
 import { useLanguage } from '@/providers/language.provider';
@@ -90,9 +89,7 @@ const UnsubscribePage: NextPageWithLayout = () => {
   return (
     <div className="px-x-default py-y-default flex h-3/4 items-center justify-center">
       <div className="relative mx-auto flex w-full max-w-96 flex-col gap-12 overflow-hidden rounded-3xl bg-[#C5C4FF]/7 p-6 text-white backdrop-blur-xl">
-        <Typography className="p3 uppercase" variant="p">
-          {isFrench ? 'Se désinscrire' : 'Unsubscribe'}
-        </Typography>
+        <p className="p3 uppercase">{isFrench ? 'Se désinscrire' : 'Unsubscribe'}</p>
         <form className="" onSubmit={handleSubmit}>
           <Input
             errorMessage={error}
