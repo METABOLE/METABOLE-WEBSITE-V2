@@ -37,7 +37,6 @@ const Hero = () => {
       <BackgroundLines className="z-0" isDark={true} />
       <div className="relative z-10">
         <div className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center text-center text-white">
-          <Showreel />
           <h1 className="h1 font-safiro-regular! max-w-5xl">
             Le studio créatif premium des entreprises de demain.
           </h1>
@@ -48,6 +47,7 @@ const Hero = () => {
         <Manifesto />
       </div>
       <div className="px-x-default sticky right-0 bottom-0 left-0 z-50 grid h-fit w-full grid-cols-12 items-center gap-5 pb-8 text-white">
+        <Showreel />
         <p className="col-span-3 text-left text-sm!">Metabole® 2025</p>
         <div className="">
           <IconCross className="-translate-x-[5px] fill-white" />

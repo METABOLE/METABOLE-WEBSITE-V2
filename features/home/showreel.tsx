@@ -134,7 +134,7 @@ const Showreel = () => {
         style={style}
         tabIndex={0}
         className={clsx(
-          'ease-power4-in-out z-120 origin-center overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
+          'ease-power4-in-out origin-center overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
           !isFixed && 'bottom-y-default right-x-default absolute w-[170px]',
         )}
         onClick={() => !isExpanded && open()}
@@ -151,9 +151,7 @@ const Showreel = () => {
           muted
           playsInline
         />
-
         {!isExpanded && <div className="absolute inset-0 z-10 cursor-pointer" aria-hidden />}
-
         <div
           className={clsx(
             'p3 pointer-events-none absolute inset-0 flex items-center justify-center bg-black/70 text-white transition-opacity duration-300 select-none',
