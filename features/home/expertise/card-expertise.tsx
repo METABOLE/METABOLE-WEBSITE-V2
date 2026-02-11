@@ -21,7 +21,7 @@ const CardExpertise = ({ name, image }: Expertise) => {
       const progress = Math.max(0, Math.min(1, centerX / window.innerWidth));
 
       const translateXPercent = (progress - 0.5) * 80;
-      const imageTranslateX = (1 - progress) * 100;
+      const imageTranslateX = (1 - progress) * 200;
 
       text.style.transform = `translate(-50%, -50%) translateX(${translateXPercent}%)`;
       imageWrapper.style.transform = `translate(-50%, 0) translateX(${imageTranslateX}px)`;
@@ -39,7 +39,7 @@ const CardExpertise = ({ name, image }: Expertise) => {
     >
       <div
         ref={imageWrapperRef}
-        className="absolute top-0 left-1/2 h-full w-[calc(100%+200px)]"
+        className="absolute top-0 left-1/2 h-full w-[calc(100%+400px)]"
         style={{ transform: 'translate(-50%, 0) translateX(0)' }}
       >
         <Image

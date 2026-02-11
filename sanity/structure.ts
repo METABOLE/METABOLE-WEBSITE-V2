@@ -1,6 +1,6 @@
+import { ProjectsIcon, TiersIcon, WrenchIcon } from '@sanity/icons';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 import type { StructureResolver } from 'sanity/structure';
-import { TiersIcon, ProjectsIcon } from '@sanity/icons';
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S, context) =>
@@ -18,6 +18,13 @@ export const structure: StructureResolver = (S, context) =>
         type: 'expertise',
         title: 'EXPERTISE',
         icon: TiersIcon,
+        S,
+        context,
+      }),
+      orderableDocumentListDeskItem({
+        type: 'service',
+        title: 'SERVICE',
+        icon: WrenchIcon,
         S,
         context,
       }),

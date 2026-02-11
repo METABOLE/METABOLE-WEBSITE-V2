@@ -7,7 +7,7 @@ import CardExpertise from './expertise/card-expertise';
 
 const ExpertiseComponent = ({ expertise }: { expertise: Expertise[] }) => {
   return (
-    <section className="py-y-default sticky top-0 z-90 h-screen bg-white">
+    <section className="py-y-default sticky z-90 bg-white">
       <BackgroundLines />
       <div className="px-x-default">
         <Title isDark={false}>EXPERTISE</Title>

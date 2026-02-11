@@ -43,7 +43,7 @@ const Title = ({
     <h2
       ref={titleRef}
       className={clsx(
-        'p3 relative inline-block pr-2',
+        'p3 font-safiro-medium! relative inline-block h-fit w-fit pr-2 uppercase',
         isDark ? 'text-yellow' : 'text-blue',
         className,
       )}

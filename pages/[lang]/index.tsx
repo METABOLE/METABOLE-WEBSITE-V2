@@ -1,6 +1,7 @@
 import { getStaticPathsForLang } from '@/constants';
 import Expertise from '@/features/home/expertise';
 import Hero from '@/features/home/hero';
+import Service from '@/features/home/service';
 import { useSanityData } from '@/hooks/useSanityData';
 import { fetchExpertise } from '@/services/expertise.service';
 import { InferGetStaticPropsType } from 'next';
@@ -17,6 +18,7 @@ export default function Home({ expertise }: InferGetStaticPropsType<typeof getSt
       </Head>
       <Hero />
       <Expertise expertise={expertiseData.data} />
+      <Service />
     </>
   );
 }
