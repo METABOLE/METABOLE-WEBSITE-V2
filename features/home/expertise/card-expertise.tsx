@@ -1,5 +1,6 @@
 import { urlFor } from '@/sanity/lib/image';
 import { Expertise } from '@/types';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { useLayoutEffect, useRef } from 'react';
 
@@ -14,22 +15,20 @@ const CardExpertise = ({ name, image }: Expertise) => {
     const imageWrapper = imageWrapperRef.current;
     if (!card || !text || !imageWrapper) return;
 
-    let rafId: number;
     const update = () => {
       const rect = card.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
-      const viewportWidth = window.innerWidth;
-      const progress = Math.max(0, Math.min(1, centerX / viewportWidth));
+      const progress = Math.max(0, Math.min(1, centerX / window.innerWidth));
 
       const translateXPercent = (progress - 0.5) * 80;
-      text.style.transform = `translate(-50%, -50%) translateX(${translateXPercent}%)`;
+      const imageTranslateX = (1 - progress) * 100;
 
-      const imageTranslateX = (1 - progress) * 50;
+      text.style.transform = `translate(-50%, -50%) translateX(${translateXPercent}%)`;
       imageWrapper.style.transform = `translate(-50%, 0) translateX(${imageTranslateX}px)`;
-      rafId = requestAnimationFrame(update);
     };
-    rafId = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(rafId);
+
+    gsap.ticker.add(update);
+    return () => gsap.ticker.remove(update);
   }, []);
 
   return (
@@ -40,7 +39,7 @@ const CardExpertise = ({ name, image }: Expertise) => {
     >
       <div
         ref={imageWrapperRef}
-        className="absolute top-0 left-1/2 h-full w-[calc(100%+100px)]"
+        className="absolute top-0 left-1/2 h-full w-[calc(100%+200px)]"
         style={{ transform: 'translate(-50%, 0) translateX(0)' }}
       >
         <Image

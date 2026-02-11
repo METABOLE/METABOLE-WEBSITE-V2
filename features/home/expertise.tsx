@@ -11,11 +11,11 @@ const ExpertiseComponent = ({ expertise }: { expertise: Expertise[] }) => {
       <BackgroundLines />
       <div className="px-x-default">
         <Title isDark={false}>EXPERTISE</Title>
-        <div className="pt-y-half-default grid grid-cols-12 gap-5">
-          <Typography className="p2 col-span-7" variant="p">
+        <div className="pt-y-half-default flex grid-cols-12 flex-col gap-5 md:grid">
+          <Typography className="p2 md:col-span-7" variant="p">
             Les secteurs que l’on aime le plus :
           </Typography>
-          <Typography className="p3 col-span-5" variant="p">
+          <Typography className="p3 md:col-span-5" variant="p">
             Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit
             gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus
             sapien.
