@@ -10,7 +10,7 @@ const ExpertiseComponent = ({ expertise }: { expertise: Expertise[] }) => {
     <section className="py-y-default sticky z-90 bg-white">
       <BackgroundLines />
       <div className="px-x-default">
-        <Title isDark={false}>EXPERTISE</Title>
+        <Title color="blue">EXPERTISE</Title>
         <div className="pt-y-half-default flex grid-cols-12 flex-col gap-5 md:grid">
           <Typography className="p2 md:col-span-7" variant="p">
             Les secteurs que l’on aime le plus :

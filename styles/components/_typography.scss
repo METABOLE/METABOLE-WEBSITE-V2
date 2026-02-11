@@ -11,6 +11,7 @@ h1 {
 h2 {
   font-size: clamp(26px, 5vw, 48px);
   line-height: 1.2;
+  letter-spacing: -0.03em;
   font-family: var(--font-safiro-regular);
 }
 
@@ -39,6 +40,16 @@ p,
   font-size: 16px;
   line-height: 1.2;
   font-family: var(--font-safiro-regular);
+}
+.p3-regular {
+  font-size: 16px;
+  line-height: 1.2;
+  font-family: var(--font-safiro-regular);
+}
+.p3-medium {
+  font-size: 16px;
+  line-height: 1.2;
+  font-family: var(--font-safiro-medium);
 }
 
 // OTHERS

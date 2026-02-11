@@ -4,11 +4,17 @@ import Hero from '@/features/home/hero';
 import Service from '@/features/home/service';
 import { useSanityData } from '@/hooks/useSanityData';
 import { fetchExpertise } from '@/services/expertise.service';
+import { fetchServices } from '@/services/service.service';
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 
-export default function Home({ expertise }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({
+  expertise,
+  services,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const expertiseData = useSanityData(expertise);
+  const servicesData = useSanityData(services);
+
   return (
     <>
       <Head>
@@ -18,7 +24,7 @@ export default function Home({ expertise }: InferGetStaticPropsType<typeof getSt
       </Head>
       <Hero />
       <Expertise expertise={expertiseData.data} />
-      <Service />
+      <Service services={servicesData.data} />
     </>
   );
 }
@@ -32,10 +38,12 @@ export const getStaticProps = async (context: {
   params?: { lang: string };
 }) => {
   const expertise = await fetchExpertise(context);
+  const services = await fetchServices(context);
 
   return {
     props: {
       expertise,
+      services,
       draftMode: expertise.draftMode,
     },
   };

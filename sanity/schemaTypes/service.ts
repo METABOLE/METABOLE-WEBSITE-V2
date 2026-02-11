@@ -18,10 +18,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'shortDescription',
-      title: 'Courte description',
+      name: 'description',
+      title: 'Description',
       type: 'text',
-      description: 'Courte description du service.',
+      description: 'Description du service.',
       rows: 3,
     }),
     defineField({

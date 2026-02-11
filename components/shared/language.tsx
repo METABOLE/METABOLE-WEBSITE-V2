@@ -15,7 +15,11 @@ const Language = forwardRef<
   return (
     <div
       ref={ref}
-      className={clsx('p3 flex gap-2', isDark ? 'text-white-30' : 'text-black-30', className)}
+      className={clsx(
+        'p3-medium flex gap-2',
+        isDark ? 'text-white-30' : 'text-black-30',
+        className,
+      )}
     >
       <Link
         className={clsx('cursor-pointer', isFrench && (isDark ? 'text-yellow' : 'text-blue'))}

@@ -6,7 +6,7 @@ const Baseline = () => {
       <Typography className="h1 font-safiro-regular! max-w-5xl" variant="h1">
         Le studio créatif premium des entreprises de demain.
       </Typography>
-      <Typography className="p3 max-w-5xl uppercase" variant="p">
+      <Typography className="p3-medium max-w-5xl tracking-[-0.03em] uppercase" variant="p">
         Stratégie - Direction artistique - Développement web
       </Typography>
     </div>

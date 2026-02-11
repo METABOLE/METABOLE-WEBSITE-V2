@@ -1,17 +1,17 @@
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 
 const SLASH_FULL = 'polygon(6px 0%, calc(100% + 0px) 0%, calc(100% - 6px) 100%, 0% 100%)';
 
 const Title = ({
   children,
-  isDark,
+  color,
   className,
 }: {
-  children: string;
-  isDark: boolean;
+  children: ReactNode;
+  color?: 'blue' | 'yellow' | 'black';
   className?: string;
 }) => {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -42,9 +42,9 @@ const Title = ({
   return (
     <h2
       ref={titleRef}
+      style={{ color: color ? `var(--color-${color})` : 'inherit' }}
       className={clsx(
         'p3 font-safiro-medium! relative inline-block h-fit w-fit pr-2 uppercase',
-        isDark ? 'text-yellow' : 'text-blue',
         className,
       )}
     >
@@ -52,8 +52,11 @@ const Title = ({
       <div className="absolute inset-0 overflow-hidden" style={{ clipPath: SLASH_FULL }}>
         <span
           ref={overlayRef}
-          className={clsx('absolute inset-0 h-full w-full', isDark ? 'bg-yellow' : 'bg-blue')}
-          style={{ clipPath: SLASH_FULL }}
+          className={clsx('absolute inset-0 h-full w-full', color ? `bg-${color}` : 'bg-yellow')}
+          style={{
+            clipPath: SLASH_FULL,
+            backgroundColor: color ? `var(--color-${color})` : 'inherit',
+          }}
         />
       </div>
     </h2>
