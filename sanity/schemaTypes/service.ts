@@ -1,6 +1,6 @@
+import { CogIcon } from '@sanity/icons';
 import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list';
 import { defineArrayMember, defineField, defineType } from 'sanity';
-import { CogIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'service',
@@ -28,16 +28,14 @@ export default defineType({
       name: 'servicesList',
       title: 'Liste des services',
       type: 'array',
-      description: 'Liste des services proposés dans cette catégorie.',
+      description:
+        'Liste des services proposés dans cette catégorie. Glisser-déposer pour réordonner.',
       of: [
         defineArrayMember({
           type: 'string',
           validation: (Rule) => Rule.required(),
         }),
       ],
-      options: {
-        layout: 'tags',
-      },
     }),
   ],
   preview: {
