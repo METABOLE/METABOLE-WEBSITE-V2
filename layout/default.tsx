@@ -46,7 +46,7 @@ const Layout = ({
 
       <main className="min-h-screen w-screen md:pb-[300px]">
         {isLoading || !isFontReady ? (
-          <div className="fixed z-[950] h-screen w-screen bg-black" />
+          <div className="fixed z-950 h-screen w-screen bg-black" />
         ) : (
           <>
             <BackgroundLines className="fixed" />

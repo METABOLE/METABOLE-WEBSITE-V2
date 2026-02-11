@@ -1,6 +1,7 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import Time from '@/components/shared/time';
 import { IconCross } from '@/components/ui/icons';
+import Typography from '@/components/ui/typography';
 import Showreel from '@/features/home/showreel';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
@@ -8,15 +9,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
 import HeroScene from './hero-scene';
 import Manifesto from './manifesto';
-import Typography from '@/components/ui/typography';
 
 const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { setIsLayoutDark } = useLayoutColor();
 
-  useGSAP(() => {
+  const changeLayoutColor = () => {
     if (!sectionRef.current) return;
-
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: '50px bottom',
@@ -26,10 +25,14 @@ const Hero = () => {
       onLeave: () => setIsLayoutDark(false),
       onLeaveBack: () => setIsLayoutDark(false),
     });
+  };
+
+  useGSAP(() => {
+    changeLayoutColor();
   }, []);
 
   return (
-    <section className="relative">
+    <section ref={sectionRef} className="sticky top-[-100vh] z-0">
       <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
         <HeroScene />
       </div>
