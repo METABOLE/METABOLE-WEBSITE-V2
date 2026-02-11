@@ -7,10 +7,18 @@ const Typography = ({
   children,
   className,
   variant = 'p',
+  start = 'top 85%',
+  end = 'top 50%',
+  markers = false,
+  scrub = false,
 }: {
   children: string;
   className?: string;
   variant?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  start?: string;
+  end?: string;
+  scrub?: boolean;
+  markers?: boolean;
 }) => {
   const textRef = useRef(null);
 
@@ -32,8 +40,10 @@ const Typography = ({
       stagger: 0.07,
       scrollTrigger: {
         trigger: textRef.current,
-        start: 'top 85%',
-        end: 'top 50%',
+        start: start,
+        end: end,
+        scrub: scrub,
+        markers: markers,
         toggleActions: 'play none none reverse',
       },
     });

@@ -21,8 +21,9 @@ export function AutoSlugInput(props: SlugInputProps) {
     sourceFields = ['name'];
   }
 
-  const fieldValues = sourceFields.map((fieldName): string | undefined => {
-    const value = useFormValue([fieldName]);
+  const fieldValues = sourceFields.map((fieldPath): string | undefined => {
+    const path = fieldPath.includes('.') ? fieldPath.split('.') : [fieldPath];
+    const value = useFormValue(path);
     return typeof value === 'string' ? value : undefined;
   });
 

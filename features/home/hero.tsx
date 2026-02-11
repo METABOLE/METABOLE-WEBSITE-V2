@@ -1,14 +1,12 @@
 import BackgroundLines from '@/components/layout/background-lines';
-import Time from '@/components/shared/time';
-import { IconCross } from '@/components/ui/icons';
-import Typography from '@/components/ui/typography';
-import Showreel from '@/features/home/showreel';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
-import HeroScene from './hero-scene';
-import Manifesto from './manifesto';
+import Baseline from './hero/baseline';
+import Footer from './hero/footer';
+import Scene from './hero/scene';
+import Manifesto from './hero/manifesto';
 
 const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -32,34 +30,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="sticky top-[-100vh] z-0">
-      <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
-        <HeroScene />
-      </div>
+    <section ref={sectionRef} className="sticky top-[-100vh]">
+      <Scene />
       <BackgroundLines className="z-0" isDark={true} />
-      <div className="relative z-10">
-        <div className="gap-y-default px-x-default relative flex h-screen w-screen flex-col items-center justify-center text-center text-white">
-          <Typography className="h1 font-safiro-regular! max-w-5xl" variant="h1">
-            Le studio créatif premium des entreprises de demain.
-          </Typography>
-          <Typography className="p3 max-w-5xl uppercase" variant="p">
-            Stratégie - Direction artistique - Développement web
-          </Typography>
-        </div>
-        <Manifesto />
-      </div>
-      <div className="px-x-default sticky right-0 bottom-0 left-0 z-50 grid h-fit w-full grid-cols-12 items-center gap-5 pb-8 text-white">
-        <Showreel />
-        <p className="col-span-3 text-left text-sm!">Metabole® 2025</p>
-        <div className="">
-          <IconCross className="-translate-x-[5px] fill-white" />
-        </div>
-        <p className="col-span-4 text-center text-sm!">Paris | Rotterdam</p>
-        <div className="flex justify-end">
-          <IconCross className="translate-x-[5px] fill-white" />
-        </div>
-        <Time className="col-span-3 text-right text-sm!" isDark={true} />
-      </div>
+      <Baseline />
+      <Manifesto />
+      <Footer />
     </section>
   );
 };

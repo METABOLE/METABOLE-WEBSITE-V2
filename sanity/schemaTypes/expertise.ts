@@ -1,39 +1,46 @@
+import { TiersIcon } from '@sanity/icons';
 import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
-import { ProjectsIcon } from '@sanity/icons';
 import { AutoSlugInput } from '../components/AutoSlugInput';
 
 export default defineType({
-  name: 'projects',
-  title: 'PROJECT',
+  name: 'expertise',
+  title: 'EXPERTISE',
   type: 'document',
-  icon: ProjectsIcon,
+  icon: TiersIcon,
   orderings: [orderRankOrdering],
   fields: [
-    orderRankField({ type: 'project' }),
+    orderRankField({ type: 'expertise' }),
     defineField({
       name: 'name',
       title: 'Name',
-      type: 'string',
-      description: "Project's name.",
+      type: 'bilingualString',
+      description: "Expertise's name (French + English).",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'Slug',
+      name: 'slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: 'name.fr',
       },
       components: {
         input: AutoSlugInput,
       },
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      validation: (Rule) => Rule.required(),
+    }),
   ],
   preview: {
     select: {
-      title: 'name',
+      title: 'name.fr',
       subtitle: 'slug.current',
+      media: 'image',
     },
   },
 });

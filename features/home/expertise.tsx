@@ -2,8 +2,9 @@ import BackgroundLines from '@/components/layout/background-lines';
 import Title from '@/components/shared/title';
 import ScrollingContainer from '@/components/ui/scrolling-container';
 import Typography from '@/components/ui/typography';
+import { Expertise } from '@/types';
 
-const Expertise = () => {
+const ExpertiseComponent = ({ expertise }: { expertise: Expertise[] }) => {
   return (
     <section className="py-y-default px-x-default sticky top-0 z-90 h-screen bg-white">
       <BackgroundLines />
@@ -25,4 +26,4 @@ const Expertise = () => {
   );
 };
 
-export default Expertise;
+export default ExpertiseComponent;

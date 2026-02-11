@@ -6,7 +6,13 @@ const Manifesto = () => {
     <section className="py-y-double-default px-x-default grid h-screen grid-cols-12 items-center gap-5 text-left text-white">
       <div className="col-span-10 col-start-2 max-w-5xl">
         <Title isDark={true}>MANIFESTO</Title>
-        <Typography className="h2 pt-y-half-default" variant="p">
+        <Typography
+          className="h2 pt-y-half-default"
+          end="top top"
+          scrub={true}
+          start={`"top bottom+=${window.innerHeight * 0.5}"`}
+          variant="p"
+        >
           Notre approche à la fois stratégique et créative part de vos enjeux pour construire
           ensemble des identités uniques, premiums et créatives.
         </Typography>

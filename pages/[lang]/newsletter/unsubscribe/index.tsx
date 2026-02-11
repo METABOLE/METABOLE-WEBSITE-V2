@@ -1,6 +1,7 @@
 import Button from '@/components/ui/button';
 import { IconArrow } from '@/components/ui/icons';
 import Input from '@/components/ui/input';
+import { getStaticPathsForLang } from '@/constants';
 import NewsletterLayout from '@/layout/newsletter';
 import { NextPageWithLayout } from '@/pages/_app';
 import { useLanguage } from '@/providers/language.provider';
@@ -147,10 +148,7 @@ UnsubscribePage.getLayout = function getLayout(page: ReactElement) {
 export default UnsubscribePage;
 
 export async function getStaticPaths() {
-  return {
-    paths: [{ params: { lang: 'en' } }, { params: { lang: 'fr' } }],
-    fallback: false,
-  };
+  return getStaticPathsForLang();
 }
 
 export async function getStaticProps() {

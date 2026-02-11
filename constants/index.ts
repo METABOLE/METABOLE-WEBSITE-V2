@@ -4,3 +4,4 @@ export * from './meta.constant';
 export * from './quote.constant';
 export * from './title.constant';
 export * from './projects.constant';
+export * from './locales.constant';

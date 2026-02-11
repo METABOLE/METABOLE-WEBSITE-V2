@@ -1,5 +1,6 @@
 import SEO from '@/components/ui/SEO';
 import Contact from '@/features/contact/contact';
+import { getStaticPathsForLang } from '@/constants';
 
 const Index = () => {
   return (
@@ -15,5 +16,9 @@ const Index = () => {
     </>
   );
 };
+
+export async function getStaticPaths() {
+  return getStaticPathsForLang();
+}
 
 export default Index;

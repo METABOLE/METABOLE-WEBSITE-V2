@@ -103,35 +103,37 @@ function LogoModel() {
   );
 }
 
-function HeroScene() {
+function Scene() {
   return (
-    <div className="sticky top-0 h-screen w-screen" aria-hidden>
-      <div className="absolute inset-0 z-0" style={{ background: GRADIENT }} aria-hidden />
-      <div className="absolute inset-0 z-1">
-        <Canvas
-          camera={{ fov: 50, position: [0, 0, 4.5] }}
-          dpr={[1, 2]}
-          gl={{ alpha: true, antialias: true }}
-          onCreated={({ gl }) => {
-            gl.setClearColor(0x000000, 0);
-            Object.assign(gl, {
-              toneMapping: ACESFilmicToneMapping,
-              toneMappingExposure: 1.25,
-            });
-          }}
-        >
-          <Environment files="/3d/hdri/env.hdr" />
-          <hemisphereLight args={[0x93c5fd, 0x1e3a8a, 1.2]} />
-          <directionalLight color={0x818cf8} intensity={1.2} position={[-3, 4, 5]} />
-          <directionalLight color={0x6366f1} intensity={0.9} position={[2, -1, 3]} />
-          <directionalLight color={0xa78bfa} intensity={0.7} position={[2, 2, -2]} />
-          <pointLight color={0x60a5fa} distance={10} intensity={1} position={[0, 0, 3]} />
-          <pointLight color={0xc4b5fd} distance={8} intensity={0.5} position={[-2, 1, 2]} />
-          <LogoModel />
-        </Canvas>
+    <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
+      <div className="sticky top-0 h-screen w-screen" aria-hidden>
+        <div className="absolute inset-0 z-0" style={{ background: GRADIENT }} aria-hidden />
+        <div className="absolute inset-0 z-1">
+          <Canvas
+            camera={{ fov: 50, position: [0, 0, 4.5] }}
+            dpr={[1, 2]}
+            gl={{ alpha: true, antialias: true }}
+            onCreated={({ gl }) => {
+              gl.setClearColor(0x000000, 0);
+              Object.assign(gl, {
+                toneMapping: ACESFilmicToneMapping,
+                toneMappingExposure: 1.25,
+              });
+            }}
+          >
+            <Environment files="/3d/hdri/env.hdr" />
+            <hemisphereLight args={[0x93c5fd, 0x1e3a8a, 1.2]} />
+            <directionalLight color={0x818cf8} intensity={1.2} position={[-3, 4, 5]} />
+            <directionalLight color={0x6366f1} intensity={0.9} position={[2, -1, 3]} />
+            <directionalLight color={0xa78bfa} intensity={0.7} position={[2, 2, -2]} />
+            <pointLight color={0x60a5fa} distance={10} intensity={1} position={[0, 0, 3]} />
+            <pointLight color={0xc4b5fd} distance={8} intensity={0.5} position={[-2, 1, 2]} />
+            <LogoModel />
+          </Canvas>
+        </div>
       </div>
     </div>
   );
 }
 
-export default HeroScene;
+export default Scene;
