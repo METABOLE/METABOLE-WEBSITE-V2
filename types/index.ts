@@ -13,3 +13,4 @@ export * from './questions.type';
 export * from './client.type';
 export * from './sanity.type';
 export * from './service.type';
+export * from './compatibility.type';

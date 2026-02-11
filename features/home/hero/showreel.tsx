@@ -135,7 +135,7 @@ const Showreel = () => {
         tabIndex={0}
         className={clsx(
           'ease-power4-in-out z-120 origin-center overflow-hidden rounded-lg transition-[left,top,width,height] duration-1000',
-          !isFixed && 'bottom-y-default right-x-default absolute w-[170px]',
+          !isFixed && 'bottom-y-default absolute right-[calc(var(--x-default)+1px)] w-[170px]',
         )}
         onClick={() => !isExpanded && open()}
         onTransitionEnd={handleTransitionEnd}

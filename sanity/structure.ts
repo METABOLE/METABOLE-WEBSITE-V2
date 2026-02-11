@@ -1,4 +1,4 @@
-import { ProjectsIcon, TiersIcon, WrenchIcon } from '@sanity/icons';
+import { ProjectsIcon, SyncIcon, TiersIcon, WrenchIcon } from '@sanity/icons';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 import type { StructureResolver } from 'sanity/structure';
 
@@ -25,6 +25,13 @@ export const structure: StructureResolver = (S, context) =>
         type: 'service',
         title: 'SERVICE',
         icon: WrenchIcon,
+        S,
+        context,
+      }),
+      orderableDocumentListDeskItem({
+        type: 'compatibility',
+        title: 'COMPATIBILITY',
+        icon: SyncIcon,
         S,
         context,
       }),

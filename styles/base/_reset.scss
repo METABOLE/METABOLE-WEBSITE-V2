@@ -16,12 +16,28 @@ html {
   }
 
   ::selection {
-    background: var(--color-yellow);
-    color: var(--color-black);
+    background: var(--color-blue);
+    color: var(--color-white);
   }
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.text-blue,
+.text-black {
+  ::selection {
+    background: var(--color-blue) !important;
+    color: var(--color-white) !important;
+  }
+}
+
+.text-yellow,
+.text-white {
+  ::selection {
+    background: var(--color-yellow) !important;
+    color: var(--color-black) !important;
   }
 }
 
