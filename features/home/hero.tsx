@@ -31,9 +31,7 @@ const Hero = () => {
   return (
     <section className="relative">
       <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
-        <div className="sticky top-0 h-screen w-screen">
-          <HeroScene />
-        </div>
+        <HeroScene />
       </div>
       <BackgroundLines className="z-0" isDark={true} />
       <div className="relative z-10">

@@ -16,7 +16,7 @@ import {
 const ROTATION_SCALE = Math.PI * 0.4;
 const POSITION_SCALE = 0.4;
 const SMOOTH_DURATION = 0.5;
-const GRADIENT = 'linear-gradient(to bottom, #01021b 0%, #000040 100%)';
+const GRADIENT = 'linear-gradient(to bottom, #01021b 0%, #040148 100%)';
 
 function LogoModel() {
   const groupRef = useRef<Group>(null);
@@ -34,16 +34,16 @@ function LogoModel() {
   const material = useMemo(
     (): MeshPhysicalMaterial =>
       new MeshPhysicalMaterial({
-        color: 0x1b17ee,
+        color: 0x2563eb,
         metalness: 0.85,
         roughness: 0.25,
         envMap: envMap ?? undefined,
-        envMapIntensity: envMap ? 1.4 : 0.5,
-        clearcoat: 0.35,
-        clearcoatRoughness: 0.4,
-        reflectivity: 0.8,
-        emissive: new Color(0x1b17ee).multiplyScalar(0.15),
-        emissiveIntensity: 0.2,
+        envMapIntensity: envMap ? 0.85 : 0.5,
+        clearcoat: 0.5,
+        clearcoatRoughness: 0.25,
+        reflectivity: 0.6,
+        emissive: new Color(0x1d4ed8),
+        emissiveIntensity: 0.12,
       }),
     [envMap],
   );
@@ -105,9 +105,9 @@ function LogoModel() {
 
 function HeroScene() {
   return (
-    <div className="h-full w-full" aria-hidden>
+    <div className="sticky top-0 h-screen w-screen" aria-hidden>
       <div className="absolute inset-0 z-0" style={{ background: GRADIENT }} aria-hidden />
-      <div className="absolute inset-0 z-[1]">
+      <div className="absolute inset-0 z-1">
         <Canvas
           camera={{ fov: 50, position: [0, 0, 4.5] }}
           dpr={[1, 2]}
@@ -121,11 +121,12 @@ function HeroScene() {
           }}
         >
           <Environment files="/3d/hdri/env.hdr" />
-          <hemisphereLight args={[0xb8d4f0, 0x2a4a6e, 1.5]} />
-          <directionalLight color={0xffffff} intensity={1.6} position={[-3, 4, 5]} />
-          <directionalLight color={0x93c5fd} intensity={0.8} position={[2, -1, 3]} />
-          <directionalLight color={0x60a5fa} intensity={1} position={[2, 2, -2]} />
-          <pointLight color={0xa5b8ff} distance={10} intensity={1.2} position={[0, 0, 3]} />
+          <hemisphereLight args={[0x93c5fd, 0x1e3a8a, 1.2]} />
+          <directionalLight color={0x818cf8} intensity={1.2} position={[-3, 4, 5]} />
+          <directionalLight color={0x6366f1} intensity={0.9} position={[2, -1, 3]} />
+          <directionalLight color={0xa78bfa} intensity={0.7} position={[2, 2, -2]} />
+          <pointLight color={0x60a5fa} distance={10} intensity={1} position={[0, 0, 3]} />
+          <pointLight color={0xc4b5fd} distance={8} intensity={0.5} position={[-2, 1, 2]} />
           <LogoModel />
         </Canvas>
       </div>
