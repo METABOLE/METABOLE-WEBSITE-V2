@@ -60,7 +60,6 @@ const ScrollingContainer = ({
   });
 
   useGSAP(() => {
-    // Delay refresh to avoid forced reflow
     requestAnimationFrame(() => {
       setTimeout(() => {
         ScrollTrigger.refresh();
