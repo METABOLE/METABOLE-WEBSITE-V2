@@ -91,7 +91,7 @@ const CutoutWrapper = forwardRef<AnimatedCutoutWrapperRef, { children: ReactNode
     }, []);
 
     return (
-      <div ref={wrapperRef} className="fixed inset-0 z-[800] hidden">
+      <div ref={wrapperRef} className="fixed inset-0 z-800 hidden">
         <div
           ref={borderRefs.top}
           className="w-x-default absolute top-0 left-0 h-screen origin-top bg-black"

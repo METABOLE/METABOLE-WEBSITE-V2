@@ -67,7 +67,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
           </p>
         )}
       </Hint>
-      <header ref={headerRef} className="px-x-default fixed z-[900] w-full">
+      <header ref={headerRef} className="px-x-default fixed z-900 w-full">
         <div className="flex items-center justify-between py-8">
           <Link
             ref={logoRef}

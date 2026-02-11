@@ -200,7 +200,7 @@ const Burger = () => {
 
   return (
     <>
-      <header className="px-x-default fixed z-[900] w-full">
+      <header className="px-x-default fixed z-900 w-full">
         <div className="flex w-full items-center justify-between py-8">
           <Link className="shrink-0" href={getInternalPath('/')} scroll={false}>
             <LogoSmall className="h-10 w-10" />
@@ -232,7 +232,7 @@ const Burger = () => {
       </header>
       <div
         ref={menuRef}
-        className="px-x-default gap-y-default bg-menu/0 fixed z-[800] flex h-lvh w-full flex-col justify-between pt-[140px] pb-[calc(32px+var(--y-default))]"
+        className="px-x-default gap-y-default bg-menu/0 fixed z-800 flex h-lvh w-full flex-col justify-between pt-[140px] pb-[calc(32px+var(--y-default))]"
       >
         <nav className="col-span-4">
           <ul ref={linksRef} className="flex flex-col gap-5">
