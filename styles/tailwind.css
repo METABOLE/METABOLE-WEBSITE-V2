@@ -133,7 +133,3 @@
 .origin-right {
   @apply origin-right;
 }
-
-.align-tracks-start {
-  align-tracks: start;
-}

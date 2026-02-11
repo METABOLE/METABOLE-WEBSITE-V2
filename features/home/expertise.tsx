@@ -22,8 +22,7 @@ const ExpertiseComponent = ({ expertise }: { expertise: Expertise[] }) => {
           </Typography>
         </div>
       </div>
-
-      <ScrollingContainer className="pt-y-default">
+      <ScrollingContainer className="pt-y-default" scrollSpeed={20}>
         <div className="flex h-full gap-5 pl-5">
           {expertise.map((expertise) => (
             <CardExpertise key={expertise.slug.current} {...expertise} />
