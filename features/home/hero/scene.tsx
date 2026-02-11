@@ -15,8 +15,6 @@ import {
 
 const ROTATION_SCALE = Math.PI * 0.4;
 const POSITION_SCALE = 0.4;
-const SMOOTH_DURATION = 0.5;
-const GRADIENT = 'linear-gradient(to bottom, #01021b 0%, #040148 100%)';
 
 function LogoModel() {
   const groupRef = useRef<Group>(null);
@@ -86,8 +84,8 @@ function LogoModel() {
       rotationY: nx * ROTATION_SCALE,
       positionX: -nx * POSITION_SCALE,
       positionY: ny * POSITION_SCALE,
-      duration: SMOOTH_DURATION,
-      ease: 'power2.out',
+      duration: 3,
+      ease: 'power4.out',
     });
     const p = proxy.current;
     groupRef.current.rotation.x = p.rotationX;
@@ -107,7 +105,11 @@ function Scene() {
   return (
     <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
       <div className="sticky top-0 h-screen w-screen" aria-hidden>
-        <div className="absolute inset-0 z-0" style={{ background: GRADIENT }} aria-hidden />
+        <div
+          className="absolute inset-0 z-0"
+          style={{ background: 'linear-gradient(to bottom, #01021b 0%, #040148 100%)' }}
+          aria-hidden
+        />
         <div className="absolute inset-0 z-1">
           <Canvas
             camera={{ fov: 50, position: [0, 0, 4.5] }}
