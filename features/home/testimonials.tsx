@@ -3,7 +3,7 @@ import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import Title from '@/components/shared/title';
 import { IconArrow } from '@/components/ui/icons';
 import { Testimonial } from '@/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ItemTestimonial from './testimonials/item-testimonial';
 
 const PROGRESS_DURATION_MS = 8000;
@@ -11,22 +11,49 @@ const PROGRESS_DURATION_MS = 8000;
 const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const startTimeRef = useRef(Date.now());
+  const pauseStartRef = useRef<number | null>(null);
+  const isPausedRef = useRef(false);
+  isPausedRef.current = isPaused;
 
   useEffect(() => {
-    if (testimonials.length <= 1) return;
+    if (testimonials.length <= 1 || isPaused) return;
     const id = setInterval(() => {
       setCurrentIndex((i) => (i + 1) % testimonials.length);
     }, PROGRESS_DURATION_MS);
     return () => clearInterval(id);
-  }, [testimonials.length]);
+  }, [testimonials.length, isPaused]);
+
+  useEffect(() => {
+    if (isPaused) {
+      pauseStartRef.current = Date.now();
+      return;
+    }
+    if (pauseStartRef.current !== null) {
+      const elapsed = pauseStartRef.current - startTimeRef.current;
+      startTimeRef.current = Date.now() - elapsed;
+      pauseStartRef.current = null;
+    }
+  }, [isPaused]);
 
   useEffect(() => {
     setProgress(0);
+    startTimeRef.current = Date.now();
+    if (isPausedRef.current) {
+      pauseStartRef.current = Date.now();
+    } else {
+      pauseStartRef.current = null;
+    }
     let cancelled = false;
-    const start = Date.now();
     const tick = () => {
       if (cancelled) return;
-      const elapsed = Date.now() - start;
+      const elapsed =
+        isPausedRef.current && pauseStartRef.current !== null
+          ? pauseStartRef.current - startTimeRef.current
+          : Date.now() - startTimeRef.current;
       const p = Math.min(100, (elapsed / PROGRESS_DURATION_MS) * 100);
       setProgress(p);
       if (p < 100) requestAnimationFrame(tick);
@@ -38,22 +65,30 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
     };
   }, [currentIndex]);
 
-  const handlePrevious = () => {
+  function onMouseEnter() {
+    setIsPaused(true);
+  }
+
+  function onMouseLeave() {
+    setIsPaused(false);
+  }
+
+  function handlePrevious() {
     if (testimonials.length <= 1) return;
     const next = currentIndex - 1 < 0 ? testimonials.length - 1 : currentIndex - 1;
     setCurrentIndex(next);
-  };
+  }
 
-  const handleNext = () => {
+  function handleNext() {
     if (testimonials.length <= 1) return;
     const next = currentIndex + 1 >= testimonials.length ? 0 : currentIndex + 1;
     setCurrentIndex(next);
-  };
+  }
 
   if (!testimonials.length) return null;
 
   return (
-    <section className="py-y-default sticky z-90 bg-black">
+    <section ref={sectionRef} className="py-y-default sticky z-90 bg-black">
       <BackgroundLines isDark={true} />
       <div className="px-x-default grid grid-cols-12 items-center gap-5">
         <Title className="col-span-3" color="yellow">
@@ -86,8 +121,24 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
         </div>
       </div>
 
-      <div className="px-x-default pt-y-default">
+      <div
+        className="px-x-default pt-y-default"
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <div className="relative grid grid-cols-12 gap-5">
+          <button
+            aria-label="Témoignage précédent"
+            className="custom-cursor-previous absolute left-0 z-20 h-full w-1/2 cursor-none"
+            type="button"
+            onClick={handlePrevious}
+          />
+          <button
+            aria-label="Témoignage suivant"
+            className="custom-cursor-next absolute right-0 z-20 h-full w-1/2 cursor-none"
+            type="button"
+            onClick={handleNext}
+          />
           {testimonials.map((testimonial, i) => (
             <ItemTestimonial key={testimonial._id} isActive={i === currentIndex} {...testimonial} />
           ))}

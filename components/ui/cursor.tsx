@@ -27,6 +27,8 @@ const Cursor = () => {
   const isPointerStyle =
     cursor.variant === CURSOR_TYPE.POINTER || cursor.variant === CURSOR_TYPE.SEE_MORE;
   const isPlayer = cursor.variant === CURSOR_TYPE.PLAYER;
+  const isNext = cursor.variant === CURSOR_TYPE.NEXT;
+  const isPrevious = cursor.variant === CURSOR_TYPE.PREVIOUS;
 
   useEffect(() => {
     clickDownRef.current = new Audio('/sounds/clickDown.mp3');
@@ -41,6 +43,8 @@ const Cursor = () => {
     changeToSeeMore: useCallback(() => setCursor(CURSOR_TYPE.SEE_MORE), [setCursor]),
     changeToButton: useCallback(() => setCursor(CURSOR_TYPE.POINTER), [setCursor]),
     changeToDefault: useCallback(() => setCursor(CURSOR_TYPE.DEFAULT), [setCursor]),
+    changeToNext: useCallback(() => setCursor(CURSOR_TYPE.NEXT), [setCursor]),
+    changeToPrevious: useCallback(() => setCursor(CURSOR_TYPE.PREVIOUS), [setCursor]),
   };
 
   const playClickDownSound = () => {
@@ -94,11 +98,15 @@ const Cursor = () => {
       const elements = {
         seeMore: document.querySelectorAll('.custom-cursor-see-more'),
         button: document.querySelectorAll('.cursor-pointer'),
+        next: document.querySelectorAll('.custom-cursor-next'),
+        previous: document.querySelectorAll('.custom-cursor-previous'),
       };
 
       Object.entries({
         seeMore: cursorStateHandlers.changeToSeeMore,
         button: cursorStateHandlers.changeToButton,
+        next: cursorStateHandlers.changeToNext,
+        previous: cursorStateHandlers.changeToPrevious,
       }).forEach(([key, handler]) => {
         elements[key as keyof typeof elements].forEach((el) => {
           el[event]('mouseover', handler);
@@ -140,23 +148,26 @@ const Cursor = () => {
     setTimeout(() => setCursor(CURSOR_TYPE.DEFAULT), 500);
   }, [pathname, setCursor]);
 
-  const showCross = !isPointerStyle && !isPlayer;
-  const showPlay = isPlayer && !cursor.isPlaying;
+  const showCross = !isPointerStyle && !isPlayer && !isNext && !isPrevious;
   const showPause = isPlayer && cursor.isPlaying;
+  const showPlay = isPlayer && !cursor.isPlaying;
+  const showNext = isNext;
+  const showPrev = isPrevious;
 
   return (
     <>
       <div
         ref={wrapperPointerRef}
         className={clsx(
-          'pointer-events-none fixed top-0 left-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0',
-          !isPlayer && 'mix-blend-difference',
+          'pointer-events-none fixed top-0 left-0 z-9999 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0',
+          !isPlayer && !isNext && !isPrevious && 'mix-blend-difference',
         )}
       >
         <div
           className={clsx(
-            'border-yellow h-16 w-16 origin-center rounded-full border-[1px] transition-[transform,scale,background-color] duration-300 ease-out',
+            'border-yellow h-16 w-16 origin-center rounded-full border transition-[transform,scale,background-color] duration-300 ease-out',
             isPlayer && 'scale-120 border-none bg-black',
+            (isNext || isPrevious) && 'bg-yellow scale-120 border-none',
             isPlayer && isActive && 'scale-100!',
             isPointerStyle && 'bg-yellow scale-50',
             isActive && 'scale-75',
@@ -166,13 +177,13 @@ const Cursor = () => {
       <div
         ref={pointerRef}
         className={clsx(
-          'text-yellow pointer-events-none fixed top-0 left-0 z-[9999] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0',
+          'text-yellow pointer-events-none fixed top-0 left-0 z-9999 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0',
           !isPlayer && 'mix-blend-difference',
         )}
       >
         <p
           className={clsx(
-            'absolute flex h-14 w-14 origin-center items-center justify-center transition-transform duration-300 ease-out',
+            'absolute flex h-14 w-14 origin-center items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
             showPause ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         >
@@ -180,11 +191,27 @@ const Cursor = () => {
         </p>
         <p
           className={clsx(
-            'absolute flex h-14 w-14 origin-center items-center justify-center transition-transform duration-300 ease-out',
+            'absolute flex h-14 w-14 origin-center items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
             showPlay ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         >
           PLAY
+        </p>
+        <p
+          className={clsx(
+            'absolute flex h-14 w-14 origin-center items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
+            showNext ? 'scale-100' : 'pointer-events-none scale-0',
+          )}
+        >
+          NEXT
+        </p>
+        <p
+          className={clsx(
+            'absolute flex h-14 w-14 origin-center items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
+            showPrev ? 'scale-100' : 'pointer-events-none scale-0',
+          )}
+        >
+          PREV
         </p>
         <IconCross
           className={clsx(

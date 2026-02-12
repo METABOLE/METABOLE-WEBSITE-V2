@@ -27,6 +27,7 @@ const ItemTestimonial = ({
   const spliteTextRef = {
     testimony: useRef<SplitText>(null),
   };
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const [height, setHeight] = useState(0);
 
   const { contextSafe } = useGSAP();
@@ -44,10 +45,26 @@ const ItemTestimonial = ({
     gsap.set(testimonialRefs.image.current, { clipPath: 'inset(0 100% 0 0%)' });
   });
 
+  const killAnimations = contextSafe(() => {
+    timelineRef.current?.kill();
+    timelineRef.current = null;
+    const lines = spliteTextRef.testimony.current?.lines;
+    const targets = [
+      testimonialRefs.image.current,
+      testimonialRefs.name.current,
+      testimonialRefs.role.current,
+      ...(lines || []),
+    ].filter(Boolean);
+    gsap.killTweensOf(targets);
+  });
+
   const revealAnimation = contextSafe(() => {
-    gsap
+    killAnimations();
+    gsap.set(spliteTextRef.testimony.current?.lines || [], { y: 100, opacity: 0 });
+    gsap.set([testimonialRefs.name.current, testimonialRefs.role.current], { y: 50, opacity: 0 });
+    gsap.set(testimonialRefs.image.current, { clipPath: 'inset(0 100% 0 0%)' });
+    const tl = gsap
       .timeline()
-      .set(testimonialRefs.image.current, { clipPath: 'inset(0 100% 0 0%)' })
       .to(testimonialRefs.image.current, {
         clipPath: 'inset(0 0% 0 0%)',
         duration: 1,
@@ -75,10 +92,12 @@ const ItemTestimonial = ({
         },
         '<',
       );
+    timelineRef.current = tl;
   });
 
   const hideAnimation = contextSafe(() => {
-    gsap
+    killAnimations();
+    const tl = gsap
       .timeline()
       .to(spliteTextRef.testimony.current?.lines || [], {
         y: 100,
@@ -107,6 +126,7 @@ const ItemTestimonial = ({
         },
         '<',
       );
+    timelineRef.current = tl;
   });
 
   useGSAP(() => {

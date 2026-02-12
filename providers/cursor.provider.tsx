@@ -5,6 +5,8 @@ export enum CURSOR_TYPE {
   POINTER = 'pointer',
   SEE_MORE = 'seeMore',
   PLAYER = 'player',
+  NEXT = 'next',
+  PREVIOUS = 'previous',
 }
 
 export type CursorState = {
