@@ -1,10 +1,12 @@
 import { getStaticPathsForLang } from '@/constants';
+import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
 import Expertise from '@/features/home/expertise';
 import Hero from '@/features/home/hero';
 import Service from '@/features/home/service';
 import Testimonials from '@/features/home/testimonials';
 import { useSanityData } from '@/hooks/useSanityData';
+import { fetchAwards } from '@/services/awards.service';
 import { fetchCompatibility } from '@/services/compatibility.service';
 import { fetchExpertise } from '@/services/expertise.service';
 import { fetchServices } from '@/services/service.service';
@@ -17,11 +19,13 @@ export default function Home({
   services,
   compatibility,
   testimonials,
+  awards,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const expertiseData = useSanityData(expertise);
   const servicesData = useSanityData(services);
   const compatibilityData = useSanityData(compatibility);
   const testimonialsData = useSanityData(testimonials);
+  const awardsData = useSanityData(awards);
 
   return (
     <>
@@ -35,6 +39,7 @@ export default function Home({
       <Service services={servicesData.data} />
       <Compatibility compatibility={compatibilityData.data} />
       <Testimonials testimonials={testimonialsData.data} />
+      <Awards awards={awardsData.data} />
     </>
   );
 }
@@ -51,6 +56,7 @@ export const getStaticProps = async (context: {
   const services = await fetchServices(context);
   const compatibility = await fetchCompatibility(context);
   const testimonials = await fetchTestimonials(context);
+  const awards = await fetchAwards(context);
 
   return {
     props: {
@@ -58,6 +64,7 @@ export const getStaticProps = async (context: {
       services,
       compatibility,
       testimonials,
+      awards,
       draftMode: expertise.draftMode,
     },
   };

@@ -1,4 +1,11 @@
-import { ProjectsIcon, FeedbackIcon, SyncIcon, TiersIcon, WrenchIcon } from '@sanity/icons';
+import {
+  FeedbackIcon,
+  ProjectsIcon,
+  StarFilledIcon,
+  SyncIcon,
+  TiersIcon,
+  WrenchIcon,
+} from '@sanity/icons';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 import type { StructureResolver } from 'sanity/structure';
 
@@ -39,6 +46,13 @@ export const structure: StructureResolver = (S, context) =>
         type: 'testimonial',
         title: 'TESTIMONIAL',
         icon: FeedbackIcon,
+        S,
+        context,
+      }),
+      orderableDocumentListDeskItem({
+        type: 'awards',
+        title: 'AWARDS',
+        icon: StarFilledIcon,
         S,
         context,
       }),

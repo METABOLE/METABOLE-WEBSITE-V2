@@ -6,7 +6,7 @@ import CardCompatibility from './compatibility/card-compatibility';
 
 const CompatibilityComponent = ({ compatibility }: { compatibility: Compatibility[] }) => {
   return (
-    <section className="py-y-default sticky bg-white">
+    <section className="pt-y-default pb-y-double-default sticky bg-white">
       <BackgroundLines />
       <div className="px-x-default flex flex-col gap-5 md:grid md:grid-cols-12 md:gap-5">
         <Typography className="h2 col-span-5" variant="h2">
@@ -20,7 +20,7 @@ const CompatibilityComponent = ({ compatibility }: { compatibility: Compatibilit
           au plus près de vos besoins.
         </Typography>
       </div>
-      <ScrollingContainer className="pt-y-default" scrollSpeed={20}>
+      <ScrollingContainer className="pt-y-half-default" scrollSpeed={20}>
         <div className="flex h-full pb-5">
           {compatibility.map((compatibility) => (
             <CardCompatibility key={compatibility.slug.current} {...compatibility} />

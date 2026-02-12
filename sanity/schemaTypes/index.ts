@@ -8,6 +8,7 @@ import compatibility from './compatibility';
 import testimonial from './testimonial';
 import { blockContent } from './blockContent';
 import bilingualText from './bilingualText';
+import awards from './awards';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -19,6 +20,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     service,
     compatibility,
     testimonial,
+    awards,
     blockContent,
   ],
 };

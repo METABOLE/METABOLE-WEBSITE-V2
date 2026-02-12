@@ -167,7 +167,7 @@ const Cursor = () => {
           className={clsx(
             'border-yellow h-16 w-16 origin-center rounded-full border transition-[transform,scale,background-color] duration-300 ease-out',
             isPlayer && 'scale-120 border-none bg-black',
-            (isNext || isPrevious) && 'bg-yellow scale-120 border-none',
+            (isNext || isPrevious) && 'bg-yellow scale-80 border-none',
             isPlayer && isActive && 'scale-100!',
             isPointerStyle && 'bg-yellow scale-50',
             isActive && 'scale-75',
@@ -199,19 +199,19 @@ const Cursor = () => {
         </p>
         <p
           className={clsx(
-            'absolute flex h-14 w-14 origin-center items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
+            'absolute flex h-14 w-14 origin-left items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
             showNext ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         >
-          <IconArrow className="fill-yellow h-7 w-7 rotate-90" />
+          <IconArrow className="fill-yellow h-3 w-3 rotate-90" />
         </p>
         <p
           className={clsx(
-            'absolute flex h-14 w-14 origin-center items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
+            'absolute flex h-14 w-14 origin-right items-center justify-center text-sm font-medium transition-transform duration-300 ease-out',
             showPrev ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         >
-          <IconArrow className="fill-yellow h-7 w-7 -rotate-90" />
+          <IconArrow className="fill-yellow h-3 w-3 -rotate-90" />
         </p>
         <IconCross
           className={clsx(

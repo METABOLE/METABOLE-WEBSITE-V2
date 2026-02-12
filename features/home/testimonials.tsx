@@ -88,7 +88,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
   if (!testimonials.length) return null;
 
   return (
-    <section ref={sectionRef} className="py-y-default sticky z-90 bg-black">
+    <section ref={sectionRef} className="pt-y-default sticky z-90 bg-black">
       <BackgroundLines isDark={true} />
       <div className="px-x-default grid grid-cols-12 items-center gap-5">
         <Title className="col-span-3" color="yellow">
@@ -122,7 +122,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
       </div>
 
       <div
-        className="px-x-default pt-y-default"
+        className="px-x-default py-y-double-default"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
