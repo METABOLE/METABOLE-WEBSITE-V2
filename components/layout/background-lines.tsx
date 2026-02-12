@@ -19,7 +19,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 bottom-0 left-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -27,7 +27,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 bottom-0 left-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -35,7 +35,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 bottom-0 left-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -43,7 +43,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 bottom-0 left-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -51,7 +51,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 right-0 bottom-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -59,7 +59,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 right-0 bottom-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -67,7 +67,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 right-0 bottom-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>
@@ -75,7 +75,7 @@ const BackgroundLines = ({
         <div
           className={clsx(
             'absolute top-0 right-0 bottom-0 w-px',
-            isDark ? 'bg-[#E4E4FF]/20' : 'bg-blue/10',
+            isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
       </div>

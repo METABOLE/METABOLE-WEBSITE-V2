@@ -6,10 +6,10 @@ import { useGSAP } from '@gsap/react';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { IconArrow, IconQuestionMark } from '../ui/icons';
 import Input, { AnimatedInputRef } from '../ui/input';
-import { SplitText } from 'gsap/SplitText';
 
 interface LeadFormProps {
   className?: string;
@@ -202,7 +202,7 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
                 disabled={formStatus === FORM_STATUS.PENDING || formStatus === FORM_STATUS.SUCCESS}
                 type="submit"
               >
-                <IconArrow className="rotate-45" color={isDark ? COLORS.BLACK : COLORS.WHITE} />
+                <IconArrow className={clsx('rotate-45', isDark ? 'fill-black' : 'fill-white')} />
               </button>
             </div>
           </div>

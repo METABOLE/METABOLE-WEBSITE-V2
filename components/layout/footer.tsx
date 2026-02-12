@@ -148,7 +148,7 @@ const Footer = () => {
         >
           <FloatingHalo
             ref={floatingHaloRef}
-            className="-z-10 h-[100vw] w-[100vw] opacity-30"
+            className="-z-10 h-[100vw] w-screen opacity-30"
             from="#3449FF"
             to="#141418"
           />
@@ -215,7 +215,7 @@ const Footer = () => {
                   className="flex w-fit cursor-pointer items-center justify-end gap-2 text-right lg:col-span-2 lg:ml-auto"
                   onClick={() => smoothScrollTo(0, 1800)}
                 >
-                  <IconArrow />
+                  <IconArrow className="fill-white" />
                   <p>Back to top</p>
                 </button>
               </div>

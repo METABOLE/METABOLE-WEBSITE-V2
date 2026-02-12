@@ -76,24 +76,19 @@ export const ShapeCorner = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-export const IconArrow = forwardRef<SVGSVGElement, IconProps>(
-  ({ color = COLORS.WHITE, ...props }, ref) => (
-    <svg
-      ref={ref}
-      {...props}
-      fill="none"
-      height="17"
-      viewBox="0 0 16 17"
-      width="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M7 16C7 16.5523 7.44772 17 8 17C8.55228 17 9 16.5523 9 16L7 16ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 16L9 1L7 1L7 16L9 16Z"
-        fill={color}
-      />
-    </svg>
-  ),
-);
+export const IconArrow = forwardRef<SVGSVGElement, IconProps>(({ ...props }, ref) => (
+  <svg
+    {...props}
+    ref={ref}
+    fill="none"
+    height="11"
+    viewBox="0 0 11 11"
+    width="11"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M5.852 2.552L5.852 10.6667H4.51867L4.51867 2.552L0.942667 6.128L0 5.18533L5.18533 0L10.3707 5.18533L9.428 6.128L5.852 2.552Z" />
+  </svg>
+));
 
 export const IconClose = forwardRef<SVGSVGElement, IconProps>(({ color, ...props }, ref) => (
   <svg

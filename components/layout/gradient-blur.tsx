@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 
 type Orientation = 'top' | 'bottom' | 'left' | 'right';
@@ -15,7 +16,7 @@ const GradientBlur = ({
   orientation = 'bottom',
   gradientColor,
   blurHeight = '80px',
-  className = '',
+  className,
 }: GradientBlurProps) => {
   const blurLayers = [
     {
@@ -93,7 +94,7 @@ const GradientBlur = ({
   };
 
   return (
-    <div className={className} style={getBlurContainerPosition()}>
+    <div className={clsx(className)} style={getBlurContainerPosition()}>
       {blurLayers.map((layer, index) => (
         <div
           key={index}

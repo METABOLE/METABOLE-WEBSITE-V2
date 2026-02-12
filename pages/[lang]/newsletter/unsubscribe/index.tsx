@@ -6,7 +6,7 @@ import NewsletterLayout from '@/layout/newsletter';
 import { NextPageWithLayout } from '@/pages/_app';
 import { useLanguage } from '@/providers/language.provider';
 import { postUnsubscribeNewsletter } from '@/services/newsletter.service';
-import { COLORS, FORM_STATUS } from '@/types';
+import { FORM_STATUS } from '@/types';
 import { NewsletterUnsubscribeData } from '@/types/newsletter.type';
 import { isEmail } from '@/utils/validation.utils';
 import { useMutation } from '@tanstack/react-query';
@@ -133,7 +133,7 @@ const UnsubscribePage: NextPageWithLayout = () => {
           href={getInternalPath('/')}
           scroll={false}
         >
-          <IconArrow className="rotate-45" color={COLORS.WHITE} />
+          <IconArrow className="rotate-45 fill-white" />
           {isFrench ? "Retour à l'accueil" : 'Back to home'}
         </Link>
       </div>
