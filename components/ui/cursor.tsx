@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IconCross } from './icons';
+import { IconArrow, IconCross } from './icons';
 
 const Cursor = () => {
   const isTouchDevice = useTouchDevice();
@@ -203,7 +203,7 @@ const Cursor = () => {
             showNext ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         >
-          NEXT
+          <IconArrow className="fill-yellow h-7 w-7 rotate-90" />
         </p>
         <p
           className={clsx(
@@ -211,7 +211,7 @@ const Cursor = () => {
             showPrev ? 'scale-100' : 'pointer-events-none scale-0',
           )}
         >
-          PREV
+          <IconArrow className="fill-yellow h-7 w-7 -rotate-90" />
         </p>
         <IconCross
           className={clsx(
