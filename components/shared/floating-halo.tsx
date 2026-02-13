@@ -12,7 +12,7 @@ interface FloatingHaloProps {
 const FloatingHalo = forwardRef<HTMLDivElement, FloatingHaloProps>(
   ({ className, size = '100vw', from = COLORS.BLUE, to = COLORS.WHITE, ...props }, ref) => {
     return (
-      <div ref={ref} {...props} className={clsx('absolute', className)}>
+      <div ref={ref} {...props} className={clsx('pointer-events-none absolute', className)}>
         <div
           style={{
             background: `radial-gradient(circle, ${from} 0%, ${to} 70%)`,
