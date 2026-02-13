@@ -54,6 +54,7 @@ const eslintConfig = [
         HTMLHeadingElement: 'readonly',
         HTMLParagraphElement: 'readonly',
         HTMLListElement: 'readonly',
+        HTMLLIElement: 'readonly',
         HTMLTableElement: 'readonly',
         HTMLTableCellElement: 'readonly',
         HTMLTableHeaderCellElement: 'readonly',

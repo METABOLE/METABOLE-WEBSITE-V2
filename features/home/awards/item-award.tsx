@@ -1,16 +1,25 @@
 import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import { AwardCategory } from '@/types';
+import { stripInvisibleChars } from '@/utils/format.utils';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import ScrambleTextPlugin from 'gsap/ScrambleTextPlugin';
 import { useRef, useState } from 'react';
+
+gsap.registerPlugin(ScrambleTextPlugin);
 
 type ScaleOrigin = 'top' | 'bottom';
 
 const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) => {
-  const itemRef = useRef<React.ComponentRef<'li'>>(null);
+  const itemRef = useRef<HTMLLIElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const awardRef = useRef<HTMLSpanElement>(null);
   const [value, setValue] = useState(0);
   const [scaleOrigin, setScaleOrigin] = useState<ScaleOrigin>('top');
+
+  const nameClean = stripInvisibleChars(name);
+  const awardClean = stripInvisibleChars(award);
 
   const { contextSafe } = useGSAP();
 
@@ -22,8 +31,31 @@ const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) =
     setScaleOrigin(clientY < midY ? 'top' : 'bottom');
   };
 
+  const scrambleAnimation = contextSafe((nameText: string, awardText: string) => {
+    if (!nameRef.current || !awardRef.current) return;
+
+    gsap.killTweensOf([nameRef.current, awardRef.current]);
+    gsap.to(nameRef.current, {
+      duration: 0.8,
+      scrambleText: {
+        chars: nameText.toLowerCase(),
+        text: nameText,
+        tweenLength: false,
+      },
+    });
+    gsap.to(awardRef.current, {
+      duration: 0.8,
+      scrambleText: {
+        chars: awardText.toUpperCase(),
+        text: awardText,
+        tweenLength: false,
+      },
+    });
+  });
+
   const handlePointerEnter = (e: React.PointerEvent) => {
     updateScaleOrigin(e.clientY);
+    scrambleAnimation(nameClean, awardClean);
   };
 
   const handlePointerLeave = (e: React.PointerEvent) => {
@@ -59,11 +91,17 @@ const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) =
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >
-      <span className="p3-medium col-span-3 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100">
-        {name}
+      <span
+        ref={nameRef}
+        className="p3-medium col-span-3 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100"
+      >
+        {nameClean}
       </span>
-      <span className="p3-medium col-span-4 text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100">
-        {award}
+      <span
+        ref={awardRef}
+        className="p3-medium col-span-4 text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100"
+      >
+        {awardClean}
       </span>
       <SafeNumberFlow
         className="p3-medium -col-end-1 pr-5 text-right text-white"
