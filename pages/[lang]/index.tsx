@@ -1,3 +1,5 @@
+import BackgroundLines from '@/components/layout/background-lines';
+import FloatingHalo from '@/components/shared/floating-halo';
 import { getStaticPathsForLang } from '@/constants';
 import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
@@ -39,8 +41,23 @@ export default function Home({
       <Expertise expertise={expertiseData.data} />
       <Service services={servicesData.data} />
       <Compatibility compatibility={compatibilityData.data} />
-      <Testimonials testimonials={testimonialsData.data} />
-      <Awards awards={awardsData.data} />
+      <section className="sticky z-90 overflow-hidden bg-black">
+        <BackgroundLines isDark={true} />
+        <FloatingHalo
+          className="right-0 bottom-0 -z-10 translate-x-1/2 translate-y-1/2 opacity-30"
+          from="#1B17EE"
+          size="100vw"
+          to="#141418"
+        />
+        <FloatingHalo
+          className="top-0 left-0 -translate-x-1/2 -translate-y-1/2 opacity-30"
+          from="#1B17EE"
+          size="100vw"
+          to="#141418"
+        />
+        <Testimonials testimonials={testimonialsData.data} />
+        <Awards awards={awardsData.data} />
+      </section>
       <JoinUs />
     </>
   );

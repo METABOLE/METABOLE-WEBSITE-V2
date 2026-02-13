@@ -1,4 +1,3 @@
-import BackgroundLines from '@/components/layout/background-lines';
 import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import Title from '@/components/shared/title';
 import Typography from '@/components/ui/typography';
@@ -48,8 +47,7 @@ const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-y-default sticky z-90 bg-black text-white">
-      <BackgroundLines isDark={true} />
+    <section ref={sectionRef} className="py-y-default text-white">
       <div className="px-x-default">
         <div className="grid grid-cols-12 gap-5">
           <Title className="col-span-3" color="yellow">

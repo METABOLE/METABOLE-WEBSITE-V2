@@ -87,7 +87,7 @@ const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) =
   return (
     <li
       ref={itemRef}
-      className="group/item-award relative grid h-[66px] w-full grid-cols-12 items-center gap-5 bg-black"
+      className="group/item-award relative grid h-[66px] w-full grid-cols-12 items-center gap-5 backdrop-blur-2xl"
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >

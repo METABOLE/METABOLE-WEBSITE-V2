@@ -1,4 +1,3 @@
-import BackgroundLines from '@/components/layout/background-lines';
 import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import Title from '@/components/shared/title';
 import { IconArrow } from '@/components/ui/icons';
@@ -88,8 +87,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
   if (!testimonials.length) return null;
 
   return (
-    <section ref={sectionRef} className="pt-y-default sticky z-90 bg-black">
-      <BackgroundLines isDark={true} />
+    <section ref={sectionRef} className="pt-y-default">
       <div className="px-x-default grid grid-cols-12 items-center gap-5">
         <Title className="col-span-3" color="yellow">
           TESTIMONIALS

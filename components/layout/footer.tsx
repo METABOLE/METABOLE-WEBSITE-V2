@@ -148,8 +148,9 @@ const Footer = () => {
         >
           <FloatingHalo
             ref={floatingHaloRef}
-            className="-z-10 h-[100vw] w-screen opacity-30"
-            from="#3449FF"
+            className="-z-10 -translate-x-1/2 -translate-y-1/2 opacity-30"
+            from="#1B17EE"
+            size="100vw"
             to="#141418"
           />
           <div ref={sectionRef} className="pt-y-default h-full w-full" id="footer">
