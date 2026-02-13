@@ -7,6 +7,7 @@ import Baseline from './hero/baseline';
 import Footer from './hero/footer';
 import Scene from './hero/scene';
 import Manifesto from './hero/manifesto';
+import { useStickySectionTop } from '@/hooks/useStickySectionTop';
 
 const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -25,12 +26,14 @@ const Hero = () => {
     });
   };
 
+  const stickyTop = useStickySectionTop(sectionRef);
+
   useGSAP(() => {
     changeLayoutColor();
   }, []);
 
   return (
-    <section ref={sectionRef} className="sticky top-[-100vh]">
+    <section ref={sectionRef} className="sticky" style={{ top: `-${stickyTop}px` }}>
       <Scene />
       <BackgroundLines className="z-0" isDark={true} />
       <Baseline />

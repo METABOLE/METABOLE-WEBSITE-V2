@@ -87,34 +87,34 @@ const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) =
   return (
     <li
       ref={itemRef}
-      className="group/item-award relative grid h-[66px] w-full grid-cols-12 items-center gap-5 backdrop-blur-2xl"
+      className="group/item-award relative grid h-[66px] w-full grid-cols-12 items-center gap-5 bg-black"
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >
       <span
         ref={nameRef}
-        className="p3-medium col-span-10 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100 sm:col-end-5 lg:col-span-3"
+        className="p3-medium z-20 col-span-10 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100 sm:col-end-5 lg:col-span-3"
       >
         {nameClean}
       </span>
       <span
         ref={awardRef}
-        className="p3-medium col-span-6 hidden text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100 sm:block"
+        className="p3-medium z-20 col-span-6 hidden text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100 sm:block"
       >
         {awardClean}
       </span>
       <SafeNumberFlow
-        className="p3-medium col-span-2 -col-end-1 pr-5 text-right text-white"
+        className="p3-medium z-20 col-span-2 -col-end-1 pr-5 text-right text-white"
         prefix="x"
         value={value}
       />
       <div
         className={clsx(
-          'absolute top-0 right-0 h-full w-full scale-y-0 bg-[#E4E4FF]/5 transition-transform duration-300 group-hover/item-award:scale-y-100',
+          'absolute top-0 right-0 z-20 h-full w-full scale-y-0 bg-[#E4E4FF]/5 transition-transform duration-300 group-hover/item-award:scale-y-100',
           scaleOrigin === 'top' ? 'origin-top' : 'origin-bottom',
         )}
       />
-      <div className="absolute bottom-0 left-0 h-px w-full bg-[#E4E4FF]/10" />
+      <div className="absolute bottom-0 left-0 z-20 h-px w-full bg-[#E4E4FF]/10" />
     </li>
   );
 };

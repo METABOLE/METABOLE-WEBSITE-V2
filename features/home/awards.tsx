@@ -47,7 +47,7 @@ const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-y-default text-white">
+    <section ref={sectionRef} className="pt-y-default pb-y-double-default text-white">
       <div className="px-x-default">
         <div className="flex flex-col gap-5 md:grid md:grid-cols-12">
           <Title className="col-span-3" color="yellow">
