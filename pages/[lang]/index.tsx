@@ -4,6 +4,7 @@ import { getStaticPathsForLang } from '@/constants';
 import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
 import Expertise from '@/features/home/expertise';
+import FinalCta from '@/features/home/final-cta';
 import Hero from '@/features/home/hero';
 import JoinUs from '@/features/home/join-us';
 import Service from '@/features/home/service';
@@ -68,6 +69,7 @@ export default function Home({
         <Awards awards={awardsData.data} />
       </section>
       <JoinUs />
+      <FinalCta />
     </>
   );
 }

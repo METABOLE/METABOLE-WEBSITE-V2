@@ -21,7 +21,7 @@ const JoinUs = () => {
     right: useRef<HTMLDivElement>(null),
   };
 
-  const { isFrench } = useLanguage();
+  const { isFrench, getInternalPath } = useLanguage();
   const isBelowMD = useMatchMedia(BREAKPOINTS.MD);
   const { contextSafe } = useGSAP();
 
@@ -56,7 +56,7 @@ const JoinUs = () => {
   }, [isBelowMD]);
 
   return (
-    <section ref={sectionRef} className="py-y-double-default sticky top-0 z-90 bg-white">
+    <section ref={sectionRef} className="pt-y-double-default sticky z-90 bg-white">
       <BackgroundLines />
       <div className="px-x-default">
         <Title color="blue">{isFrench ? 'NOUS REJOINDRE' : 'JOIN US'}</Title>
@@ -109,7 +109,7 @@ const JoinUs = () => {
                 ? 'Vous êtes à la fois créatif, ambitieux, stratégique et sympa. Venez, on s’écrit et on voit ce qu’on peut faire ensemble.'
                 : 'You are both creative, ambitious, strategic and nice. Come, we write and see what we can do together.'}
             </Typography>
-            <Button color="secondary" href="/contact">
+            <Button color="secondary" href={getInternalPath('/contact')}>
               {isFrench ? 'Contactez-nous' : 'Contact Us'}
             </Button>
           </div>

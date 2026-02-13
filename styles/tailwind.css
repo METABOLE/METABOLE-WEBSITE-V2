@@ -95,6 +95,7 @@
   /* INSET */
   --inset-x-default: var(--x-default);
   --inset-y-default: var(--y-default);
+  --inset-y-double-default: var(--y-double-default);
 
   /* BREAKPOINTS */
   --breakpoint-xs: 380px;

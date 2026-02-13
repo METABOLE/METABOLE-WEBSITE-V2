@@ -206,7 +206,23 @@ const eslintConfig = [
       // React Three Fiber / Three.js use props like object, args, intensity, position, distance
       'react/no-unknown-property': [
         'error',
-        { ignore: ['object', 'args', 'intensity', 'position', 'distance', 'color'] },
+        {
+          ignore: [
+            'object',
+            'args',
+            'intensity',
+            'position',
+            'distance',
+            'color',
+            'geometry',
+            'matrix',
+            'matrixAutoUpdate',
+            'matrixWorld',
+            'matrixWorldAutoUpdate',
+            'matrixWorldNeedsUpdate',
+            'matrixWorldNeedsUpdate',
+          ],
+        },
       ],
       'prefer-destructuring': 'error',
     },

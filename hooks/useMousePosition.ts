@@ -10,6 +10,7 @@ export const useMousePosition = (containerRef?: RefObject<HTMLElement | null>) =
 
   useEffect(() => {
     let cachedRect: DOMRect | null = null;
+    setMousePosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
 
     const updateCachedRect = () => {
       if (containerRef?.current) {
