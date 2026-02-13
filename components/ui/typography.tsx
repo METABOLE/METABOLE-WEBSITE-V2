@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-import { useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 
 const Typography = ({
   children,
@@ -12,7 +12,7 @@ const Typography = ({
   markers = false,
   scrub = false,
 }: {
-  children: string;
+  children: ReactNode;
   className?: string;
   variant?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   start?: string;
