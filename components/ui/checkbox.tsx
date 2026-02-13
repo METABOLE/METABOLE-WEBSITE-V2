@@ -46,7 +46,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           <span
             className={clsx(
               'ease-power4-in-out ml-2 cursor-pointer transition-transform duration-200 group-hover/checkbox:translate-x-2',
-              isDisclaimer ? 'text-black-70 disclaimer' : 'p2',
+              isDisclaimer ? 'disclaimer text-black/70' : 'p2',
             )}
           >
             {label}

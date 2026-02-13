@@ -99,7 +99,7 @@ const ItemService = ({ title, description, servicesList, index }: Service & { in
         <p className="p3-medium uppercase">{title[isFrench ? 'fr' : 'en']}</p>
       </div>
       <p className="p3-regular col-span-4 hidden max-w-xs sm:block">
-        {description?.[isFrench ? 'fr' : 'en'] ?? ''}
+        {description?.[isFrench ? 'fr' : 'en']}
       </p>
       <div className="col-span-12 lg:col-span-5 lg:-translate-x-5">
         {listItems.map((label, i) => (

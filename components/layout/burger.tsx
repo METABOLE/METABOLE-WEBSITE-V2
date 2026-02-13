@@ -243,7 +243,7 @@ const Burger = () => {
                   scroll={false}
                   className={clsx(
                     'h2 link inline-block',
-                    pathname === getInternalPath(link.href) ? 'text-blue' : 'text-black-70',
+                    pathname === getInternalPath(link.href) ? 'text-blue' : 'text-black/70',
                   )}
                   onClick={closeMenu}
                 >
@@ -260,7 +260,7 @@ const Burger = () => {
             {SOCIALS.map((link, index) => (
               <li key={link.href + index}>
                 <Link
-                  className="p3 text-black-30 inline-block transition-[translate,color] hover:-translate-x-2 hover:text-black"
+                  className="p3 inline-block text-black/30 transition-[translate,color] hover:-translate-x-2 hover:text-black"
                   href={link.href}
                   scroll={false}
                   target="_blank"

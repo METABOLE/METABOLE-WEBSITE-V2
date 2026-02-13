@@ -93,24 +93,24 @@ const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) =
     >
       <span
         ref={nameRef}
-        className="p3-medium z-20 col-span-10 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100 sm:col-end-5 lg:col-span-3"
+        className="p3-medium z-20 col-span-10 pl-5 text-white/30 transition-colors duration-300 group-hover/item-award:text-black sm:col-end-5 lg:col-span-3"
       >
         {nameClean}
       </span>
       <span
         ref={awardRef}
-        className="p3-medium z-20 col-span-6 hidden text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100 sm:block"
+        className="p3-medium z-20 col-span-6 hidden text-white/30 uppercase transition-colors duration-300 group-hover/item-award:text-black sm:block"
       >
         {awardClean}
       </span>
       <SafeNumberFlow
-        className="p3-medium z-20 col-span-2 -col-end-1 pr-5 text-right text-white"
+        className="p3-medium z-20 col-span-2 -col-end-1 pr-5 text-right text-white transition-colors duration-300 group-hover/item-award:text-black"
         prefix="x"
         value={value}
       />
       <div
         className={clsx(
-          'absolute top-0 right-0 z-20 h-full w-full scale-y-0 bg-[#E4E4FF]/5 transition-transform duration-300 group-hover/item-award:scale-y-100',
+          'bg-yellow absolute top-0 right-0 z-10 h-full w-full scale-y-0 transition-transform duration-300 group-hover/item-award:scale-y-100',
           scaleOrigin === 'top' ? 'origin-top' : 'origin-bottom',
         )}
       />

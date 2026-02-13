@@ -21,7 +21,7 @@ const CardCompatibility = ({ name, image }: Compatibility) => {
             width={1080}
           />
         </div>
-        <div className="ease-power4-in-out absolute inset-0 scale-0 bg-black/5 transition-transform duration-800 group-hover/card-compatibility:scale-100" />
+        <div className="ease-power4-in-out absolute inset-0 scale-0 bg-black/4 transition-transform duration-800 group-hover/card-compatibility:scale-100" />
         <div className="absolute translate-y-14 overflow-hidden">
           <p className="p3-medium ease-power4-in-out translate-y-5 transition-transform duration-800 group-hover/card-compatibility:translate-y-0">
             {name}

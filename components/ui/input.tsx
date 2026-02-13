@@ -188,8 +188,8 @@ const Input = forwardRef<AnimatedInputRef, InputProps>(
               value={value}
               className={clsx(
                 'p3 apparence-none w-full rounded-t-md rounded-b-none bg-transparent py-2 focus:pl-2 focus:outline-none',
-                isDark ? 'placeholder-black-30 !text-black' : 'placeholder-white-30 !text-white',
-                'h-16 resize-none !transition-[padding,height]',
+                isDark ? 'text-black! placeholder-black/30' : 'text-white! placeholder-white/30',
+                'h-16 resize-none transition-[padding,height]!',
               )}
               data-lenis-prevent
               onChange={(e) => props.onChange?.(e)}
@@ -204,8 +204,8 @@ const Input = forwardRef<AnimatedInputRef, InputProps>(
               value={value}
               className={clsx(
                 'p3 apparence-none w-full rounded-t-md rounded-b-none bg-transparent py-2 focus:pl-2 focus:outline-none',
-                isDark ? 'placeholder-black-30 !text-black' : 'placeholder-white-30 !text-white',
-                '!transition-[padding]',
+                isDark ? 'text-black! placeholder-black/30' : 'text-white! placeholder-white/30',
+                'transition-[padding]!',
               )}
               {...props}
             >
@@ -222,8 +222,8 @@ const Input = forwardRef<AnimatedInputRef, InputProps>(
               value={value}
               className={clsx(
                 'p3 apparence-none w-full rounded-t-md rounded-b-none bg-transparent py-2 focus:pl-2 focus:outline-none',
-                isDark ? 'placeholder-black-30 !text-black' : 'placeholder-white-30 !text-white',
-                '!transition-[padding]',
+                isDark ? 'text-black! placeholder-black/30' : 'text-white! placeholder-white/30',
+                'transition-[padding]!',
               )}
               {...props}
             />
@@ -275,13 +275,13 @@ const Input = forwardRef<AnimatedInputRef, InputProps>(
         <div className="absolute -bottom-5 left-0 h-5 w-full overflow-hidden">
           <p
             ref={errorMessageRef}
-            className={clsx('absolute -translate-y-4 !text-xs text-red-500 opacity-0')}
+            className={clsx('absolute -translate-y-4 text-xs! text-red-500 opacity-0')}
           >
             {error}
           </p>
           <p
             ref={successMessageRef}
-            className={clsx('absolute -translate-y-4 !text-xs text-green-500 opacity-0')}
+            className={clsx('absolute -translate-y-4 text-xs! text-green-500 opacity-0')}
           >
             {success}
           </p>

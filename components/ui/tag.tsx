@@ -131,9 +131,9 @@ const Tag = forwardRef<AnimatedTagRef, TagProps>(
         ref={wrapperTagRef}
         className={clsx(
           'label inline-block w-fit origin-left overflow-hidden rounded-full backdrop-blur-xl transition-colors',
-          type === TAG_TYPE.WHTIE && 'bg-white-30 text-black hover:bg-white',
+          type === TAG_TYPE.WHTIE && 'bg-white/30 text-black hover:bg-white',
           type === TAG_TYPE.STROKE_WHTIE &&
-            'border-white-30 hover:bg-white-30 border-1 bg-transparent stroke-2 text-white hover:border-transparent',
+            'border border-white/30 bg-transparent stroke-2 text-white hover:border-transparent hover:bg-white/30',
           className,
         )}
         {...props}

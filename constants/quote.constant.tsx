@@ -13,7 +13,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Combien de pages ?</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             Nommez les pages que vous souhaitez (ex : Accueil, Contact, À propos…).
           </span>
         </p>
@@ -22,7 +22,7 @@ export const STEPS = [
         <p>
           <span className="text-black">How many pages?</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             Name the pages you want (e.g. Home, Contact, About…).
           </span>
         </p>
@@ -51,7 +51,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Quel niveau d’animation ?</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             • Légères : transitions simples.
             <br />
             • Immersives : effets de scroll.
@@ -63,7 +63,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Animation level?</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             • Light: simple transitions.
             <br />
             • Immersive: scroll effects.
@@ -95,7 +95,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Fonctionnalités globales</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             Multilingue, CMS, SEO… sélectionnez ce qui vous est utile.
           </span>
         </p>
@@ -104,7 +104,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Global features</span>
           <br />
-          <span className="text-black-30">Multilingual, CMS, SEO… pick what matters to you.</span>
+          <span className="text-black/30">Multilingual, CMS, SEO… pick what matters to you.</span>
         </p>
       ),
     },
@@ -131,7 +131,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Votre brief est prêt</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             Merci. Nous allons étudier votre demande et vous recontacter sous 48h avec une
             proposition sur-mesure.
           </span>
@@ -141,7 +141,7 @@ export const STEPS = [
         <p>
           <span className="text-black">Your brief is ready</span>
           <br />
-          <span className="text-black-30">
+          <span className="text-black/30">
             Thank you. We will review your request and get back to you within 48 hours with a
             tailored proposal.
           </span>

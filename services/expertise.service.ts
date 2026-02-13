@@ -5,6 +5,7 @@ import { fetchSanityData } from './sanity.service';
 export const fetchExpertise = async (context: { draftMode?: boolean } = {}) => {
   const query = groq`
     *[_type == "expertise"] | order(orderRank) {
+      orderRank,
       name,
       image,
       slug,

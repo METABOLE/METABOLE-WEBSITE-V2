@@ -172,7 +172,7 @@ const Footer = () => {
                     {LINKS.map((link, index) => (
                       <li key={link.href + index}>
                         <Link
-                          className="text-white-30 inline-block cursor-pointer transition-[translate,color] hover:translate-x-2 hover:text-white"
+                          className="inline-block cursor-pointer text-white/30 transition-[translate,color] hover:translate-x-2 hover:text-white"
                           href={getInternalPath(link.href)}
                           scroll={false}
                         >
@@ -188,7 +188,7 @@ const Footer = () => {
                     {SOCIALS.map((link, index) => (
                       <li key={link.href + index}>
                         <Link
-                          className="text-white-30 inline-block cursor-pointer transition-[translate,color] hover:translate-x-2 hover:text-white"
+                          className="inline-block cursor-pointer text-white/30 transition-[translate,color] hover:translate-x-2 hover:text-white"
                           href={link.href}
                           scroll={false}
                           target="_blank"

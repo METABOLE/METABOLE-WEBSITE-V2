@@ -119,7 +119,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
                 {LINKS.map((link) => (
                   <li key={link.href} className="translate-y-10 scale-y-0">
                     <AnimatedLink
-                      className="h2 link text-black-70 hover:text-blue cursor-pointer"
+                      className="h2 link hover:text-blue cursor-pointer text-black/70"
                       href={getInternalPath(link.href)}
                       scroll={false}
                       onClick={closeMenu}
@@ -136,7 +136,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
                   <li className="overflow-hidden">
                     <Link
                       ref={titleProjectsRef}
-                      className="h3 text-black-70 inline-block cursor-pointer"
+                      className="h3 inline-block cursor-pointer text-black/70"
                       href={getInternalPath('/projects')}
                       scroll={false}
                     >
@@ -189,7 +189,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
                   {SOCIALS.map((link, index) => (
                     <li key={link.href + index}>
                       <Link
-                        className="p3 text-black-30 inline-block cursor-pointer transition-[translate,color] hover:-translate-x-2 hover:text-black"
+                        className="p3 inline-block cursor-pointer text-black/30 transition-[translate,color] hover:-translate-x-2 hover:text-black"
                         href={link.href}
                         scroll={false}
                         target="_blank"

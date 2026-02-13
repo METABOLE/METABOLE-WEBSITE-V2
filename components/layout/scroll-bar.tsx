@@ -29,7 +29,7 @@ export default function ScrollBar() {
   }, []);
 
   return (
-    <div className="bg-white-30 right-x-half-default pointer-events-none fixed top-1/2 z-[500] h-48 w-px -translate-y-1/2 mix-blend-difference">
+    <div className="right-x-half-default pointer-events-none fixed top-1/2 z-500 h-48 w-px -translate-y-1/2 bg-white/30 mix-blend-difference">
       <div ref={progressBarRef} className="absolute h-full w-px bg-white">
         {/* <SafeNumberFlow
           className="label absolute right-2 -bottom-[19px] min-w-[3ch] text-white tabular-nums"

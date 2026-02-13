@@ -10,7 +10,7 @@ const Time = ({ isDark = false, className }: { isDark?: boolean; className?: str
       <SafeNumberFlow format={numberFormat} value={Number(hours)} />
       :
       <SafeNumberFlow format={numberFormat} value={Number(minutes)} />
-      <span className={clsx('uppercase', isDark ? 'text-white-30' : 'text-black-30')}>
+      <span className={clsx('uppercase', isDark ? 'text-white/30' : 'text-black/30')}>
         {period}
       </span>
     </p>
