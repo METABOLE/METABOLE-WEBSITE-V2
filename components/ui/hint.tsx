@@ -92,14 +92,14 @@ const Hint = ({
     <div
       ref={containerHintRef}
       className={clsx(
-        'pointer-events-none fixed top-0 left-0 z-[900] h-fit',
+        'pointer-events-none fixed top-0 left-0 z-900 h-fit',
         isLeft ? '-translate-x-full' : 'translate-x-full',
       )}
     >
       <div
         ref={wrapperHintRef}
         className={clsx(
-          'bg-blur-glass flex w-[250px] shrink scale-0 overflow-hidden rounded-3xl p-5 backdrop-blur-xl',
+          'bg-blur-glass flex w-[250px] shrink scale-0 overflow-hidden rounded-sm p-4 backdrop-blur-xl',
           isLeft
             ? 'origin-bottom-right -translate-x-full rounded-br-none'
             : 'origin-bottom-left rounded-bl-none',
