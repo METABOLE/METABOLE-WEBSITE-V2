@@ -1,120 +1,138 @@
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { usePerformance } from '@/providers/performance.provider';
-import { motion, TargetAndTransition } from 'framer-motion';
-import { ReactNode } from 'react';
+import { BREAKPOINTS } from '@/types';
+import { motion, Variants } from 'framer-motion';
+import { ReactNode, useEffect, useState } from 'react';
 
-type CustomVariants = {
-  initial?: TargetAndTransition;
-  enter?: TargetAndTransition;
-  exit?: TargetAndTransition;
+const ease = [0.72, 0, 0.3, 0.99] as const;
+
+const expandVariants: Variants = {
+  initial: {
+    scaleY: 1,
+    transformOrigin: 'top',
+  },
+  enter: (i: number) => ({
+    scaleY: 0,
+    transition: {
+      duration: 1,
+      delay: 0.04 * i,
+      ease,
+      transformOrigin: 'top',
+    },
+    transitionEnd: {
+      scaleY: 0,
+      transformOrigin: 'bottom',
+    },
+  }),
+  exit: (i: number) => ({
+    scaleY: 1,
+    transition: {
+      duration: 1,
+      delay: 0.04 * i,
+      ease,
+    },
+  }),
 };
 
 export default function PageTransition({ children }: { children: ReactNode }) {
   const { isLoading } = usePerformance();
+  const isMobile = useMatchMedia(BREAKPOINTS.SM);
+  const isTablet = useMatchMedia(BREAKPOINTS.MD);
+  const [columnsNumber, setColumnsNumber] = useState(12);
 
-  const leftBlockVariants = {
-    initial: {
-      scaleX: 1,
-    },
-    enter: {
-      scaleX: 0,
-      transition: {
-        duration: 0,
-      },
-    },
-    exit: {
-      scaleX: 1,
-      transition: {
-        duration: 1,
-        ease: [0.72, 0, 0.3, 0.99] as const,
-      },
-    },
+  const getColumnsNumber = () => {
+    // if (isMobile) return 4;
+    // if (isTablet) return 6;
+    return 12;
   };
 
-  const rightBlockVariants = {
-    initial: {
-      scaleX: 1,
-    },
-    enter: {
-      scaleX: 0,
-      transition: {
-        duration: 0,
-      },
-    },
-    exit: {
-      scaleX: 1,
-      transition: {
-        duration: 1,
-        ease: [0.72, 0, 0.3, 0.99] as const,
-      },
-    },
-  };
-
-  const topBlockVariants = {
-    initial: {
-      scaleY: 1,
-    },
-    enter: {
-      scaleY: 0,
-      transition: {
-        duration: 1,
-        ease: [0.72, 0, 0.3, 0.99] as const,
-      },
-    },
-    exit: {
-      scaleY: 0,
-      transition: {
-        duration: 0,
-      },
-    },
-  };
-
-  const bottomBlockVariants = {
-    initial: {
-      scaleY: 1,
-    },
-    enter: {
-      scaleY: 0,
-      transition: {
-        duration: 1,
-        ease: [0.72, 0, 0.3, 0.99] as const,
-      },
-    },
-    exit: {
-      scaleY: 0,
-      transition: {
-        duration: 0,
-      },
-    },
-  };
-
-  const anim = (variants: CustomVariants) => {
-    return {
-      initial: 'initial',
-      animate: isLoading ? 'initial' : 'enter',
-      exit: 'exit',
-      variants,
-    };
-  };
+  useEffect(() => {
+    setColumnsNumber(getColumnsNumber());
+  }, [isMobile, isTablet]);
 
   return (
     <>
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[900] h-full w-1/2 origin-left bg-black"
-        {...anim(leftBlockVariants)}
-      />
-      <motion.div
-        className="pointer-events-none fixed top-0 right-0 z-[900] h-full w-1/2 origin-right bg-black"
-        {...anim(rightBlockVariants)}
-      />
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[900] h-1/2 w-full origin-top bg-black"
-        {...anim(topBlockVariants)}
-      />
-      <motion.div
-        className="pointer-events-none fixed bottom-0 left-0 z-[900] h-1/2 w-full origin-bottom bg-black"
-        {...anim(bottomBlockVariants)}
-      />
-
+      <div
+        className="px-x-default pointer-events-none fixed inset-0 z-910 grid h-screen w-screen gap-5"
+        style={{
+          gridTemplateColumns: `repeat(${columnsNumber}, 1fr)`,
+        }}
+      >
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="w-x-default absolute left-0 col-span-1 h-full border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={1}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-1 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={2}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-2 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={3}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-2 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={4}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-2 h-full w-full border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={5}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-2 h-full w-[calc(100%+20px)] -translate-x-5 border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={6}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-2 h-full w-[calc(100%+20px)] -translate-x-5 border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={7}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="relative col-span-1 h-full w-[calc(100%+20px)] -translate-x-5 border-l border-l-[#E4E4FF]/10 bg-black"
+          custom={8}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        <motion.div
+          animate={isLoading ? 'initial' : 'enter'}
+          className="w-x-default absolute right-0 col-span-1 h-full bg-black"
+          custom={9}
+          exit="exit"
+          initial="initial"
+          variants={expandVariants}
+        />
+        {/* {[...Array(columnsNumber)].map((_, i) => (
+        ))} */}
+      </div>
       {children}
     </>
   );

@@ -2,6 +2,7 @@ import BackgroundLines from '@/components/layout/background-lines';
 import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import Title from '@/components/shared/title';
 import Typography from '@/components/ui/typography';
+import { useLanguage } from '@/providers/language.provider';
 import { AwardsData } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -9,6 +10,7 @@ import { useRef, useState } from 'react';
 import CategoryAward from './awards/category-award';
 
 const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
+  const { isFrench } = useLanguage();
   const list = Array.isArray(awards) ? awards : [];
   if (!list.length) return null;
 
@@ -59,10 +61,14 @@ const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
             sapien.
           </Typography>
           <div className="col-span-2 -col-end-1 flex justify-end">
-            <p className="font-safiro-regular pt-5 text-right text-[12px]! text-white">
-              Total awards :
-            </p>
-            <SafeNumberFlow className="font-safiro-regular p1 text-yellow" value={value} />
+            <SafeNumberFlow
+              className="font-safiro-regular p1 text-yellow total-awards-number-flow"
+              format={{ minimumIntegerDigits: totalAwards.toString().length }}
+              locales={isFrench ? 'fr-FR' : 'en-US'}
+              prefix="Total awards : "
+              trend={-1}
+              value={value}
+            />
           </div>
         </div>
         <div className="pt-y-default relative px-px">
