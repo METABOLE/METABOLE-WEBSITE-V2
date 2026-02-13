@@ -7,6 +7,7 @@ import Expertise from '@/features/home/expertise';
 import FinalCta from '@/features/home/final-cta';
 import Hero from '@/features/home/hero';
 import JoinUs from '@/features/home/join-us';
+import Processus from '@/features/home/processus';
 import Service from '@/features/home/service';
 import Testimonials from '@/features/home/testimonials';
 import { useSanityData } from '@/hooks/useSanityData';
@@ -54,17 +55,18 @@ export default function Home({
       >
         <BackgroundLines isDark={true} />
         <FloatingHalo
-          className="right-0 bottom-0 z-10 translate-x-1/2 translate-y-1/2 opacity-30"
-          from="#1B17EE"
-          size="clamp(800px, 150vw, 2000px)"
-          to="#141418"
-        />
-        <FloatingHalo
           className="top-0 left-0 -z-10 -translate-x-1/2 -translate-y-1/2 opacity-30"
           from="#1B17EE"
           size="clamp(800px, 150vw, 2000px)"
           to="#141418"
         />
+        <FloatingHalo
+          className="right-0 bottom-0 z-10 translate-x-1/2 translate-y-1/2 opacity-30"
+          from="#1B17EE"
+          size="clamp(800px, 150vw, 2000px)"
+          to="#141418"
+        />
+        <Processus />
         <Testimonials testimonials={testimonialsData.data} />
         <Awards awards={awardsData.data} />
       </section>

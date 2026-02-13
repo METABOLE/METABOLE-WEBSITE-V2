@@ -87,7 +87,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
   if (!testimonials.length) return null;
 
   return (
-    <section ref={sectionRef} className="pt-y-default">
+    <section ref={sectionRef} className="pt-y-default" id="testimonials">
       <div className="px-x-default grid grid-cols-12 items-center gap-5">
         <Title className="col-span-3" color="yellow">
           TESTIMONIALS
