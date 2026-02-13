@@ -93,18 +93,18 @@ const ItemAward = ({ award, name, number }: AwardCategory & { award: string }) =
     >
       <span
         ref={nameRef}
-        className="p3-medium col-span-3 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100"
+        className="p3-medium col-span-10 pl-5 text-white opacity-30 duration-300 group-hover/item-award:opacity-100 sm:col-end-5 lg:col-span-3"
       >
         {nameClean}
       </span>
       <span
         ref={awardRef}
-        className="p3-medium col-span-4 text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100"
+        className="p3-medium col-span-6 hidden text-white uppercase opacity-30 duration-300 group-hover/item-award:opacity-100 sm:block"
       >
         {awardClean}
       </span>
       <SafeNumberFlow
-        className="p3-medium -col-end-1 pr-5 text-right text-white"
+        className="p3-medium col-span-2 -col-end-1 pr-5 text-right text-white"
         prefix="x"
         value={value}
       />

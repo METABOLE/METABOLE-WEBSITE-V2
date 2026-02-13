@@ -153,7 +153,7 @@ const ItemTestimonial = ({
         }}
       >
         <div className="overflow-hidden">
-          <p ref={testimonialRefs.testimony} className="h2 clamp-4">
+          <p ref={testimonialRefs.testimony} className="h2 testimonials-item">
             {testimony[isFrench ? 'fr' : 'en']}
           </p>
         </div>

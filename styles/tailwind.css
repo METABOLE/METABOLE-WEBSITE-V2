@@ -133,3 +133,8 @@
 .origin-right {
   @apply origin-right;
 }
+
+/* ASPECT RATIOS */
+.aspect-square {
+  @apply aspect-square;
+}

@@ -92,7 +92,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
         <Title className="col-span-3" color="yellow">
           TESTIMONIALS
         </Title>
-        <div className="p3-regular col-span-2 col-start-8 flex items-center justify-center gap-4 text-white">
+        <div className="p3-regular col-span-2 col-start-8 hidden items-center justify-center gap-4 text-white md:flex">
           <button aria-label="Témoignage précédent" type="button" onClick={handlePrevious}>
             <IconArrow className="-rotate-90 cursor-pointer fill-white opacity-70 transition-[scale,opacity] hover:scale-120 hover:opacity-100" />
           </button>
@@ -120,7 +120,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
       </div>
 
       <div
-        className="px-x-default py-y-double-default"
+        className="px-x-default py-y-default md:py-y-double-default"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -141,6 +141,23 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
             <ItemTestimonial key={testimonial._id} isActive={i === currentIndex} {...testimonial} />
           ))}
         </div>
+      </div>
+      <div className="p3-regular col-span-2 col-start-8 flex items-center justify-center gap-4 text-white md:hidden">
+        <button aria-label="Témoignage précédent" type="button" onClick={handlePrevious}>
+          <IconArrow className="-rotate-90 cursor-pointer fill-white opacity-70 transition-[scale,opacity] hover:scale-120 hover:opacity-100" />
+        </button>
+        <SafeNumberFlow
+          format={{ minimumIntegerDigits: 3, useGrouping: false }}
+          value={currentIndex + 1}
+        />
+        <span>/</span>
+        <SafeNumberFlow
+          format={{ minimumIntegerDigits: 3, useGrouping: false }}
+          value={testimonials.length}
+        />
+        <button aria-label="Témoignage suivant" type="button" onClick={handleNext}>
+          <IconArrow className="rotate-90 cursor-pointer fill-white opacity-70 transition-[scale,opacity] hover:scale-120 hover:opacity-100" />
+        </button>
       </div>
     </section>
   );

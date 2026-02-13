@@ -109,6 +109,18 @@ p,
   text-overflow: ellipsis;
 }
 
+.testimonials-item {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 768px) {
+    -webkit-line-clamp: 7;
+  }
+}
+
 .total-awards-number-flow::part(prefix) {
   font-size: 12px;
   color: var(--color-white);

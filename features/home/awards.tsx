@@ -49,7 +49,7 @@ const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
   return (
     <section ref={sectionRef} className="py-y-default text-white">
       <div className="px-x-default">
-        <div className="grid grid-cols-12 gap-5">
+        <div className="flex flex-col gap-5 md:grid md:grid-cols-12">
           <Title className="col-span-3" color="yellow">
             AWARDS
           </Title>
@@ -58,9 +58,9 @@ const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
             gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus
             sapien.
           </Typography>
-          <div className="col-span-2 -col-end-1 flex justify-end">
+          <div className="flex w-full justify-end md:col-span-2 md:-col-end-1">
             <SafeNumberFlow
-              className="font-safiro-regular p1 text-yellow total-awards-number-flow"
+              className="font-safiro-regular p1 text-yellow total-awards-number-flow text-right"
               format={{ minimumIntegerDigits: totalAwards.toString().length }}
               locales={isFrench ? 'fr-FR' : 'en-US'}
               prefix="Total awards : "
@@ -69,7 +69,7 @@ const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
             />
           </div>
         </div>
-        <div className="pt-y-default relative px-px">
+        <div className="md:pt-y-default relative px-px">
           {list.map((award) => (
             <CategoryAward key={award.name} {...award} />
           ))}

@@ -1,21 +1,71 @@
 import BackgroundLines from '@/components/layout/background-lines';
+import ParallaxImage from '@/components/shared/parallax-image';
 import Title from '@/components/shared/title';
 import Button from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useLanguage } from '@/providers/language.provider';
+import { BREAKPOINTS } from '@/types';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const JoinUs = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const itemsRefs = {
+    left: useRef<HTMLDivElement>(null),
+    right: useRef<HTMLDivElement>(null),
+  };
+
   const { isFrench } = useLanguage();
+  const isBelowMD = useMatchMedia(BREAKPOINTS.MD);
+  const { contextSafe } = useGSAP();
+
+  const scrubAnimation = contextSafe(() => {
+    if (isBelowMD || !sectionRef.current || !itemsRefs.left.current || !itemsRefs.right.current)
+      return;
+    gsap
+      .timeline({
+        scrollTrigger: {
+          end: 'bottom top',
+          scrub: true,
+          start: 'top bottom',
+          trigger: sectionRef.current,
+        },
+        defaults: { ease: 'none' },
+      })
+      .to(itemsRefs.left.current, { y: 200 })
+      .to(itemsRefs.right.current, { y: 400 }, '<');
+  });
+
+  useGSAP(() => {
+    scrubAnimation();
+  }, [isBelowMD]);
+
+  useEffect(() => {
+    if (isBelowMD && itemsRefs.left.current && itemsRefs.right.current) {
+      gsap.set([itemsRefs.left.current, itemsRefs.right.current], { y: 0 });
+      ScrollTrigger.getAll().forEach((t) => {
+        if (t.trigger === sectionRef.current) t.kill();
+      });
+    }
+  }, [isBelowMD]);
 
   return (
-    <section className="py-y-double-default sticky z-90 bg-white">
+    <section ref={sectionRef} className="py-y-double-default sticky z-90 bg-white">
       <BackgroundLines />
       <div className="px-x-default">
         <Title color="blue">{isFrench ? 'NOUS REJOINDRE' : 'JOIN US'}</Title>
       </div>
-      <div className="px-x-default px-x grid grid-cols-[1fr_0.31fr_1fr] gap-5">
-        <div className="pt-y-default gap-y-default flex flex-col">
+      <div className="px-x-default px-x grid pb-[400px] md:grid-cols-[50px_5fr_2fr_5fr_50px]">
+        <div
+          ref={itemsRefs.left}
+          className="pt-y-default pb-y-default gap-y-default col-span-2 flex flex-col md:pb-0"
+        >
           <Typography className="h2" variant="h3">
             {isFrench ? (
               <>
@@ -29,20 +79,30 @@ const JoinUs = () => {
               </>
             )}
           </Typography>
-          <Image
-            alt="Join Us"
-            height={1000}
-            src="/images/home/join-us/join-us-1.png"
-            width={1000}
-          />
+          <ParallaxImage aspectRatio="aspect-square" parallaxOffset={-200}>
+            <Image
+              alt="Join Us"
+              className="h-full w-full object-cover"
+              height={1000}
+              src="/images/home/join-us/join-us-1.jpg"
+              width={1000}
+            />
+          </ParallaxImage>
         </div>
-        <div className="gap-y-default -col-end-1 flex flex-col">
-          <Image
-            alt="Join Us"
-            height={1000}
-            src="/images/home/join-us/join-us-2.png"
-            width={1000}
-          />
+        <div ref={itemsRefs.right} className="gap-y-default col-span-2 -col-end-1 flex flex-col">
+          <ParallaxImage
+            aspectRatio="aspect-square"
+            className="hidden md:block"
+            parallaxOffset={-200}
+          >
+            <Image
+              alt="Join Us"
+              className="h-full w-full object-cover"
+              height={1000}
+              src="/images/home/join-us/join-us-2.jpg"
+              width={1000}
+            />
+          </ParallaxImage>
           <div className="space-y-10">
             <Typography className="p3-regular" variant="h4">
               {isFrench
