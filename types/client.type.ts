@@ -1,4 +1,4 @@
-import { Language } from './language.type';
+import { BilingualString } from './language.type';
 
 export type ClientType = {
   id: number;
@@ -6,6 +6,6 @@ export type ClientType = {
   image: string;
   link?: {
     url: string;
-    text: Language;
+    text: BilingualString;
   };
 };

@@ -1,5 +1,7 @@
+import type { BilingualString } from './language.type';
+
 export type Service = {
-  title: string;
-  description?: string | null;
-  servicesList: string[];
+  title: BilingualString;
+  description?: BilingualString | null;
+  servicesList: BilingualString[];
 };

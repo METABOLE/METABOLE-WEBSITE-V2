@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Language } from './language.type';
+import { BilingualString } from './language.type';
 
 export enum QUOTE_STEPS {
   PAGES = 'PAGES',
@@ -15,7 +15,7 @@ export enum QUOTE_ANIMATIONS {
 }
 
 export type Step = {
-  title: Language;
+  title: BilingualString;
   description: { en: ReactNode; fr: ReactNode };
   type: QUOTE_STEPS;
   isActive: boolean;
@@ -24,19 +24,19 @@ export type Step = {
 
 export type Page = {
   id: string;
-  title: Language;
+  title: BilingualString;
   selected: boolean;
 };
 
 export type Animation = {
   type: QUOTE_ANIMATIONS;
-  title: Language;
+  title: BilingualString;
 };
 
 export type Option = {
   id: string;
-  title: Language;
-  description: Language;
+  title: BilingualString;
+  description: BilingualString;
   selected: boolean;
 };
 

@@ -14,7 +14,7 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = 'Metabole - Creative Studio | Metabole STUDIO',
+  title = 'METABOLE - Creative Studio | METABOLE STUDIO',
   isFrench = false,
   descriptionEn = "The premium creative studio of tomorrow's businesses. (Strategy | Artistic Direction | Web Development).",
   descriptionFr = 'Le studio créatif premium des entreprises de demain. (Stratégie | Direction artistique | Développement web).',
@@ -27,8 +27,6 @@ const SEO = ({
   const { asPath } = useRouter();
   const description = isFrench ? descriptionFr : descriptionEn;
   const lang = isFrench ? 'fr' : 'en';
-
-  // Construction du canonical URL
   const canonicalUrl = 'https://metabole.studio' + asPath;
 
   return (

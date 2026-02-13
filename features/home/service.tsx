@@ -19,7 +19,7 @@ const ServiceComponent = ({ services }: { services: Service[] }) => {
       </div>
       <div className="px-x-default pt-y-default flex flex-col gap-5">
         {services.map((service, index) => (
-          <ItemService key={service.title} {...service} index={index} />
+          <ItemService key={`${service.title.fr}-${service.title.en}`} {...service} index={index} />
         ))}
       </div>
     </section>

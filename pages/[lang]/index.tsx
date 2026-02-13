@@ -3,6 +3,7 @@ import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
 import Expertise from '@/features/home/expertise';
 import Hero from '@/features/home/hero';
+import JoinUs from '@/features/home/join-us';
 import Service from '@/features/home/service';
 import Testimonials from '@/features/home/testimonials';
 import { useSanityData } from '@/hooks/useSanityData';
@@ -30,7 +31,7 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>Metabole - Creative Studio | Metabole STUDIO</title>
+        <title>METABOLE - Creative Studio | METABOLE STUDIO</title>
         <link href="https://metabole.studio/fr" rel="canonical" />
         <meta content="https://metabole.studio/fr" property="og:url" />
       </Head>
@@ -40,6 +41,7 @@ export default function Home({
       <Compatibility compatibility={compatibilityData.data} />
       <Testimonials testimonials={testimonialsData.data} />
       <Awards awards={awardsData.data} />
+      <JoinUs />
     </>
   );
 }

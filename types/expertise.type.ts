@@ -1,8 +1,8 @@
 import { Image, Slug } from 'sanity';
-import { Language } from './language.type';
+import { BilingualString } from './language.type';
 
 export type Expertise = {
-  name: Language;
+  name: BilingualString;
   slug: Slug;
   image: Image;
 };

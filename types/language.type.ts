@@ -5,9 +5,9 @@ export type LanguageContextType = {
   setIsFrench: (isFrench: boolean) => void;
 };
 
-export type Language = {
-  en: string;
+export type BilingualString = {
   fr: string;
+  en: string;
 };
 
 export type BilingualPortableText = {

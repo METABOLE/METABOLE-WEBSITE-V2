@@ -13,16 +13,15 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Titre',
-      type: 'string',
+      type: 'bilingualString',
       description: 'Titre du bloc de services (ex. STRATEGIE, IDENTITE, WEB).',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'bilingualText',
       description: 'Description du service.',
-      rows: 3,
     }),
     defineField({
       name: 'servicesList',
@@ -32,7 +31,7 @@ export default defineType({
         'Liste des services proposés dans cette catégorie. Glisser-déposer pour réordonner.',
       of: [
         defineArrayMember({
-          type: 'string',
+          type: 'bilingualString',
           validation: (Rule) => Rule.required(),
         }),
       ],
@@ -40,7 +39,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      title: 'title.fr',
+      subtitle: 'title.en',
       count: 'servicesList',
     },
     prepare({ title, count }) {
