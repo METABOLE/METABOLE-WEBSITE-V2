@@ -1,16 +1,16 @@
 import { useMousePosition } from '@/hooks/useMousePosition';
-import { useGLTF, Environment, useEnvironment } from '@react-three/drei';
+import { Environment, useEnvironment, useGLTF } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
-import { useRef, useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
   type Group,
+  ACESFilmicToneMapping,
   Box3,
   Color,
   Mesh,
   MeshPhysicalMaterial,
   Vector3,
-  ACESFilmicToneMapping,
 } from 'three';
 
 const ROTATION_SCALE = Math.PI * 0.4;
@@ -32,16 +32,16 @@ function LogoModel() {
   const material = useMemo(
     (): MeshPhysicalMaterial =>
       new MeshPhysicalMaterial({
-        color: 0x2563eb,
-        metalness: 0.85,
-        roughness: 0.25,
+        color: 0x1e3a8a,
+        metalness: 0.15,
+        roughness: 0.92,
         envMap: envMap ?? undefined,
-        envMapIntensity: envMap ? 0.85 : 0.5,
-        clearcoat: 0.5,
-        clearcoatRoughness: 0.25,
-        reflectivity: 0.6,
-        emissive: new Color(0x1d4ed8),
-        emissiveIntensity: 0.12,
+        envMapIntensity: envMap ? 0.08 : 0,
+        clearcoat: 0,
+        clearcoatRoughness: 1,
+        reflectivity: 0.1,
+        emissive: new Color(0x1e40af),
+        emissiveIntensity: 0.08,
       }),
     [envMap],
   );
