@@ -3,6 +3,7 @@ import Title from '@/components/shared/title';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import { useRef } from 'react';
 
 const Processus = () => {
@@ -17,17 +18,54 @@ const Processus = () => {
     second: useRef<HTMLDivElement>(null),
     third: useRef<HTMLDivElement>(null),
   };
+  const textRefs = {
+    first: useRef<HTMLParagraphElement>(null),
+    second: useRef<HTMLParagraphElement>(null),
+    third: useRef<HTMLParagraphElement>(null),
+  };
+  const splitTextRefs = {
+    first: useRef<SplitText>(null),
+    second: useRef<SplitText>(null),
+    third: useRef<SplitText>(null),
+  };
 
   const { isFrench } = useLanguage();
   const { contextSafe } = useGSAP();
 
   const setupAnimation = contextSafe(() => {
-    gsap.set([itemsRefs.first.current, itemsRefs.second.current, itemsRefs.third.current], {
-      scaleY: 0,
+    const textEls = [textRefs.first.current, textRefs.second.current, textRefs.third.current];
+    const itemEls = [itemsRefs.first.current, itemsRefs.second.current, itemsRefs.third.current];
+    const titleEls = [titleRefs.first.current, titleRefs.second.current, titleRefs.third.current];
+    const allReady =
+      textEls.every((el) => el != null) &&
+      itemEls.every((el) => el != null) &&
+      titleEls.every((el) => el != null);
+    if (!allReady) return;
+
+    splitTextRefs.first.current = new SplitText(textRefs.first.current, {
+      type: 'lines',
+      mask: 'lines',
     });
-    gsap.set([titleRefs.first.current, titleRefs.second.current, titleRefs.third.current], {
-      clipPath: 'inset(0 100% 0 0%)',
+    splitTextRefs.second.current = new SplitText(textRefs.second.current, {
+      type: 'lines',
+      mask: 'lines',
     });
+    splitTextRefs.third.current = new SplitText(textRefs.third.current, {
+      type: 'lines',
+      mask: 'lines',
+    });
+
+    const allLines = [
+      ...(splitTextRefs.first.current?.lines ?? []),
+      ...(splitTextRefs.second.current?.lines ?? []),
+      ...(splitTextRefs.third.current?.lines ?? []),
+    ].filter((el): el is Element => el instanceof Element);
+
+    if (allLines.length > 0) {
+      gsap.set(allLines, { y: 100 });
+    }
+    gsap.set(itemEls, { scaleY: 0 });
+    gsap.set(titleEls, { clipPath: 'inset(0 100% 0 0%)' });
   });
 
   const pinAnimation = contextSafe(() => {
@@ -46,13 +84,46 @@ const Processus = () => {
       })
       .to(titleRefs.first.current, {
         clipPath: 'inset(0 0% 0 0%)',
+        duration: 1,
       })
+      .to(
+        splitTextRefs.first.current?.lines || [],
+        {
+          y: 0,
+          ease: 'power1.out',
+          duration: 0.6,
+          stagger: 0.07,
+        },
+        '<',
+      )
       .to(titleRefs.second.current, {
         clipPath: 'inset(0 0% 0 0%)',
+        duration: 1,
       })
+      .to(
+        splitTextRefs.second.current?.lines || [],
+        {
+          y: 0,
+          ease: 'power1.out',
+          duration: 0.6,
+          stagger: 0.07,
+        },
+        '<',
+      )
       .to(titleRefs.third.current, {
         clipPath: 'inset(0 0% 0 0%)',
-      });
+        duration: 1,
+      })
+      .to(
+        splitTextRefs.third.current?.lines || [],
+        {
+          y: 0,
+          ease: 'power1.out',
+          duration: 0.6,
+          stagger: 0.07,
+        },
+        '<',
+      );
   });
 
   const scrubAnimationEnter = contextSafe(() => {
@@ -90,10 +161,10 @@ const Processus = () => {
   });
 
   useGSAP(() => {
+    setupAnimation();
     pinAnimation();
     scrubAnimationEnter();
     scrubAnimationExit();
-    setupAnimation();
   }, []);
 
   return (
@@ -120,11 +191,14 @@ const Processus = () => {
           </div>
           <div className="relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pr-5 pl-[calc(var(--x-default)+54px)] text-white">
             <BackgroundLines className="z-10" isDark={true} />
-            <p className="p3-medium pb-6">2 SEM - 3 SEM</p>
-            <p className="p3-regular text-white/70">
-              Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar quis
-              tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi feugiat.
-            </p>
+            <div ref={textRefs.first}>
+              <p className="p3-medium pb-6">2 SEM - 3 SEM</p>
+              <p className="p3-regular text-white/70">
+                Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar
+                quis tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi
+                feugiat.
+              </p>
+            </div>
           </div>
         </div>
         <div
@@ -141,11 +215,14 @@ const Processus = () => {
           </div>
           <div className="relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pr-5 pl-[97px] text-white">
             <BackgroundLines className="left-1/2 z-10 -translate-x-1/2" isDark={true} />
-            <p className="p3-medium pb-6">3 SEM - 3 SEM</p>
-            <p className="p3-regular text-white/70">
-              Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar quis
-              tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi feugiat.
-            </p>
+            <div ref={textRefs.second}>
+              <p className="p3-medium pb-6">3 SEM - 3 SEM</p>
+              <p className="p3-regular text-white/70">
+                Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar
+                quis tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi
+                feugiat.
+              </p>
+            </div>
           </div>
         </div>
         <div
@@ -162,11 +239,14 @@ const Processus = () => {
           </div>
           <div className="pr-x-default relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pl-[98px] text-white">
             <BackgroundLines className="right-0! left-auto z-20" isDark={true} />
-            <p className="p3-medium pb-6">2 SEM - 3 SEM</p>
-            <p className="p3-regular text-white/70">
-              Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar quis
-              tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi feugiat.
-            </p>
+            <div ref={textRefs.third}>
+              <p className="p3-medium pb-6">2 SEM - 3 SEM</p>
+              <p className="p3-regular text-white/70">
+                Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar
+                quis tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi
+                feugiat.
+              </p>
+            </div>
           </div>
         </div>
       </div>
