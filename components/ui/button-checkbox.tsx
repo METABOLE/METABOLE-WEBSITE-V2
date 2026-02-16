@@ -70,7 +70,7 @@ const ButtonCheckbox = ({ id, title, selected, onToggle, onDelete }: ButtonCheck
           >
             <IconClose
               className={clsx(
-                isCrossHovered && '!stroke-red',
+                isCrossHovered && 'stroke-red!',
                 selected
                   ? 'rotate-135 stroke-white hover:rotate-225'
                   : 'stroke-blue hover:stroke-red rotate-0 group-hover/button-checkbox:rotate-90 hover:rotate-45',

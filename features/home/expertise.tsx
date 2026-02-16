@@ -1,6 +1,6 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import Title from '@/components/shared/title';
-import ScrollingContainer from '@/components/ui/scrolling-container';
+import ScrollingContainer from '@/components/shared/scrolling-container';
 import Typography from '@/components/ui/typography';
 import { Expertise } from '@/types';
 import CardExpertise from './expertise/card-expertise';

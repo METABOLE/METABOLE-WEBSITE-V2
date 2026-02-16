@@ -1,4 +1,4 @@
-import Player, { type PlayerHandle } from '@/components/ui/player';
+import Player, { type PlayerHandle } from '@/components/shared/player';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useScroll } from '@/hooks/useScroll';
 import { useShortcut } from '@/hooks/useShortcut';

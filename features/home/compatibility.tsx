@@ -1,5 +1,5 @@
 import BackgroundLines from '@/components/layout/background-lines';
-import ScrollingContainer from '@/components/ui/scrolling-container';
+import ScrollingContainer from '@/components/shared/scrolling-container';
 import Typography from '@/components/ui/typography';
 import { Compatibility } from '@/types';
 import CardCompatibility from './compatibility/card-compatibility';
