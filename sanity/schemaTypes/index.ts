@@ -10,6 +10,7 @@ import { blockContent } from './blockContent';
 import bilingualText from './bilingualText';
 import awards from './awards';
 import values from './values';
+import data from './data';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -24,5 +25,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     awards,
     blockContent,
     values,
+    data,
   ],
 };

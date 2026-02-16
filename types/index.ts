@@ -17,3 +17,4 @@ export * from './compatibility.type';
 export * from './testimonial.type';
 export * from './award.type';
 export * from './value.type';
+export * from './data.type';

@@ -1,15 +1,29 @@
 import SEO from '@/components/ui/SEO';
 import { getStaticPathsForLang } from '@/constants';
 import Hero from '@/features/about/hero';
+import Numbers from '@/features/about/numbers';
 import Values from '@/features/about/values';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useLayoutColor } from '@/providers/layout-color.provider';
+import { fetchAwards } from '@/services/awards.service';
+import { fetchDataInfos } from '@/services/data.service';
 import { fetchValues } from '@/services/values.service';
 import { InferGetStaticPropsType } from 'next';
 import { useEffect } from 'react';
 
-export default function Index({ values }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Index({
+  values,
+  data,
+  awards,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const valuesData = useSanityData(values);
+  const dataInfosData = useSanityData(data);
+  const awardsData = useSanityData(awards);
+  const totalAwards = awardsData.data.reduce(
+    (acc, award) =>
+      acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
+    0,
+  );
 
   const { setIsLayoutDark } = useLayoutColor();
 
@@ -28,6 +42,7 @@ export default function Index({ values }: InferGetStaticPropsType<typeof getStat
       />
       <Hero />
       <Values values={valuesData.data} />
+      <Numbers data={dataInfosData.data} totalAwards={totalAwards} />
     </>
   );
 }
@@ -41,10 +56,14 @@ export const getStaticProps = async (context: {
   params?: { lang: string };
 }) => {
   const values = await fetchValues(context);
+  const data = await fetchDataInfos(context);
+  const awards = await fetchAwards(context);
 
   return {
     props: {
       values,
+      data,
+      awards,
       draftMode: values.draftMode,
     },
   };
