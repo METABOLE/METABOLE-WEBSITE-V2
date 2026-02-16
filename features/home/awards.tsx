@@ -8,19 +8,19 @@ import gsap from 'gsap';
 import { useRef, useState } from 'react';
 import CategoryAward from './awards/category-award';
 
-const AwardsComponent = ({ awards }: { awards: AwardsData[] | null }) => {
+const AwardsComponent = ({
+  awards,
+  totalAwards,
+}: {
+  awards: AwardsData[] | null;
+  totalAwards: number;
+}) => {
   const { isFrench } = useLanguage();
   const list = Array.isArray(awards) ? awards : [];
   if (!list.length) return null;
 
   const sectionRef = useRef(null);
   const [value, setValue] = useState(0);
-
-  const totalAwards = list.reduce(
-    (acc, award) =>
-      acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
-    0,
-  );
 
   const { contextSafe } = useGSAP();
 

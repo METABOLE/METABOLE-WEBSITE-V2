@@ -9,7 +9,7 @@ import Scene from './hero/scene';
 import Manifesto from './hero/manifesto';
 import { useStickySectionTop } from '@/hooks/useStickySectionTop';
 
-const Hero = () => {
+const Hero = ({ totalAwards }: { totalAwards: number }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { setIsLayoutDark } = useLayoutColor();
 
@@ -38,7 +38,7 @@ const Hero = () => {
       <BackgroundLines className="z-0" isDark={true} />
       <Baseline />
       <Manifesto />
-      <Footer />
+      <Footer totalAwards={totalAwards} />
     </section>
   );
 };

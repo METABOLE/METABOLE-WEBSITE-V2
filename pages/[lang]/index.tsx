@@ -36,6 +36,11 @@ export default function Home({
 
   const blackSectionRef = useRef<HTMLDivElement>(null);
   const stickyTop = useStickySectionTop(blackSectionRef);
+  const totalAwards = awardsData.data.reduce(
+    (acc, award) =>
+      acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
+    0,
+  );
 
   return (
     <>
@@ -44,7 +49,7 @@ export default function Home({
         <link href="https://metabole.studio/fr" rel="canonical" />
         <meta content="https://metabole.studio/fr" property="og:url" />
       </Head>
-      <Hero />
+      <Hero totalAwards={totalAwards} />
       <Expertise expertise={expertiseData.data} />
       <Service services={servicesData.data} />
       <Compatibility compatibility={compatibilityData.data} />
@@ -68,7 +73,7 @@ export default function Home({
         />
         <Processus />
         <Testimonials testimonials={testimonialsData.data} />
-        <Awards awards={awardsData.data} />
+        <Awards awards={awardsData.data} totalAwards={totalAwards} />
       </section>
       <JoinUs />
       <FinalCta />
