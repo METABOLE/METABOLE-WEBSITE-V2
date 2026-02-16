@@ -12,6 +12,7 @@ import Service from '@/features/home/service';
 import Testimonials from '@/features/home/testimonials';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useStickySectionTop } from '@/hooks/useStickySectionTop';
+import { useLayoutColor } from '@/providers/layout-color.provider';
 import { fetchAwards } from '@/services/awards.service';
 import { fetchCompatibility } from '@/services/compatibility.service';
 import { fetchExpertise } from '@/services/expertise.service';
@@ -19,7 +20,7 @@ import { fetchServices } from '@/services/service.service';
 import { fetchTestimonials } from '@/services/testimonials.service';
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Home({
   expertise,
@@ -33,6 +34,12 @@ export default function Home({
   const compatibilityData = useSanityData(compatibility);
   const testimonialsData = useSanityData(testimonials);
   const awardsData = useSanityData(awards);
+
+  const { setIsLayoutDark } = useLayoutColor();
+
+  useEffect(() => {
+    setIsLayoutDark(true);
+  }, []);
 
   const blackSectionRef = useRef<HTMLDivElement>(null);
   const stickyTop = useStickySectionTop(blackSectionRef);

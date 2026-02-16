@@ -47,7 +47,7 @@ const AwardsComponent = ({
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-y-default pb-y-double-default text-white">
+    <section ref={sectionRef} className="pt-y-default pb-y-double-default text-white" id="awards">
       <div className="px-x-default">
         <div className="flex flex-col gap-5 md:grid md:grid-cols-12">
           <Title className="col-span-3" color="yellow">

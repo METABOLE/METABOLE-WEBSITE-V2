@@ -13,6 +13,8 @@ const Hero = ({ totalAwards }: { totalAwards: number }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { setIsLayoutDark } = useLayoutColor();
 
+  const stickyTop = useStickySectionTop(sectionRef);
+
   const changeLayoutColor = () => {
     if (!sectionRef.current) return;
     ScrollTrigger.create({
@@ -25,8 +27,6 @@ const Hero = ({ totalAwards }: { totalAwards: number }) => {
       onLeaveBack: () => setIsLayoutDark(false),
     });
   };
-
-  const stickyTop = useStickySectionTop(sectionRef);
 
   useGSAP(() => {
     changeLayoutColor();

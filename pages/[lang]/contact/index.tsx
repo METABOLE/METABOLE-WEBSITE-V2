@@ -1,7 +1,15 @@
 import SEO from '@/components/ui/SEO';
 import Contact from '@/features/contact/contact';
+import { useLayoutColor } from '@/providers/layout-color.provider';
+import { useEffect } from 'react';
 
 const Index = () => {
+  const { setIsLayoutDark } = useLayoutColor();
+
+  useEffect(() => {
+    setIsLayoutDark(false);
+  }, []);
+
   return (
     <>
       <SEO

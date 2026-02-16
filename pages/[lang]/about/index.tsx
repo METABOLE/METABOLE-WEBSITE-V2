@@ -1,8 +1,15 @@
 import SEO from '@/components/ui/SEO';
-import About from '@/features/about/about';
-import { getStaticPathsForLang } from '@/constants';
+import Hero from '@/features/about/hero';
+import { useLayoutColor } from '@/providers/layout-color.provider';
+import { useEffect } from 'react';
 
 const Index = () => {
+  const { setIsLayoutDark } = useLayoutColor();
+
+  useEffect(() => {
+    setIsLayoutDark(false);
+  }, []);
+
   return (
     <>
       <SEO
@@ -12,13 +19,13 @@ const Index = () => {
         title="Metabole Studio - Agence de Design et Développement Web"
         url="https://metabole.studio"
       />
-      <About />
+      <Hero />
     </>
   );
 };
 
-export async function getStaticPaths() {
-  return getStaticPathsForLang();
-}
+// export async function getStaticPaths() {
+//   return getStaticPathsForLang();
+// }
 
 export default Index;

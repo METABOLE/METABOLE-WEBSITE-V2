@@ -1,0 +1,19 @@
+import BackgroundLines from '@/components/layout/background-lines';
+
+const Hero = () => {
+  return (
+    <section className="px-x-default py-y-double-default relative grid h-screen w-screen grid-cols-12 items-center gap-5">
+      <BackgroundLines />
+      <h1 className="h2 text-blue col-span-6 col-start-2">
+        Si on a créé Metabole, c’est pour travailler dans le studio créatif que l’on voulait
+        rejoindre.
+      </h1>
+      <h2 className="h3 col-span-6 -col-end-2">
+        Exigent sans être jamais être distant, toujours créatif, tourné vers l’avenir, et surtout,
+        où l’on se sent bien.
+      </h2>
+    </section>
+  );
+};
+
+export default Hero;
