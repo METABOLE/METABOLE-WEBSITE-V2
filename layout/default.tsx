@@ -11,7 +11,7 @@ import { useFontReady } from '@/hooks/useFontReady';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useLanguage } from '@/providers/language.provider';
 import { usePerformance } from '@/providers/performance.provider';
-import { BREAKPOINTS, ProjectType, SanityProps } from '@/types';
+import { BREAKPOINTS, Data, ProjectType, SanityProps } from '@/types';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -22,9 +22,11 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const Layout = ({
   projects,
+  dataInfos,
   children,
 }: {
   projects: SanityProps<ProjectType[]>;
+  dataInfos: SanityProps<Data[]>;
   children: ReactNode;
 }) => {
   const { isFrench } = useLanguage();
@@ -36,6 +38,8 @@ const Layout = ({
   const { isLoading } = usePerformance();
   const isFontReady = useFontReady();
   const projectsData = useSanityData(projects);
+  const dataInfosData = useSanityData(dataInfos);
+
   const isHomePage = router.asPath === '/en' || router.asPath === '/fr';
 
   return (
@@ -48,7 +52,11 @@ const Layout = ({
         ) : (
           <>
             <BackgroundLines className="fixed" />
-            {isTablet ? <Burger /> : <Menu projects={projectsData.data} />}
+            {isTablet ? (
+              <Burger dataInfos={dataInfosData.data} />
+            ) : (
+              <Menu dataInfos={dataInfosData.data} projects={projectsData.data} />
+            )}
             {children}
             {/* {performanceLevel === PERFORMANCE_LEVEL.HIGH && (
               <>
@@ -61,7 +69,7 @@ const Layout = ({
           </>
         )}
       </main>
-      {isFontReady && <Footer />}
+      {isFontReady && <Footer dataInfos={dataInfosData.data} />}
     </>
   );
 };

@@ -19,14 +19,9 @@ export const structure: StructureResolver = (S, context) =>
     .title('Content')
     .items([
       S.listItem()
-        .title('Données du site')
+        .title('DONNÉES DU SITE')
         .icon(DatabaseIcon)
-        .child(
-          S.document()
-            .schemaType('data')
-            .documentId(SITE_DATA_ID)
-            .title('Données du site')
-        ),
+        .child(S.document().schemaType('data').documentId(SITE_DATA_ID).title('Données du site')),
       orderableDocumentListDeskItem({
         type: 'projects',
         title: 'PROJECT',

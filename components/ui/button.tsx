@@ -98,16 +98,16 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
 
       try {
         splitTextRef.current = new SplitText(currentChildRef.current, {
-          type: 'chars',
-          mask: 'chars',
+          type: 'lines',
+          mask: 'lines',
         });
         absoluteSplitTextRef.current = new SplitText(absoluteChildRef.current, {
-          type: 'chars',
-          mask: 'chars',
+          type: 'lines',
+          mask: 'lines',
         });
 
-        gsap.set(splitTextRef.current.chars, { y: 0 });
-        gsap.set(absoluteSplitTextRef.current.chars, { y: 20 });
+        gsap.set(splitTextRef.current.lines, { y: 0 });
+        gsap.set(absoluteSplitTextRef.current.lines, { y: 20 });
 
         setSplitTextsReady(true);
       } catch (error) {
@@ -181,7 +181,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
           '<',
         )
         .to(
-          splitTextRef.current.chars,
+          splitTextRef.current.lines,
           {
             y: -20,
             duration: 0.2,
@@ -191,7 +191,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
           '<',
         )
         .to(
-          absoluteSplitTextRef.current.chars,
+          absoluteSplitTextRef.current.lines,
           {
             y: 0,
             duration: 0.3,
@@ -223,14 +223,14 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
           '<',
         )
         .to(
-          splitTextRef.current.chars,
+          splitTextRef.current.lines,
           {
             y: 0,
           },
           '<',
         )
         .to(
-          absoluteSplitTextRef.current.chars,
+          absoluteSplitTextRef.current.lines,
           {
             y: 20,
           },
@@ -256,7 +256,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         <DynamicElement
           ref={ref}
           className={clsx(
-            'label inline-block h-11 w-fit cursor-pointer overflow-hidden rounded-sm uppercase transition-colors duration-200',
+            'p3-medium inline-block h-[35px] w-fit cursor-pointer overflow-hidden rounded-sm uppercase transition-colors duration-200',
             color === 'primary' && 'bg-menu hover:bg-blue text-black hover:text-white',
             color === 'primary' && isDark && 'text-black hover:text-white',
             color === 'secondary' && 'bg-blue text-white hover:bg-black hover:text-white',
@@ -270,7 +270,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
           href={href}
           target={target}
         >
-          <div className="flex h-full w-full items-center justify-center px-6 whitespace-nowrap">
+          <div className="flex h-full w-full items-center justify-center px-4 whitespace-nowrap">
             {children}
           </div>
         </DynamicElement>
@@ -282,7 +282,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         <DynamicElement
           ref={ref}
           className={clsx(
-            'label group/button inline-block h-11 w-fit cursor-pointer overflow-hidden rounded-sm uppercase backdrop-blur-xl',
+            'p3-medium group/button inline-block h-[35px] w-fit cursor-pointer overflow-hidden rounded-sm uppercase backdrop-blur-xl',
             color === 'primary' && 'bg-blur-glass text-black',
             color === 'primary' && isDark && 'text-white',
             color === 'secondary' && 'bg-blue text-white',
@@ -316,7 +316,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
           >
             <div
               ref={textRef}
-              className="relative flex w-fit items-center justify-center px-6 whitespace-nowrap"
+              className="p3-medium relative flex w-fit items-center justify-center px-4 whitespace-nowrap"
             >
               <span ref={currentChildRef}>{isResizable ? currentChild : children}</span>
               <span ref={absoluteChildRef} aria-hidden={true} className="absolute">
@@ -328,7 +328,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         {isResizable && (
           <div
             ref={hiddenButtonRef}
-            className="label pointer-events-none invisible fixed top-0 left-0 -z-10 h-full w-fit items-center justify-center px-6 whitespace-nowrap uppercase opacity-0"
+            className="p3-medium pointer-events-none invisible fixed top-0 left-0 -z-10 h-full w-fit items-center justify-center px-4 whitespace-nowrap uppercase opacity-0"
           >
             {children}
           </div>

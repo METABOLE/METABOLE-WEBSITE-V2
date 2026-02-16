@@ -1,8 +1,9 @@
-import { CONTACT, LINKS, SOCIALS } from '@/constants';
+import { LINKS } from '@/constants';
+import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
 import { useShortcut } from '@/hooks/useShortcut';
 import { useLanguage } from '@/providers/language.provider';
 import { usePerformance } from '@/providers/performance.provider';
-import { COLORS } from '@/types';
+import { COLORS, Data } from '@/types';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -13,11 +14,13 @@ import Language from '../shared/language';
 import Sound from '../shared/sound';
 import Time from '../shared/time';
 import { LogoSmall } from '../ui/icons';
-import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
 
-const Burger = () => {
+const Burger = ({ dataInfos }: { dataInfos: Data[] }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+
+  const [data] = dataInfos;
+  const { email, socials } = data;
 
   const menuRef = useRef(null);
   const soundRef = useRef<HTMLButtonElement>(null);
@@ -257,7 +260,7 @@ const Burger = () => {
         <nav className="text-left">
           <ul ref={socialsRef} className="flex flex-col gap-4 overflow-hidden">
             <li className="p3 text-black">Socials</li>
-            {SOCIALS.map((link, index) => (
+            {socials.map((link, index) => (
               <li key={link.href + index}>
                 <Link
                   className="p3 inline-block text-black/30 transition-[translate,color] hover:-translate-x-2 hover:text-black"
@@ -274,8 +277,8 @@ const Burger = () => {
 
         <div className="hide-on-small-height flex w-full items-end whitespace-nowrap">
           <div ref={infosRef} className="flex w-full flex-col gap-5 overflow-hidden">
-            <a className="text-blue" href={'mailto:' + CONTACT.EMAIL}>
-              {CONTACT.EMAIL}
+            <a className="text-blue" href={'mailto:' + email}>
+              {email}
             </a>
             <p>Metabole® 2025</p>
             <Time isDark={false} />

@@ -1,10 +1,10 @@
+import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import Time from '@/components/shared/time';
 import { IconCross } from '@/components/ui/icons';
-import Showreel from './showreel';
-import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import { useEffect, useState } from 'react';
+import Showreel from './showreel';
 
-const Footer = ({ totalAwards }: { totalAwards: number }) => {
+const Footer = ({ totalAwards, location }: { totalAwards: number; location: string }) => {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Footer = ({ totalAwards }: { totalAwards: number }) => {
       <div className="hidden md:block">
         <IconCross className="-translate-x-[5px] fill-white" />
       </div>
-      <p className="text-center text-sm! md:col-span-4">Paris | Rotterdam</p>
+      <p className="text-center text-sm! md:col-span-4">{location}</p>
       <div className="hidden justify-end md:flex">
         <IconCross className="translate-x-[5px] fill-white" />
       </div>

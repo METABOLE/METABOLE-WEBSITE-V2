@@ -17,25 +17,25 @@ export const LINKS = [
   },
 ];
 
-export const SOCIALS = [
-  {
-    href: 'https://awwwards.com/metabole-studio/',
-    text: 'Awwwards',
-  },
-  {
-    href: 'https://www.cssdesignawards.com/search?search_term=metabole+studio',
-    text: 'CSS DA',
-  },
-  {
-    href: 'https://wdawards.com/find/metabole%20studio',
-    text: 'WD Awards',
-  },
-  {
-    href: 'https://instagram.com/metabole.studio',
-    text: 'Instagram',
-  },
-  {
-    href: 'https://linkedin.com/company/metabole-studio',
-    text: 'Linkedin',
-  },
-];
+// export const SOCIALS = [
+//   {
+//     href: 'https://awwwards.com/metabole-studio/',
+//     text: 'Awwwards',
+//   },
+//   {
+//     href: 'https://www.cssdesignawards.com/search?search_term=metabole+studio',
+//     text: 'CSS DA',
+//   },
+//   {
+//     href: 'https://wdawards.com/find/metabole%20studio',
+//     text: 'WD Awards',
+//   },
+//   {
+//     href: 'https://instagram.com/metabole.studio',
+//     text: 'Instagram',
+//   },
+//   {
+//     href: 'https://linkedin.com/company/metabole-studio',
+//     text: 'Linkedin',
+//   },
+// ];

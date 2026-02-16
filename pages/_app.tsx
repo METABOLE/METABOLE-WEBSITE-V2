@@ -6,10 +6,11 @@ import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useScroll } from '@/hooks/useScroll';
 import Layout from '@/layout/default';
 import { AppProvider } from '@/providers/root';
+import { fetchDataInfos } from '@/services/data.service';
 import { fetchProjects } from '@/services/projects.service';
 import '@/styles/main.scss';
 import '@/styles/tailwind.css';
-import { ProjectType, SanityProps } from '@/types';
+import { Data, ProjectType, SanityProps } from '@/types';
 import { AnimatePresence } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { NextPage } from 'next';
@@ -25,6 +26,7 @@ interface CustomAppProps extends AppProps {
   Component: NextPageWithLayout;
   globalProps: {
     projects: SanityProps<ProjectType[]>;
+    dataInfos: SanityProps<Data[]>;
     draftMode: boolean;
   };
 }
@@ -37,7 +39,12 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   const { draftMode } = globalProps;
 
   const getLayout =
-    Component.getLayout || ((page) => <Layout projects={globalProps.projects}>{page}</Layout>);
+    Component.getLayout ||
+    ((page) => (
+      <Layout dataInfos={globalProps.dataInfos} projects={globalProps.projects}>
+        {page}
+      </Layout>
+    ));
 
   const handdlePageChange = () => {
     if (window.location.hash) {
@@ -53,11 +60,11 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
     }
   };
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !('attachInternals' in HTMLElement.prototype)) {
-      import('element-internals-polyfill');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && !('attachInternals' in HTMLElement.prototype)) {
+  //     import('element-internals-polyfill');
+  //   }
+  // }, []);
 
   useEffect(() => {
     resetScroll(isScreenLoader && !isDev);
@@ -104,6 +111,10 @@ App.getInitialProps = async (context: AppContext) => {
           initial: { data: [] },
           draftMode: false,
         },
+        dataInfos: {
+          initial: { data: [] },
+          draftMode: false,
+        },
         draftMode: false,
       },
     };
@@ -115,11 +126,13 @@ App.getInitialProps = async (context: AppContext) => {
   );
 
   const projects = await fetchProjects({ draftMode });
+  const dataInfos = await fetchDataInfos({ draftMode });
 
   return {
     globalProps: {
       projects,
-      draftMode: projects.draftMode || draftMode,
+      dataInfos,
+      draftMode: projects.draftMode || dataInfos.draftMode || draftMode,
     },
   };
 };

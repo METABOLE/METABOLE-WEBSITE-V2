@@ -1,4 +1,4 @@
-import { ANIMATIONS, OPTIONS, PAGES, STEPS } from '@/constants/quote.constant';
+import { ANIMATIONS, OPTIONS, PAGES, STEPS } from '@/constants/__quote.constant';
 import { useLanguage } from '@/providers/language.provider';
 import { postQuoteForm } from '@/services/quote.service';
 import { Animation, Option, Page, QUOTE_STEPS } from '@/types';

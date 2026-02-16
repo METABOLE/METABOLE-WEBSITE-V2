@@ -40,20 +40,20 @@ const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedL
       if (!currentChildRef.current || !absoluteChildRef.current) return;
 
       const splitText = new SplitText(currentChildRef.current, {
-        type: 'chars',
-        mask: 'chars',
+        type: 'lines',
+        mask: 'lines',
       });
       const absoluteSplitText = new SplitText(absoluteChildRef.current, {
-        type: 'chars',
-        mask: 'chars',
+        type: 'lines',
+        mask: 'lines',
       });
 
-      gsap.set(splitText.chars, { yPercent: 0 });
-      gsap.set(absoluteSplitText.chars, { yPercent: 110 });
+      gsap.set(splitText.lines, { yPercent: 0 });
+      gsap.set(absoluteSplitText.lines, { yPercent: 110 });
 
       timelineRef.current
         .to(
-          splitText.chars,
+          splitText.lines,
           {
             yPercent: -110,
             duration: 0.2,
@@ -63,7 +63,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedL
           '<',
         )
         .to(
-          absoluteSplitText.chars,
+          absoluteSplitText.lines,
           {
             yPercent: 0,
             duration: 0.3,

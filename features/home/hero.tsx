@@ -1,15 +1,15 @@
 import BackgroundLines from '@/components/layout/background-lines';
+import { useStickySectionTop } from '@/hooks/useStickySectionTop';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
 import Baseline from './hero/baseline';
 import Footer from './hero/footer';
-import Scene from './hero/scene';
 import Manifesto from './hero/manifesto';
-import { useStickySectionTop } from '@/hooks/useStickySectionTop';
+import Scene from './hero/scene';
 
-const Hero = ({ totalAwards }: { totalAwards: number }) => {
+const Hero = ({ totalAwards, location }: { totalAwards: number; location: string }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { setIsLayoutDark } = useLayoutColor();
 
@@ -38,7 +38,7 @@ const Hero = ({ totalAwards }: { totalAwards: number }) => {
       <BackgroundLines className="z-0" isDark={true} />
       <Baseline />
       <Manifesto />
-      <Footer totalAwards={totalAwards} />
+      <Footer location={location} totalAwards={totalAwards} />
     </section>
   );
 };

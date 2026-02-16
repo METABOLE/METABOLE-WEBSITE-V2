@@ -1,8 +1,8 @@
-import { CONTACT, LINKS, SOCIALS } from '@/constants';
+import { LINKS } from '@/constants';
 import { useMenu } from '@/hooks/menu/useMenu';
 import { useLanguage } from '@/providers/language.provider';
 import { useLayoutColor } from '@/providers/layout-color.provider';
-import { ProjectType, TAG_TYPE } from '@/types';
+import { Data, ProjectType, TAG_TYPE } from '@/types';
 import { clsx } from 'clsx';
 import Link from 'next/link';
 import Language from '../shared/language';
@@ -26,7 +26,7 @@ const TEXT_BUTTON = {
   },
 };
 
-const Menu = ({ projects }: { projects: ProjectType[] }) => {
+const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Data[] }) => {
   const SLICED_PROJECTS = projects.slice(0, 6);
   const {
     refs: {
@@ -50,6 +50,8 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
     closeMenu,
   } = useMenu();
 
+  const [data] = dataInfos;
+  const { email, location, socials } = data;
   const { isFrench, getInternalPath } = useLanguage();
   const { isLayoutDark } = useLayoutColor();
 
@@ -186,7 +188,7 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
               <nav className="pt-y-default text-right">
                 <ul ref={socialsRef} className="flex flex-col items-end gap-4 overflow-hidden">
                   <li className="p3 text-black">Socials</li>
-                  {SOCIALS.map((link, index) => (
+                  {socials.map((link, index) => (
                     <li key={link.href + index}>
                       <Link
                         className="p3 inline-block cursor-pointer text-black/30 transition-[translate,color] hover:-translate-x-2 hover:text-black"
@@ -207,10 +209,10 @@ const Menu = ({ projects }: { projects: ProjectType[] }) => {
             className="flex w-full items-center justify-between gap-5 overflow-y-hidden whitespace-nowrap xl:grid xl:grid-cols-6"
           >
             <p>Metabole® 2025</p>
-            <p className="hidden lg:block">{CONTACT.ADDRESS}</p>
+            <p className="hidden lg:block">{location}</p>
             <Time isDark={false} />
-            <a className="col-span-2 cursor-pointer" href={'mailto:' + CONTACT.EMAIL}>
-              {CONTACT.EMAIL}
+            <a className="col-span-2 cursor-pointer" href={'mailto:' + email}>
+              {email}
             </a>
             <div className="flex justify-end xl:w-full">
               <Language onClick={closeMenu} />

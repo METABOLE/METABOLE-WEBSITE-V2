@@ -8,6 +8,12 @@ export const fetchDataInfos = async (context: { draftMode?: boolean } = {}) => {
       email,
       countriesCount,
       projectsCount,
+      location,
+      phone,
+      socials[] {
+        href,
+        text,
+      },
     }
   `;
 

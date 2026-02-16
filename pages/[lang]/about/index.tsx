@@ -2,6 +2,7 @@ import SEO from '@/components/ui/SEO';
 import { getStaticPathsForLang } from '@/constants';
 import Hero from '@/features/about/hero';
 import Numbers from '@/features/about/numbers';
+import Team from '@/features/about/team';
 import Values from '@/features/about/values';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useLayoutColor } from '@/providers/layout-color.provider';
@@ -43,6 +44,7 @@ export default function Index({
       <Hero />
       <Values values={valuesData.data} />
       <Numbers data={dataInfosData.data} totalAwards={totalAwards} />
+      <Team />
     </>
   );
 }

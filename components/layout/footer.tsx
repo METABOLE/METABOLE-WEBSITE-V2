@@ -1,10 +1,10 @@
-import { CONTACT, LINKS, SOCIALS } from '@/constants';
+import { LINKS } from '@/constants';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
 import { useMousePosition } from '@/hooks/useMousePosition';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { useLanguage } from '@/providers/language.provider';
-import { BREAKPOINTS, COLORS } from '@/types';
+import { BREAKPOINTS, COLORS, Data } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,7 +17,10 @@ import Time from '../shared/time';
 import Hint from '../ui/hint';
 import { IconArrow, LogoSmall } from '../ui/icons';
 
-const Footer = () => {
+const Footer = ({ dataInfos }: { dataInfos: Data[] }) => {
+  const [data] = dataInfos;
+  const { email, location, socials } = data;
+
   const animatedTitleRef = useRef<SVGSVGElement>(null);
   const wrapperRef = useRef(null);
   const containerSectionRef = useRef(null);
@@ -185,7 +188,7 @@ const Footer = () => {
                 <nav>
                   <ul className="flex flex-col gap-4">
                     <li>Socials</li>
-                    {SOCIALS.map((link, index) => (
+                    {socials.map((link, index) => (
                       <li key={link.href + index}>
                         <Link
                           className="inline-block cursor-pointer text-white/30 transition-[translate,color] hover:translate-x-2 hover:text-white"
@@ -207,10 +210,10 @@ const Footer = () => {
               </div>
               <div className="flex w-full flex-col justify-between gap-5 md:flex-row md:items-center lg:grid lg:grid-cols-6">
                 <p>Metabole® 2025</p>
-                <p className="whitespace-nowrap">{CONTACT.ADDRESS}</p>
+                <p className="whitespace-nowrap">{location}</p>
                 <Time className="block md:hidden lg:block" isDark={true} />
-                <a className="cursor-pointer" href={'mailto:' + CONTACT.EMAIL}>
-                  {CONTACT.EMAIL}
+                <a className="cursor-pointer" href={'mailto:' + email}>
+                  {email}
                 </a>
                 <button
                   className="flex w-fit cursor-pointer items-center justify-end gap-2 text-right lg:col-span-2 lg:ml-auto"

@@ -15,6 +15,7 @@ import { useStickySectionTop } from '@/hooks/useStickySectionTop';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { fetchAwards } from '@/services/awards.service';
 import { fetchCompatibility } from '@/services/compatibility.service';
+import { fetchDataInfos } from '@/services/data.service';
 import { fetchExpertise } from '@/services/expertise.service';
 import { fetchServices } from '@/services/service.service';
 import { fetchTestimonials } from '@/services/testimonials.service';
@@ -28,12 +29,14 @@ export default function Home({
   compatibility,
   testimonials,
   awards,
+  data,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const expertiseData = useSanityData(expertise);
   const servicesData = useSanityData(services);
   const compatibilityData = useSanityData(compatibility);
   const testimonialsData = useSanityData(testimonials);
   const awardsData = useSanityData(awards);
+  const dataInfosData = useSanityData(data);
 
   const { setIsLayoutDark } = useLayoutColor();
 
@@ -56,7 +59,7 @@ export default function Home({
         <link href="https://metabole.studio/fr" rel="canonical" />
         <meta content="https://metabole.studio/fr" property="og:url" />
       </Head>
-      <Hero totalAwards={totalAwards} />
+      <Hero location={dataInfosData.data[0].location} totalAwards={totalAwards} />
       <Expertise expertise={expertiseData.data} />
       <Service services={servicesData.data} />
       <Compatibility compatibility={compatibilityData.data} />
@@ -101,6 +104,7 @@ export const getStaticProps = async (context: {
   const compatibility = await fetchCompatibility(context);
   const testimonials = await fetchTestimonials(context);
   const awards = await fetchAwards(context);
+  const data = await fetchDataInfos(context);
 
   return {
     props: {
@@ -109,6 +113,7 @@ export const getStaticProps = async (context: {
       compatibility,
       testimonials,
       awards,
+      data,
       draftMode: expertise.draftMode,
     },
   };
