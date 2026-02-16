@@ -13,7 +13,7 @@ export default defineType({
       title: 'Adresse e-mail',
       type: 'string',
       description: 'E-mail de contact principal du site.',
-      validation: (Rule) => Rule.email(),
+      validation: (Rule) => Rule.email().required(),
     }),
     defineField({
       name: 'location',
@@ -34,20 +34,21 @@ export default defineType({
       title: 'Nombre de pays',
       type: 'number',
       description: 'Nombre de pays avec lesquels vous travaillez.',
-      validation: (Rule) => Rule.min(0).integer(),
+      validation: (Rule) => Rule.min(0).integer().required(),
     }),
     defineField({
       name: 'projectsCount',
       title: 'Nombre de projets',
       type: 'number',
       description: 'Nombre de projets réalisés.',
-      validation: (Rule) => Rule.min(0).integer(),
+      validation: (Rule) => Rule.min(0).integer().required(),
     }),
     defineField({
       name: 'socials',
       title: 'Réseaux sociaux',
       type: 'array',
       description: "Réseaux sociaux de l'entreprise.",
+      validation: (Rule) => Rule.required().min(1),
       of: [
         defineArrayMember({
           type: 'object',

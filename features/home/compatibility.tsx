@@ -26,7 +26,7 @@ const CompatibilityComponent = ({ compatibility }: { compatibility: Compatibilit
             : 'The technologies we use are compatible with all your supports to get as close as possible to your needs.'}
         </Typography>
       </div>
-      <ScrollingContainer className="pt-y-half-default" scrollSpeed={20}>
+      <ScrollingContainer className="pt-y-default" scrollSpeed={20}>
         <div className="flex h-full pb-5">
           {compatibility.map((compatibility) => (
             <CardCompatibility key={compatibility.slug.current} {...compatibility} />

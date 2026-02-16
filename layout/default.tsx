@@ -33,7 +33,6 @@ const Layout = ({
   const router = useRouter();
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
   const isMobile = useMatchMedia(BREAKPOINTS.SM);
-  // const { performanceLevel } = usePerformance();
   const { isDev } = useEnvironment();
   const { isLoading } = usePerformance();
   const isFontReady = useFontReady();
@@ -58,12 +57,6 @@ const Layout = ({
               <Menu dataInfos={dataInfosData.data} projects={projectsData.data} />
             )}
             {children}
-            {/* {performanceLevel === PERFORMANCE_LEVEL.HIGH && (
-              <>
-                <GradientBlur blurHeight="100px" intensity={0.2} orientation="top" />
-                <GradientBlur blurHeight="100px" intensity={0.1} orientation="bottom" />
-              </>
-            )} */}
             {!isMobile && <ScrollBar />}
             {isDev && <PerformanceIndicator />}
           </>

@@ -27,7 +27,7 @@ const Values = ({ values }: { values: Value[] }) => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: () => `+=${window.innerHeight * 2}`,
+        end: () => `+=${window.innerHeight * 3}`,
         pin: true,
         scrub: true,
       },
