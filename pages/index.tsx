@@ -1,7 +1,17 @@
 import SEO from '@/components/ui/SEO';
 import Hero from '@/features/home/hero';
+import { useSanityData } from '@/hooks/useSanityData';
+import { fetchAwards } from '@/services/awards.service';
+import { InferGetStaticPropsType } from 'next';
 
-export default function Home() {
+export default function Home({ awards }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const awardsData = useSanityData(awards);
+  const totalAwards = awardsData.data.reduce(
+    (acc, award) =>
+      acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
+    0,
+  );
+
   return (
     <>
       <SEO
@@ -11,7 +21,21 @@ export default function Home() {
         title="Metabole Studio - Agence de Design et Développement Web"
         url="https://metabole.studio"
       />
-      <Hero />
+      <Hero totalAwards={totalAwards} />
     </>
   );
 }
+
+export const getStaticProps = async (context: {
+  draftMode?: boolean;
+  params?: { lang: string };
+}) => {
+  const awards = await fetchAwards(context);
+
+  return {
+    props: {
+      awards,
+      draftMode: awards.draftMode,
+    },
+  };
+};
