@@ -161,7 +161,11 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
             onClick={handleNext}
           />
           {testimonials.map((testimonial, i) => (
-            <ItemTestimonial key={testimonial._id} isActive={i === currentIndex} {...testimonial} />
+            <ItemTestimonial
+              key={testimonial.name + testimonial.company}
+              isActive={i === currentIndex}
+              {...testimonial}
+            />
           ))}
         </div>
       </div>
