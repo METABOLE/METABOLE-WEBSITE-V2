@@ -3,6 +3,8 @@ import BackgroundLines from '@/components/layout/background-lines';
 const Hero = () => {
   return (
     <section className="px-x-default py-y-double-default relative grid h-screen w-screen grid-cols-12 items-center gap-5">
+      <p className="hover-clip hover-clip-yellow">Metabole Studio</p>
+
       <BackgroundLines />
       <h1 className="h2 text-blue col-span-8 col-start-2 md:col-span-10 md:col-start-2 lg:col-span-6 lg:col-start-2">
         Si on a créé Metabole, c’est pour travailler dans le studio créatif que l’on voulait

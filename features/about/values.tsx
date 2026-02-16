@@ -1,0 +1,101 @@
+import Title from '@/components/shared/title';
+import { useLanguage } from '@/providers/language.provider';
+import { useLayoutColor } from '@/providers/layout-color.provider';
+import { Value } from '@/types';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+import ItemValue from './values/item-value';
+
+const Values = ({ values }: { values: Value[] }) => {
+  const sectionRef = useRef(null);
+  const itemsRefs = useRef<HTMLDivElement[] | HTMLLIElement[]>([]);
+  const { setIsLayoutDark } = useLayoutColor();
+
+  const { isFrench } = useLanguage();
+  const { contextSafe } = useGSAP();
+
+  const setupAnimation = contextSafe(() => {
+    itemsRefs.current.forEach((item) => {
+      gsap.set(item, { xPercent: 100 });
+    });
+  });
+
+  const pinAnimation = contextSafe(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: () => `+=${window.innerHeight * 2}`,
+        pin: true,
+        scrub: true,
+      },
+    });
+
+    itemsRefs.current.forEach((item) => {
+      tl.to(item, {
+        xPercent: 0,
+        ease: 'power1.inOut',
+        duration: 1,
+      });
+    });
+  });
+
+  const changeLayoutColor = () => {
+    if (!sectionRef.current) return;
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: '50px top',
+      end: 'bottom 50px',
+      onEnter: () => setIsLayoutDark(true),
+      onEnterBack: () => setIsLayoutDark(true),
+      onLeave: () => setIsLayoutDark(false),
+      onLeaveBack: () => setIsLayoutDark(false),
+    });
+  };
+
+  useGSAP(() => {
+    setupAnimation();
+    pinAnimation();
+    changeLayoutColor();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="space-y-px pt-[100px]">
+      <div
+        ref={(el) => {
+          if (el) {
+            itemsRefs.current[0] = el;
+          }
+        }}
+        className="px-x-default flex h-[clamp(10px,20vh,136px)] items-center bg-black"
+      >
+        <Title color="yellow">{isFrench ? 'VALEURS' : 'VALUES'}</Title>
+      </div>
+      <ul className="flex flex-col gap-y-px">
+        {values.map((value, index) => (
+          <ItemValue
+            key={value.name.fr}
+            ref={(el) => {
+              if (el) {
+                itemsRefs.current[index + 1] = el;
+              }
+            }}
+            value={value}
+          />
+        ))}
+      </ul>
+      <div
+        ref={(el) => {
+          if (el) {
+            itemsRefs.current[itemsRefs.current.length] = el;
+          }
+        }}
+        className="px-x-default flex h-[clamp(10px,20vh,136px)] items-center bg-black"
+      />
+    </section>
+  );
+};
+
+export default Values;

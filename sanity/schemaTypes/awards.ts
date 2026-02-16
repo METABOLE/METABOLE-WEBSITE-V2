@@ -1,4 +1,4 @@
-import { DocumentsIcon, StarIcon } from '@sanity/icons';
+import { DiamondIcon, StarIcon } from '@sanity/icons';
 import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
@@ -6,7 +6,7 @@ export default defineType({
   name: 'awards',
   title: 'AWARDS',
   type: 'document',
-  icon: DocumentsIcon,
+  icon: DiamondIcon,
   orderings: [orderRankOrdering],
   fields: [
     orderRankField({ type: 'awards' }),

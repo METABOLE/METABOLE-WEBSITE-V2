@@ -1,7 +1,8 @@
 import {
+  DiamondIcon,
   FeedbackIcon,
   ProjectsIcon,
-  StarFilledIcon,
+  StarIcon,
   SyncIcon,
   TiersIcon,
   WrenchIcon,
@@ -52,7 +53,14 @@ export const structure: StructureResolver = (S, context) =>
       orderableDocumentListDeskItem({
         type: 'awards',
         title: 'AWARDS',
-        icon: StarFilledIcon,
+        icon: DiamondIcon,
+        S,
+        context,
+      }),
+      orderableDocumentListDeskItem({
+        type: 'values',
+        title: 'VALUES',
+        icon: StarIcon,
         S,
         context,
       }),
