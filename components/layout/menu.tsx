@@ -2,7 +2,7 @@ import { LINKS } from '@/constants';
 import { useMenu } from '@/hooks/menu/useMenu';
 import { useLanguage } from '@/providers/language.provider';
 import { useLayoutColor } from '@/providers/layout-color.provider';
-import { Data, ProjectType, TAG_TYPE } from '@/types';
+import { Data, ProjectType } from '@/types';
 import { clsx } from 'clsx';
 import Link from 'next/link';
 import Language from '../shared/language';
@@ -153,7 +153,7 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
                         }}
                         className="cursor-pointer"
                         href={link.name}
-                        type={TAG_TYPE.WHTIE}
+                        type="white"
                       >
                         {link.name}
                       </Tag>
@@ -170,7 +170,7 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
                       }}
                       className="cursor-pointer"
                       href="/projects"
-                      type={TAG_TYPE.WHTIE}
+                      type="white"
                     >
                       {isFrench ? 'Et plus' : 'And more'} ...
                     </Tag>

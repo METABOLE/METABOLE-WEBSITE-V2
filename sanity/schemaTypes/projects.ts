@@ -19,7 +19,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'Slug',
+      name: 'slug',
       type: 'slug',
       options: {
         source: 'name',

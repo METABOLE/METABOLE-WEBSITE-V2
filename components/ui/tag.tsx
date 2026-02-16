@@ -1,5 +1,4 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
-import { TAG_TYPE } from '@/types';
 import { useGSAP } from '@gsap/react';
 import { clsx } from 'clsx';
 import gsap from 'gsap';
@@ -15,7 +14,7 @@ import {
 
 interface BaseTagProps {
   children: ReactNode;
-  type: TAG_TYPE;
+  type: 'white' | 'stroke-white';
   className?: string;
 }
 
@@ -131,8 +130,8 @@ const Tag = forwardRef<AnimatedTagRef, TagProps>(
         ref={wrapperTagRef}
         className={clsx(
           'label inline-block w-fit origin-left overflow-hidden rounded-full backdrop-blur-xl transition-colors',
-          type === TAG_TYPE.WHTIE && 'bg-white/30 text-black hover:bg-white',
-          type === TAG_TYPE.STROKE_WHTIE &&
+          type === 'white' && 'bg-white/30 text-black hover:bg-white',
+          type === 'stroke-white' &&
             'border border-white/30 bg-transparent stroke-2 text-white hover:border-transparent hover:bg-white/30',
           className,
         )}
