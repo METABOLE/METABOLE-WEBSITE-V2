@@ -32,7 +32,7 @@ function LogoModel() {
   const material = useMemo(
     (): MeshPhysicalMaterial =>
       new MeshPhysicalMaterial({
-        color: 0x1e3a8a,
+        color: 0x020228,
         metalness: 0.15,
         roughness: 0.92,
         envMap: envMap ?? undefined,
@@ -125,11 +125,11 @@ function Scene() {
           >
             <Environment files="/3d/hdri/env.hdr" />
             <hemisphereLight args={[0x93c5fd, 0x1e3a8a, 1.2]} />
-            <directionalLight color={0x818cf8} intensity={1.2} position={[-3, 4, 5]} />
-            <directionalLight color={0x6366f1} intensity={0.9} position={[2, -1, 3]} />
-            <directionalLight color={0xa78bfa} intensity={0.7} position={[2, 2, -2]} />
-            <pointLight color={0x60a5fa} distance={10} intensity={1} position={[0, 0, 3]} />
-            <pointLight color={0xc4b5fd} distance={8} intensity={0.5} position={[-2, 1, 2]} />
+            <directionalLight color={0x818cf8} intensity={10} position={[-3, 4, 5]} />
+            <directionalLight color={0x6366f1} intensity={10.9} position={[2, -1, 3]} />
+            <directionalLight color={0xa78bfa} intensity={10.7} position={[2, 2, -2]} />
+            <pointLight color={0x60a5fa} distance={10} intensity={10} position={[0, 0, 3]} />
+            <pointLight color={0xc4b5fd} distance={8} intensity={10} position={[-2, 1, 2]} />
             <LogoModel />
           </Canvas>
         </div>
