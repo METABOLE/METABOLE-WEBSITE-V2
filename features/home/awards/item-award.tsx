@@ -1,6 +1,6 @@
 import SafeNumberFlow from '@/components/shared/safe-number-flow';
 import { AwardCategory } from '@/types';
-import { stripInvisibleChars } from '@/utils/format.utils';
+import { stripInvisibleChars } from '@/utils';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';

@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { useAudio } from './useAudio';
-import { isEmail, isPhone } from '@/utils/validation.utils';
+import { isEmail, isPhone } from '@/utils';
 
 export const useQuote = () => {
   const { isFrench } = useLanguage();

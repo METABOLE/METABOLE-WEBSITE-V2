@@ -1,7 +1,7 @@
 import { useLanguage } from '@/providers/language.provider';
 import { postSubscribeNewsletter } from '@/services/newsletter.service';
 import { COLORS, FORM_STATUS, NewsletterSubscribeData } from '@/types';
-import { isEmail } from '@/utils/validation.utils';
+import { isEmail } from '@/utils';
 import { useGSAP } from '@gsap/react';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
