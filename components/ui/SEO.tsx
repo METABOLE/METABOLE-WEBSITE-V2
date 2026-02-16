@@ -1,3 +1,4 @@
+import { META } from '@/constants';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -14,12 +15,12 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = 'METABOLE - Creative Studio | METABOLE STUDIO',
+  title = META.title,
   isFrench = false,
-  descriptionEn = "The premium creative studio of tomorrow's businesses. (Strategy | Artistic Direction | Web Development).",
-  descriptionFr = 'Le studio créatif premium des entreprises de demain. (Stratégie | Direction artistique | Développement web).',
-  image = '/og-image.png',
-  url = 'https://metabole.studio',
+  descriptionEn = META.description.en,
+  descriptionFr = META.description.fr,
+  image = META.image,
+  url = META.url,
   type = 'website',
   isHomePage = false,
   noindex = false,
@@ -27,7 +28,7 @@ const SEO = ({
   const { asPath } = useRouter();
   const description = isFrench ? descriptionFr : descriptionEn;
   const lang = isFrench ? 'fr' : 'en';
-  const canonicalUrl = 'https://metabole.studio' + asPath;
+  const canonicalUrl = META.url + asPath;
 
   return (
     <Head>
@@ -76,15 +77,15 @@ const SEO = ({
       {/* Hreflang */}
       {isHomePage ? (
         <>
-          <link href="https://metabole.studio/fr" hrefLang="fr" rel="alternate" />
-          <link href="https://metabole.studio/en" hrefLang="en" rel="alternate" />
-          <link href="https://metabole.studio/en" hrefLang="x-default" rel="alternate" />
+          <link href={`${META.url}/fr`} hrefLang="fr" rel="alternate" />
+          <link href={`${META.url}/en`} hrefLang="en" rel="alternate" />
+          <link href={`${META.url}/en`} hrefLang="x-default" rel="alternate" />
         </>
       ) : (
         <>
           <link href={canonicalUrl} hrefLang={lang} rel="alternate" />
           <link
-            href={`https://metabole.studio${asPath.replace(/^\/(fr|en)/, isFrench ? '/en' : '/fr')}`}
+            href={`${META.url}${asPath.replace(/^\/(fr|en)/, isFrench ? '/en' : '/fr')}`}
             hrefLang={isFrench ? 'en' : 'fr'}
             rel="alternate"
           />

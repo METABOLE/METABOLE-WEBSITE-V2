@@ -1,4 +1,5 @@
 import SEO from '@/components/ui/SEO';
+import { META } from '@/constants';
 import Contact from '@/features/contact/contact';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { useEffect } from 'react';
@@ -13,11 +14,11 @@ const Index = () => {
   return (
     <>
       <SEO
-        descriptionEn="Metabole Studio is a creative agency specialized in design and web development. We create unique and innovative digital experiences."
-        descriptionFr="Metabole Studio est une agence créative spécialisée dans le design et le développement web. Nous créons des expériences digitales uniques et innovantes."
+        descriptionEn={META.description.en}
+        descriptionFr={META.description.fr}
         noindex={true}
-        title="Metabole Studio - Agence de Design et Développement Web"
-        url="https://metabole.studio"
+        title={META.title}
+        url={META.url}
       />
       <Contact />
     </>

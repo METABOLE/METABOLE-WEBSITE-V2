@@ -1,6 +1,6 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import FloatingHalo from '@/components/shared/floating-halo';
-import { getStaticPathsForLang } from '@/constants';
+import { getStaticPathsForLang, META } from '@/constants';
 import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
 import Expertise from '@/features/home/expertise';
@@ -55,9 +55,9 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>METABOLE - Creative Studio | METABOLE STUDIO</title>
-        <link href="https://metabole.studio/fr" rel="canonical" />
-        <meta content="https://metabole.studio/fr" property="og:url" />
+        <title>{META.title}</title>
+        <link href={`${META.url}/fr`} rel="canonical" />
+        <meta content={`${META.url}/fr`} property="og:url" />
       </Head>
       <Hero location={dataInfosData.data[0].location} totalAwards={totalAwards} />
       <Expertise expertise={expertiseData.data} />

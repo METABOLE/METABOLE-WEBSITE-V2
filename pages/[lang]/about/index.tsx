@@ -1,5 +1,5 @@
 import SEO from '@/components/ui/SEO';
-import { getStaticPathsForLang } from '@/constants';
+import { getStaticPathsForLang, META } from '@/constants';
 import Hero from '@/features/about/hero';
 import Numbers from '@/features/about/numbers';
 import Team from '@/features/about/team';
@@ -35,11 +35,11 @@ export default function Index({
   return (
     <>
       <SEO
-        descriptionEn="Metabole Studio is a creative agency specialized in design and web development. We create unique and innovative digital experiences."
-        descriptionFr="Metabole Studio est une agence créative spécialisée dans le design et le développement web. Nous créons des expériences digitales uniques et innovantes."
+        descriptionEn={META.description.en}
+        descriptionFr={META.description.fr}
         noindex={true}
-        title="Metabole Studio - Agence de Design et Développement Web"
-        url="https://metabole.studio"
+        title={META.title}
+        url={META.url}
       />
       <Hero />
       <Values values={valuesData.data} />
