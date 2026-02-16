@@ -94,7 +94,6 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
     ScrollTrigger.create({
       trigger: sectionRef.current,
       endTrigger: '#awards',
-      markers: true,
       start: '200px bottom',
       end: 'bottom 50px',
       onEnter: () => setIsLayoutDark(true),
