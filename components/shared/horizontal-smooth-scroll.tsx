@@ -4,9 +4,11 @@ import ReactLenis, { LenisRef } from 'lenis/react';
 import { ReactNode, useEffect, useRef } from 'react';
 
 const HorizontalSmoothScroll = ({
+  id,
   children,
   className,
 }: {
+  id?: string;
   children: ReactNode;
   className?: string;
 }) => {
@@ -27,6 +29,7 @@ const HorizontalSmoothScroll = ({
       <ReactLenis
         ref={lenisRef}
         className={clsx('no-scrollbar overflow-scroll', className)}
+        id={id}
         options={{
           autoRaf: false,
           orientation: 'horizontal',

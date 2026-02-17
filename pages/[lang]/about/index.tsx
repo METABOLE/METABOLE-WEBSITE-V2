@@ -8,6 +8,7 @@ import { useSanityData } from '@/hooks/useSanityData';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { fetchAwards } from '@/services/awards.service';
 import { fetchDataInfos } from '@/services/data.service';
+import { fetchTeam } from '@/services/team.service';
 import { fetchValues } from '@/services/values.service';
 import { InferGetStaticPropsType } from 'next';
 import { useEffect } from 'react';
@@ -16,10 +17,13 @@ export default function Index({
   values,
   data,
   awards,
+  team,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const valuesData = useSanityData(values);
   const dataInfosData = useSanityData(data);
   const awardsData = useSanityData(awards);
+  const teamData = useSanityData(team);
+
   const totalAwards = awardsData.data.reduce(
     (acc, award) =>
       acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
@@ -44,7 +48,7 @@ export default function Index({
       <Hero />
       <Values values={valuesData.data} />
       <Numbers data={dataInfosData.data} totalAwards={totalAwards} />
-      <Team />
+      <Team team={teamData.data} />
     </>
   );
 }
@@ -60,12 +64,14 @@ export const getStaticProps = async (context: {
   const values = await fetchValues(context);
   const data = await fetchDataInfos(context);
   const awards = await fetchAwards(context);
+  const team = await fetchTeam(context);
 
   return {
     props: {
       values,
       data,
       awards,
+      team,
       draftMode: values.draftMode,
     },
   };

@@ -15,3 +15,4 @@ export * from './sanity.type';
 export * from './service.type';
 export * from './testimonial.type';
 export * from './value.type';
+export * from './team.type';

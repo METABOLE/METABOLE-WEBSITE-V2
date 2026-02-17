@@ -6,6 +6,7 @@ import {
   StarIcon,
   SyncIcon,
   TiersIcon,
+  UserIcon,
   WrenchIcon,
 } from '@sanity/icons';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
@@ -68,6 +69,13 @@ export const structure: StructureResolver = (S, context) =>
         type: 'values',
         title: 'VALUES',
         icon: StarIcon,
+        S,
+        context,
+      }),
+      orderableDocumentListDeskItem({
+        type: 'team',
+        title: 'TEAM',
+        icon: UserIcon,
         S,
         context,
       }),
