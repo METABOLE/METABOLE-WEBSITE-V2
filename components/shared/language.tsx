@@ -16,7 +16,7 @@ const Language = forwardRef<
     <div
       ref={ref}
       className={clsx(
-        'p3-medium flex gap-2',
+        'p3-medium flex flex-col',
         isDark ? 'text-white/30' : 'text-black/30',
         className,
       )}

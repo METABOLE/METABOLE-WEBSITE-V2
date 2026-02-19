@@ -6,7 +6,7 @@ const Time = ({ isDark = false, className }: { isDark?: boolean; className?: str
   const { hours, minutes, period } = useTime();
 
   return (
-    <p className={clsx(isDark ? 'text-white' : 'text-black', className)}>
+    <p className={clsx('p3-medium', isDark ? 'text-white' : 'text-black', className)}>
       <SafeNumberFlow format={numberFormat} value={Number(hours)} />
       :
       <SafeNumberFlow format={numberFormat} value={Number(minutes)} />

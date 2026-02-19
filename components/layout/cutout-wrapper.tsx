@@ -26,7 +26,7 @@ const CutoutWrapper = forwardRef<AnimatedCutoutWrapperRef, { children: ReactNode
       bottomRight: useRef(null),
     };
     const timeline = useRef<gsap.core.Timeline>(
-      gsap.timeline({ defaults: { duration: 0.8, ease: 'power2.inOut' } }),
+      gsap.timeline({ defaults: { duration: 1.2, ease: 'power4.inOut' } }),
     );
 
     useImperativeHandle(ref, () => ({

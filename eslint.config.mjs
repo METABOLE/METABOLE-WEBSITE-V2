@@ -64,6 +64,7 @@ const eslintConfig = [
         HTMLFormElement: 'readonly',
         HTMLImageElement: 'readonly',
         HTMLAnchorElement: 'readonly',
+        HTMLHeadElement: 'readonly',
         HTMLInputElement: 'readonly',
         HTMLLabelElement: 'readonly',
         HTMLSelectElement: 'readonly',

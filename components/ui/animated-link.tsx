@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import Link from 'next/link';
-import { forwardRef, HTMLAttributes, useRef } from 'react';
+import { forwardRef, HTMLAttributes, useRef, useState } from 'react';
 
 gsap.registerPlugin(SplitText);
 
@@ -12,6 +12,7 @@ interface BaseAnimatedLinkProps {
   className?: string;
   onClick?: () => void;
   isDark?: boolean;
+  isResizable?: boolean;
 }
 
 type LinkAnimatedLinkProps = BaseAnimatedLinkProps & {
@@ -28,32 +29,49 @@ type ButtonAnimatedLinkProps = BaseAnimatedLinkProps &
 type AnimatedLinkProps = LinkAnimatedLinkProps | ButtonAnimatedLinkProps;
 
 const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedLinkProps>(
-  ({ children, className, isDark = false, onClick, ...props }, ref) => {
+  ({ children, className, isDark = false, isResizable = false, onClick, ...props }, ref) => {
     const { contextSafe } = useGSAP();
 
+    const [currentChild, setCurrentChild] = useState(children);
     const elementRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
     const currentChildRef = useRef(null);
     const absoluteChildRef = useRef(null);
+    const splitTextRef = useRef<SplitText | null>(null);
+    const absoluteSplitTextRef = useRef<SplitText | null>(null);
     const timelineRef = useRef(gsap.timeline({ paused: true }));
+
+    const cleanupSplitText = contextSafe(() => {
+      if (splitTextRef.current) {
+        splitTextRef.current.revert();
+        splitTextRef.current = null;
+      }
+      if (absoluteSplitTextRef.current) {
+        absoluteSplitTextRef.current.revert();
+        absoluteSplitTextRef.current = null;
+      }
+      timelineRef.current?.clear();
+    });
 
     const initSplitText = contextSafe(() => {
       if (!currentChildRef.current || !absoluteChildRef.current) return;
 
-      const splitText = new SplitText(currentChildRef.current, {
+      cleanupSplitText();
+
+      splitTextRef.current = new SplitText(currentChildRef.current, {
         type: 'lines',
         mask: 'lines',
       });
-      const absoluteSplitText = new SplitText(absoluteChildRef.current, {
+      absoluteSplitTextRef.current = new SplitText(absoluteChildRef.current, {
         type: 'lines',
         mask: 'lines',
       });
 
-      gsap.set(splitText.lines, { yPercent: 0 });
-      gsap.set(absoluteSplitText.lines, { yPercent: 110 });
+      gsap.set(splitTextRef.current.lines, { yPercent: 0 });
+      gsap.set(absoluteSplitTextRef.current.lines, { yPercent: 110 });
 
       timelineRef.current
         .to(
-          splitText.lines,
+          splitTextRef.current.lines,
           {
             yPercent: -110,
             duration: 0.2,
@@ -63,7 +81,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedL
           '<',
         )
         .to(
-          absoluteSplitText.lines,
+          absoluteSplitTextRef.current.lines,
           {
             yPercent: 0,
             duration: 0.3,
@@ -85,8 +103,25 @@ const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedL
     });
 
     useGSAP(() => {
+      if (isResizable) cleanupSplitText();
+      setCurrentChild(children);
+    }, [children, isResizable]);
+
+    useGSAP(() => {
+      cleanupSplitText();
       initSplitText();
-    }, [children]);
+    }, [currentChild]);
+
+    useGSAP(() => {
+      if (!isResizable) return;
+
+      const onResize = () => {
+        cleanupSplitText();
+        initSplitText();
+      };
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+    }, [isResizable]);
 
     const setRef = (el: HTMLAnchorElement | HTMLButtonElement | null) => {
       elementRef.current = el;
@@ -103,14 +138,14 @@ const AnimatedLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, AnimatedL
           ref={currentChildRef}
           className={clsx('relative z-10 transition-colors', isDark ? 'text-white' : 'text-black')}
         >
-          {children}
+          {currentChild}
         </span>
         <span
           ref={absoluteChildRef}
           aria-hidden={true}
           className={clsx('absolute z-10 transition-colors', isDark ? 'text-yellow' : 'text-blue')}
         >
-          {children}
+          {currentChild}
         </span>
       </>
     );

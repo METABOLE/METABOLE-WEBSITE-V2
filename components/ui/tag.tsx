@@ -1,20 +1,11 @@
 import { useMagnet, useResetMagnet } from '@/hooks/useMagnet';
-import { useGSAP } from '@gsap/react';
 import { clsx } from 'clsx';
-import gsap from 'gsap';
 import Link from 'next/link';
-import {
-  ComponentProps,
-  forwardRef,
-  HTMLAttributes,
-  ReactNode,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { ComponentProps, forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 interface BaseTagProps {
   children: ReactNode;
-  type: 'white' | 'stroke-white';
+  type?: 'white';
   className?: string;
 }
 
@@ -43,96 +34,14 @@ const DynamicElement = ({ href, ...props }: DynamicElementProps) => {
   return <Component {...(props as LinkTagProps)} {...(href && { href })} />;
 };
 
-export interface AnimatedTagRef {
-  play: () => void;
-  reverse: () => void;
-}
-
-const Tag = forwardRef<AnimatedTagRef, TagProps>(
-  ({ children, type, href, target, className, ...props }, ref) => {
-    const wrapperTagRef = useRef(null);
-    const tagRef = useRef(null);
-
-    const { contextSafe } = useGSAP();
-
-    useGSAP(() => {
-      if (!ref) return;
-      gsap.set(wrapperTagRef.current, {
-        width: 30,
-        scale: 0,
-      });
-      gsap.set(tagRef.current, {
-        opacity: 0,
-        scale: 0.5,
-      });
-    }, []);
-
-    const play = contextSafe(() => {
-      return gsap
-        .timeline()
-        .set(wrapperTagRef.current, {
-          width: 30,
-          scale: 0,
-        })
-        .set(tagRef.current, {
-          opacity: 0,
-          scale: 0.5,
-        })
-        .to(wrapperTagRef.current, {
-          scale: 1,
-          duration: 0.3,
-          ease: 'power2.out',
-        })
-        .to(
-          tagRef.current,
-          {
-            opacity: 1,
-            duration: 0.3,
-            ease: 'power.out',
-          },
-          '-=0.3',
-        )
-        .to(
-          tagRef.current,
-          {
-            scale: 1,
-            duration: 1,
-            ease: 'elastic.out',
-          },
-          '<',
-        )
-        .to(
-          wrapperTagRef.current,
-          {
-            width: 'auto',
-            duration: 1.2,
-            ease: 'elastic.out',
-          },
-          '<',
-        );
-    });
-
-    const reverse = contextSafe(() => {
-      return gsap.to(wrapperTagRef.current, {
-        scale: 0,
-        duration: 0.3,
-        ease: 'power2.in',
-      });
-    });
-
-    useImperativeHandle(ref, () => ({
-      play,
-      reverse,
-    }));
-
+const Tag = forwardRef<HTMLDivElement, TagProps>(
+  ({ children, type = 'white', href, target, className, ...props }, ref) => {
     return (
       <DynamicElement
-        ref={wrapperTagRef}
+        ref={ref}
         className={clsx(
-          'label inline-block w-fit origin-left overflow-hidden rounded-full backdrop-blur-xl transition-colors',
-          type === 'white' && 'bg-white/30 text-black hover:bg-white',
-          type === 'stroke-white' &&
-            'border border-white/30 bg-transparent stroke-2 text-white hover:border-transparent hover:bg-white/30',
+          'label inline-block w-fit origin-left overflow-hidden rounded-sm uppercase backdrop-blur-xl transition-colors',
+          type === 'white' && 'bg-white/70 text-black hover:bg-white',
           className,
         )}
         {...props}
@@ -142,7 +51,6 @@ const Tag = forwardRef<AnimatedTagRef, TagProps>(
         onMouseOut={(e) => useResetMagnet(e)}
       >
         <span
-          ref={tagRef}
           className="flex h-full w-full origin-left items-center px-3 py-2 whitespace-nowrap"
           onMouseMove={(e) => useMagnet(e, 0.4)}
           onMouseOut={(e) => useResetMagnet(e)}

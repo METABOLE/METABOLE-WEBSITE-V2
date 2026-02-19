@@ -156,7 +156,7 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
         <div className="flex items-center justify-between gap-5 pb-3 md:justify-start">
           <h2
             ref={titleRef}
-            className={clsx('p3 whitespace-nowrap', isDark ? 'text-black' : 'text-white')}
+            className={clsx('p3-medium whitespace-nowrap', isDark ? 'text-black' : 'text-white')}
           >
             {isFrench ? 'Rejoignez notre newsletter ' : 'Join our newsletter '}
           </h2>
