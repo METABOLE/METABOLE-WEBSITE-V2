@@ -62,7 +62,7 @@ const Values = ({ values }: { values: Value[] }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="space-y-px pt-[100px]">
+    <section ref={sectionRef} className="space-y-px overflow-hidden pt-[100px]">
       <div
         ref={(el) => {
           if (el) {

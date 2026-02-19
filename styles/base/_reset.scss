@@ -81,3 +81,8 @@ html {
     display: none !important;
   }
 }
+
+.team-container>div {
+  display: flex;
+  gap: 20px;
+}
