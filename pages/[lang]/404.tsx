@@ -20,7 +20,7 @@ export default function Page() {
 
   return (
     <section className="fixed inset-0 flex h-screen flex-col items-center justify-center text-center">
-      <h1 ref={textRef} className="text-blue !text-[clamp(10rem,40vw,50rem)] opacity-0">
+      <h1 ref={textRef} className="text-blue text-[clamp(10rem,40vw,50rem)]! opacity-0">
         404
       </h1>
     </section>

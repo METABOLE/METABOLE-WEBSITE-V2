@@ -52,8 +52,7 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
 
     const play = contextSafe(() => {
       if (!titleRef.current) return gsap.timeline();
-
-      gsap.killTweensOf([titleRef.current, arrowRef.current]);
+      killAnimations();
 
       return gsap
         .timeline()
@@ -78,10 +77,13 @@ const NewsletterForm = forwardRef<AnimatedNewsletterFormRef, LeadFormProps>(
         );
     });
 
+    const killAnimations = contextSafe(() => {
+      gsap.killTweensOf([titleRef.current, arrowRef.current, buttonQuestionMarkRef.current]);
+    });
+
     const reverse = contextSafe(() => {
       if (!titleRef.current) return gsap.timeline();
-
-      gsap.killTweensOf([titleRef.current, arrowRef.current]);
+      killAnimations();
 
       return gsap
         .timeline()

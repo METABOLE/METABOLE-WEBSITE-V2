@@ -52,7 +52,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     if (isStudioRoute) return;
 
     if (router.query.lang !== 'en' && router.query.lang !== 'fr') {
-      router.push('/404');
+      router.push(getInternalPath('/404'));
       return;
     }
 

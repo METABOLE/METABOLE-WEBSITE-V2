@@ -51,7 +51,18 @@ export function useMenu() {
     });
   });
 
+  const killMenu = contextSafe(() => {
+    gsap.killTweensOf(animRefs.translate.current);
+    gsap.killTweensOf(animRefs.scale.current);
+    gsap.killTweensOf(animRefs.scaleX.current);
+  });
+
   const openMenu = contextSafe(() => {
+    timelineRef.current?.kill();
+    setupMenu();
+    killMenu();
+    setIsMenuOpen(true);
+
     timelineRef.current = gsap
       .timeline({
         defaults: {
@@ -80,7 +91,7 @@ export function useMenu() {
         menuRef.current,
         {
           backdropFilter: 'blur(10px)',
-          backgroundColor: '#e3e3ffd7',
+          backgroundColor: '#e3e3ffd1',
         },
         '<',
       )
@@ -131,11 +142,14 @@ export function useMenu() {
           stagger: 0.05,
         },
         '<',
-      )
-      .add(() => setIsMenuOpen(true));
+      );
   });
 
   const closeMenu = contextSafe(() => {
+    timelineRef.current?.kill();
+    killMenu();
+    setIsMenuOpen(false);
+
     timelineRef.current = gsap
       .timeline({
         defaults: {
@@ -193,7 +207,6 @@ export function useMenu() {
         },
         '<',
       )
-      .add(() => setIsMenuOpen(false), '<')
       .to(contactMenuRef.current, {
         width: 'auto',
         gap: 0,

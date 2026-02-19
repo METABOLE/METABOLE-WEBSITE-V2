@@ -299,6 +299,7 @@ export function useMenu() {
   useShortcut('Escape', () => isMenuOpen && closeMenu());
 
   useGSAP(() => {
+    setupMenu();
     revealAnimation();
   }, []);
 
