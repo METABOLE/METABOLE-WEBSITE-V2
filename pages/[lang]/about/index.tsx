@@ -4,6 +4,7 @@ import Hero from '@/features/about/hero';
 import Numbers from '@/features/about/numbers';
 import Team from '@/features/about/team';
 import Values from '@/features/about/values';
+import FinalCta from '@/features/shared/final-cta';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useLayoutColor } from '@/providers/layout-color.provider';
 import { fetchAwards } from '@/services/awards.service';
@@ -49,6 +50,7 @@ export default function Index({
       <Values values={valuesData.data} />
       <Numbers data={dataInfosData.data} totalAwards={totalAwards} />
       <Team team={teamData.data} />
+      <FinalCta />
     </>
   );
 }

@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
-import SceneLight from './hero/scene-light';
+import SceneLight from '../home/hero/scene-light';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +37,7 @@ const FinalCta = () => {
       ref={sectionRef}
       className="px-x-default py-y-default sticky z-90 flex h-screen flex-col items-center justify-center bg-white text-black"
     >
+      <div className="bg-blue/10 absolute top-0 h-px w-full"></div>
       <SceneLight scrollProgressRef={scrollProgressRef} />
       <BackgroundLines />
       <h2 className="font-safiro-regular! flex flex-col gap-2 text-[clamp(38px,5vw,96px)]!">

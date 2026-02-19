@@ -4,7 +4,7 @@ import { getStaticPathsForLang, META } from '@/constants';
 import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
 import Expertise from '@/features/home/expertise';
-import FinalCta from '@/features/home/final-cta';
+import FinalCta from '@/features/shared/final-cta';
 import Hero from '@/features/home/hero';
 import JoinUs from '@/features/home/join-us';
 import Processus from '@/features/home/processus';

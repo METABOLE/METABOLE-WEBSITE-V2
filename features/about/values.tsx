@@ -23,23 +23,22 @@ const Values = ({ values }: { values: Value[] }) => {
   });
 
   const pinAnimation = contextSafe(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: () => `+=${window.innerHeight * 3}`,
-        pin: true,
-        scrub: true,
-      },
-    });
-
-    itemsRefs.current.forEach((item) => {
-      tl.to(item, {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: () => `+=${window.innerHeight * 3}`,
+          pin: true,
+          scrub: true,
+        },
+      })
+      .to(itemsRefs.current, {
         xPercent: 0,
         ease: 'power1.inOut',
         duration: 1,
+        stagger: 0.1,
       });
-    });
   });
 
   const changeLayoutColor = () => {
