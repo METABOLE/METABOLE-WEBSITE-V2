@@ -26,7 +26,7 @@ const BackgroundLines = ({
       <div className="relative col-span-2 w-full">
         <div
           className={clsx(
-            'absolute top-0 bottom-0 left-0 w-px',
+            'absolute top-0 bottom-0 left-0 hidden w-px sm:block',
             isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
@@ -42,7 +42,7 @@ const BackgroundLines = ({
       <div className="relative col-span-1 w-full">
         <div
           className={clsx(
-            'absolute top-0 bottom-0 left-0 w-px',
+            'absolute top-0 bottom-0 left-0 hidden w-px sm:block',
             isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
@@ -50,7 +50,7 @@ const BackgroundLines = ({
       <div className="relative col-span-1 w-full">
         <div
           className={clsx(
-            'absolute top-0 right-0 bottom-0 w-px',
+            'absolute top-0 right-0 bottom-0 hidden w-px sm:block',
             isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />
@@ -66,7 +66,7 @@ const BackgroundLines = ({
       <div className="relative col-span-2 w-full">
         <div
           className={clsx(
-            'absolute top-0 right-0 bottom-0 w-px',
+            'absolute top-0 right-0 bottom-0 hidden w-px sm:block',
             isDark ? 'bg-[#E4E4FF]/10' : 'bg-blue/10',
           )}
         />

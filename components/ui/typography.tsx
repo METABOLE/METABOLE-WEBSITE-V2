@@ -31,10 +31,10 @@ const Typography = ({
       mask: 'lines',
     });
 
-    gsap.set(splitText.lines, { y: 100 });
+    gsap.set(splitText.lines, { yPercent: 120 });
 
     gsap.to(splitText.lines, {
-      y: 0,
+      yPercent: 0,
       duration: 1.6,
       ease: 'power4.inOut',
       stagger: 0.07,

@@ -147,7 +147,7 @@ const ItemTestimonial = ({
       <div
         ref={testimonialRefs.container}
         aria-hidden={!isActive}
-        className="absolute col-span-10 col-start-2 w-full text-white"
+        className="xs:col-span-10 xs:col-start-2 absolute col-span-12 w-full text-white"
         style={{
           pointerEvents: isActive ? 'auto' : 'none',
         }}

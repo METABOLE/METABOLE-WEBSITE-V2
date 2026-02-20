@@ -127,13 +127,13 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
         <div className="relative grid grid-cols-12 gap-5">
           <button
             aria-label="Témoignage précédent"
-            className="custom-cursor-previous absolute left-0 z-20 h-full w-1/2 cursor-none"
+            className="custom-cursor-previous absolute left-0 z-20 h-full w-1/2 cursor-none outline-none"
             type="button"
             onClick={handlePrevious}
           />
           <button
             aria-label="Témoignage suivant"
-            className="custom-cursor-next absolute right-0 z-20 h-full w-1/2 cursor-none"
+            className="custom-cursor-next absolute right-0 z-20 h-full w-1/2 cursor-none outline-none"
             type="button"
             onClick={handleNext}
           />

@@ -53,7 +53,7 @@ const Header = ({
           <Sound ref={soundRef} className="shrink-0" />
           <AnimatedLink
             ref={contactMenuRef}
-            className="p3-medium overflow-hidden whitespace-nowrap"
+            className="p3-medium hidden overflow-hidden whitespace-nowrap md:block"
             href={getInternalPath('/contact')}
             isDark={true}
             scroll={false}
