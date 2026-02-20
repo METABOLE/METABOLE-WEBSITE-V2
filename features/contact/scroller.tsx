@@ -19,28 +19,28 @@ const Scroller = ({ className }: { className?: string }) => {
       >
         <div className="col-span-2 h-full w-full">
           <ScrollingContainerVertical scrollSpeed={30}>
-            <div className="pt-y-default gap-y-default grid h-screen w-full grid-rows-3">
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
+            <div className="grid h-screen w-full grid-rows-3 pt-[20vh]">
+              <div className="h-full w-full bg-[#D5D7EB]"></div>
+              <div className=""></div>
+              <div className="h-full w-full bg-[#D5D7EB]"></div>
             </div>
           </ScrollingContainerVertical>
         </div>
         <div className="col-span-2 h-full w-full">
           <ScrollingContainerVertical direction="down" scrollSpeed={25}>
-            <div className="pt-y-default gap-y-default grid h-screen w-full grid-rows-3">
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
+            <div className="grid h-screen w-full grid-rows-3 pt-[20vh]">
+              <div className="h-full w-full bg-[#D5D7EB]"></div>
+              <div className=""></div>
+              <div className="h-full w-full bg-[#D5D7EB]"></div>
             </div>
           </ScrollingContainerVertical>
         </div>
         <div className="col-span-2 h-full w-full">
           <ScrollingContainerVertical scrollSpeed={40}>
-            <div className="pt-y-default gap-y-default grid h-screen w-full grid-rows-3">
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
-              <div className="h-full w-full shrink-0 bg-[#D5D7EB]"></div>
+            <div className="grid h-screen w-full grid-rows-3 pt-[20vh]">
+              <div className="h-full w-full bg-[#D5D7EB]"></div>
+              <div className=""></div>
+              <div className="h-full w-full bg-[#D5D7EB]"></div>
             </div>
           </ScrollingContainerVertical>
         </div>
