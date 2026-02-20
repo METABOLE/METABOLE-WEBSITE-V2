@@ -18,8 +18,10 @@ import Hint from '../ui/hint';
 import { IconArrow, LogoSmall } from '../ui/icons';
 
 const Footer = ({ dataInfos }: { dataInfos: Data[] }) => {
-  const [data] = dataInfos;
-  const { email, location, socials } = data;
+  const data = dataInfos?.[0];
+  const email = data?.email ?? '';
+  const location = data?.location ?? '';
+  const socials = data?.socials ?? [];
 
   const animatedTitleRef = useRef<SVGSVGElement>(null);
   const wrapperRef = useRef(null);

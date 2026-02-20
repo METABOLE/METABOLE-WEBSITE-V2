@@ -19,8 +19,9 @@ const Burger = ({ dataInfos }: { dataInfos: Data[] }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBurgerActive, setIsBurgerActive] = useState(false);
 
-  const [data] = dataInfos;
-  const { email, socials } = data;
+  const data = dataInfos?.[0];
+  const email = data?.email ?? '';
+  const socials = data?.socials ?? [];
 
   const menuRef = useRef(null);
   const soundRef = useRef<HTMLButtonElement>(null);

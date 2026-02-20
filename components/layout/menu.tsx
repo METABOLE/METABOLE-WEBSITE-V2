@@ -30,9 +30,7 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
     closeMenu,
   } = useMenu();
 
-  // const [data] = dataInfos;
-  // const { email, location, socials } = data;
-
+  const data = dataInfos?.[0];
   const { isFrench, getInternalPath } = useLanguage();
   const { isLayoutDark } = useLayoutColor();
 
@@ -78,16 +76,18 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
                 hintId="hint-newsletter-menu"
                 isDark={true}
               />
-              <Socials socials={dataInfos[0].socials} />
+              {data?.socials && <Socials socials={data.socials} />}
             </div>
           </div>
           <Divider />
-          <Infos
-            closeMenu={closeMenu}
-            email={dataInfos[0].email}
-            infosRef={infosRef}
-            location={dataInfos[0].location}
-          />
+          {data && (
+            <Infos
+              closeMenu={closeMenu}
+              email={data.email}
+              infosRef={infosRef}
+              location={data.location}
+            />
+          )}
         </div>
       </CutoutWrapper>
     </>

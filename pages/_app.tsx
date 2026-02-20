@@ -16,7 +16,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { NextPage } from 'next';
 import type { AppContext, AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
-import { useEffect, type ReactElement, type ReactNode } from 'react';
+import { useEffect, useState, type ReactElement, type ReactNode } from 'react';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,12 +36,27 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   const isScreenLoader = useIsScreenLoader();
   const { isDev } = useEnvironment();
   const { resetScroll } = useScroll();
-  const { draftMode } = globalProps;
+  const [resolvedGlobalProps, setResolvedGlobalProps] = useState(globalProps);
+  const { draftMode } = resolvedGlobalProps;
+
+  // When globalProps are empty (e.g. client-side nav to 404), fetch from API so layout always has data
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hasData =
+      (resolvedGlobalProps.dataInfos.initial?.data?.length ?? 0) > 0 &&
+      (resolvedGlobalProps.projects.initial?.data?.length ?? 0) > 0;
+    if (hasData) return;
+    window
+      .fetch('/api/global-data')
+      .then((res) => res.json())
+      .then((data) => setResolvedGlobalProps(data))
+      .catch(console.error);
+  }, []);
 
   const getLayout =
     Component.getLayout ||
     ((page) => (
-      <Layout dataInfos={globalProps.dataInfos} projects={globalProps.projects}>
+      <Layout dataInfos={resolvedGlobalProps.dataInfos} projects={resolvedGlobalProps.projects}>
         {page}
       </Layout>
     ));

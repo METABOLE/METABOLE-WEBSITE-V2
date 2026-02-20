@@ -30,7 +30,7 @@ export function useMenu() {
   const { setIsLayoutDark } = useLayoutColor();
   const { contextSafe } = useGSAP();
 
-  const revealAnimation = contextSafe(() => {});
+  // const revealAnimation = contextSafe(() => {});
 
   const setupMenu = contextSafe(() => {
     animRefs.translate.current = menuRef.current?.querySelectorAll('.menu-item-translate') || null;
@@ -90,7 +90,7 @@ export function useMenu() {
       .to(
         menuRef.current,
         {
-          backdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(64px)',
           backgroundColor: '#e3e3ffd1',
         },
         '<',
@@ -215,14 +215,11 @@ export function useMenu() {
 
   useShortcut('Escape', () => isMenuOpen && closeMenu());
 
-  useGSAP(() => {
-    setupMenu();
-    revealAnimation();
-
-    const onResize = () => setupMenu();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+  // useGSAP(() => {
+  //   const onResize = () => setupMenu();
+  //   window.addEventListener('resize', onResize);
+  //   return () => window.removeEventListener('resize', onResize);
+  // }, []);
 
   return {
     refs: {
