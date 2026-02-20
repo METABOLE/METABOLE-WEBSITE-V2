@@ -30,7 +30,6 @@ const Layout = ({
 }) => {
   const { isFrench } = useLanguage();
   const router = useRouter();
-  const isTablet = useMatchMedia(BREAKPOINTS.MD);
   const isMobile = useMatchMedia(BREAKPOINTS.SM);
   const { isDev } = useEnvironment();
   const { isLoading } = usePerformance();
