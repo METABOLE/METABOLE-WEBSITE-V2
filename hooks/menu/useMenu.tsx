@@ -30,8 +30,6 @@ export function useMenu() {
   const { setIsLayoutDark } = useLayoutColor();
   const { contextSafe } = useGSAP();
 
-  // const revealAnimation = contextSafe(() => {});
-
   const setupMenu = contextSafe(() => {
     animRefs.translate.current = menuRef.current?.querySelectorAll('.menu-item-translate') || null;
     animRefs.scale.current = menuRef.current?.querySelectorAll('.menu-item-scale') || null;
@@ -102,14 +100,14 @@ export function useMenu() {
         headerRef.current,
         {
           top: 32,
-          paddingBlock: gsap.utils.clamp(20, 8 * window.innerHeight * 0.01, 100),
+          paddingTop: gsap.utils.clamp(20, 8 * window.innerHeight * 0.01, 100),
         },
         '<',
       )
       .to(
         headerRef.current?.children || [],
         {
-          paddingInline: gsap.utils.clamp(20, 8 * window.innerWidth * 0.01, 40),
+          paddingInline: gsap.utils.clamp(20, 4 * window.innerWidth * 0.01, 40),
           paddingBlock: 0,
         },
         '<',

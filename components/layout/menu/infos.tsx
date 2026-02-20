@@ -16,15 +16,15 @@ const Infos = ({
   return (
     <div
       ref={infosRef}
-      className="px-x-default flex w-full items-center justify-between gap-5 overflow-y-hidden whitespace-nowrap xl:grid xl:grid-cols-6"
+      className="px-x-default flex w-full shrink-0 items-center justify-between gap-5 overflow-y-hidden whitespace-nowrap xl:grid xl:grid-cols-6"
     >
-      <div className="overflow-hidden">
+      <div className="hidden overflow-hidden sm:block">
         <p className="p3-medium menu-item-translate text-black">Metabole® 2025</p>
       </div>
       <div className="hidden overflow-hidden lg:block">
         <p className="p3-medium menu-item-translate text-black">{location}</p>
       </div>
-      <div className="overflow-hidden">
+      <div className="hidden overflow-hidden sm:block">
         <Time className="menu-item-translate" isDark={false} />
       </div>
       <div className="col-span-2 overflow-hidden">

@@ -65,21 +65,29 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
           className="py-y-default gap-y-default bg-menu/0 flex h-full w-full flex-col justify-between"
         >
           <div />
-          <Divider />
-          <div className="px-x-default grid grid-cols-10 gap-5">
+          <Divider className="hide-on-small-height hidden md:block" />
+          <div className="px-x-default flex flex-col justify-between gap-5 sm:flex-row md:grid md:grid-cols-10">
             <Links closeMenu={closeMenu} />
-            <Projects getInternalPath={getInternalPath} isFrench={isFrench} projects={projects} />
-            <div className="col-span-3">
+            <Projects
+              className="col-span-3 hidden md:block"
+              getInternalPath={getInternalPath}
+              isFrench={isFrench}
+              projects={projects}
+            />
+            <div className="hide-on-small-height col-span-3">
               <NewsletterForm
                 ref={newsletterFormRef}
                 animate={true}
+                className="hidden md:block"
                 hintId="hint-newsletter-menu"
                 isDark={true}
               />
-              {data?.socials && <Socials socials={data.socials} />}
+              {data?.socials && (
+                <Socials className="md:items-end md:text-right" socials={data.socials} />
+              )}
             </div>
           </div>
-          <Divider />
+          <Divider className="hide-on-small-height hidden md:block" />
           {data && (
             <Infos
               closeMenu={closeMenu}

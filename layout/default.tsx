@@ -1,5 +1,4 @@
 import BackgroundLines from '@/components/layout/background-lines';
-import Burger from '@/components/layout/burger';
 import Footer from '@/components/layout/footer';
 import Menu from '@/components/layout/menu';
 import ScrollBar from '@/components/layout/scroll-bar';
@@ -51,11 +50,7 @@ const Layout = ({
         ) : (
           <>
             <BackgroundLines className="fixed" />
-            {isTablet ? (
-              <Burger dataInfos={dataInfosData.data} />
-            ) : (
-              <Menu dataInfos={dataInfosData.data} projects={projectsData.data} />
-            )}
+            <Menu dataInfos={dataInfosData.data} projects={projectsData.data} />
             {children}
             {!isMobile && <ScrollBar />}
             {isDev && <PerformanceIndicator />}

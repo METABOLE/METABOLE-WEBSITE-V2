@@ -1,19 +1,22 @@
 import Tag from '@/components/ui/tag';
 import { ProjectType } from '@/types';
+import clsx from 'clsx';
 import Link from 'next/link';
 
 const Projects = ({
   projects,
   getInternalPath,
   isFrench,
+  className,
 }: {
   projects: ProjectType[];
   getInternalPath: (path: string) => string;
   isFrench: boolean;
+  className?: string;
 }) => {
   const SLICED_PROJECTS = projects.slice(0, 6);
   return (
-    <nav className="col-span-3">
+    <nav className={clsx(className)}>
       {SLICED_PROJECTS.length > 0 && (
         <ul className="flex flex-col gap-2.5">
           <li className="overflow-hidden">
