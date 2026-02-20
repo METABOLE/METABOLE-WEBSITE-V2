@@ -7,7 +7,7 @@ const Manifesto = () => {
 
   return (
     <section className="py-y-double-default px-x-default grid h-screen grid-cols-12 items-center gap-5 text-left text-white">
-      <div className="col-span-10 col-start-2 max-w-5xl">
+      <div className="col-span-10 max-w-5xl sm:col-start-2">
         <Title color="yellow">MANIFESTO</Title>
         <Typography
           className="h2 pt-y-half-default"

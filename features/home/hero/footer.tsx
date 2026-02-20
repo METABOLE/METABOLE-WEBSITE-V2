@@ -3,9 +3,12 @@ import Time from '@/components/shared/time';
 import { IconCross } from '@/components/ui/icons';
 import { useEffect, useState } from 'react';
 import Showreel from './showreel';
+import { BREAKPOINTS } from '@/types';
+import { useMatchMedia } from '@/hooks/useCheckScreenSize';
 
 const Footer = ({ totalAwards, location }: { totalAwards: number; location: string }) => {
   const [value, setValue] = useState(0);
+  const isTablet = useMatchMedia(BREAKPOINTS.LG);
 
   useEffect(() => {
     setTimeout(() => {
@@ -14,11 +17,11 @@ const Footer = ({ totalAwards, location }: { totalAwards: number; location: stri
   }, []);
 
   return (
-    <div className="px-x-default sticky right-0 bottom-0 left-0 z-50 grid h-fit w-full grid-cols-3 items-center gap-5 pb-8 text-white md:grid-cols-12">
+    <div className="px-x-default sticky right-0 bottom-0 left-0 z-50 flex h-fit w-full grid-cols-3 items-center justify-between gap-5 pb-8 text-white sm:grid md:grid-cols-12">
       <Showreel />
       <SafeNumberFlow
         className="text-left text-sm! md:col-span-3"
-        prefix="Award winning studio ("
+        prefix={isTablet ? 'Awards(' : 'Award winning studio ('}
         suffix="+)"
         value={value}
       />
@@ -29,7 +32,7 @@ const Footer = ({ totalAwards, location }: { totalAwards: number; location: stri
       <div className="hidden justify-end md:flex">
         <IconCross className="translate-x-[5px] fill-white" />
       </div>
-      <Time className="text-right text-sm! md:col-span-3" isDark={true} />
+      <Time className="hidden text-right text-sm! sm:block md:col-span-3" isDark={true} />
     </div>
   );
 };
