@@ -1,8 +1,14 @@
 import ScrollingContainerVertical from '@/components/shared/scrolling-container-vertical';
+import clsx from 'clsx';
 
-const Scroller = () => {
+const Scroller = ({ className }: { className?: string }) => {
   return (
-    <div className="px-x-default fixed top-0 left-0 grid h-full w-screen grid-cols-12 gap-5">
+    <div
+      className={clsx(
+        'px-x-default fixed top-0 left-0 hidden h-full w-screen grid-cols-12 gap-5 md:grid',
+        className,
+      )}
+    >
       <div
         className="relative col-span-5 grid h-full w-[calc(100%+var(--x-default)+20px)] -translate-x-(--x-default)"
         style={{
