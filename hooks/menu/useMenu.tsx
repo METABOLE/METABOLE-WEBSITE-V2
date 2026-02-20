@@ -1,7 +1,6 @@
 import type { AnimatedCutoutWrapperRef } from '@/components/layout/cutout-wrapper';
 import type { AnimatedNewsletterFormRef } from '@/components/shared/newsletter-form';
 import { useShortcut } from '@/hooks/useShortcut';
-import { useLayoutColor } from '@/providers/layout-color.provider';
 import { COLORS } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -27,7 +26,6 @@ export function useMenu() {
 
   const timelineRef = useRef<gsap.core.Timeline>(gsap.timeline());
 
-  const { setIsLayoutDark } = useLayoutColor();
   const { contextSafe } = useGSAP();
 
   const setupMenu = contextSafe(() => {
@@ -112,7 +110,6 @@ export function useMenu() {
         },
         '<',
       )
-      .add(() => setIsLayoutDark(false), '<+=0.4')
       .add(() => {
         newsletterFormRef.current?.play();
       }, '<')
@@ -178,7 +175,6 @@ export function useMenu() {
         '<',
       )
       .add(() => {
-        setIsLayoutDark(true);
         cutoutRef.current?.closeCutoutWrapper();
       }, '<')
       .to(

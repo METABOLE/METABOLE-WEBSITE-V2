@@ -4,7 +4,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ReactNode } from 'react';
 import { CursorProvider } from './cursor.provider';
 import { LanguageProvider } from './language.provider';
-import { LayoutColorProvider } from './layout-color.provider';
 import { QueryProvider } from './query.provider';
 import { SmoothScrollProvider } from './smooth-scroll.provider';
 import { SoundProvider } from './sound.provider';
@@ -18,9 +17,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         <SoundProvider>
           <PerformanceProvider>
             <LanguageProvider>
-              <LayoutColorProvider>
-                <SmoothScrollProvider>{children}</SmoothScrollProvider>
-              </LayoutColorProvider>
+              <SmoothScrollProvider>{children}</SmoothScrollProvider>
             </LanguageProvider>
           </PerformanceProvider>
         </SoundProvider>

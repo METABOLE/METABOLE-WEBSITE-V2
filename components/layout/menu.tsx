@@ -1,6 +1,5 @@
 import { useMenu } from '@/hooks/menu/useMenu';
 import { useLanguage } from '@/providers/language.provider';
-import { useLayoutColor } from '@/providers/layout-color.provider';
 import { Data, ProjectType } from '@/types';
 import NewsletterForm from '../shared/newsletter-form';
 import Hint from '../ui/hint';
@@ -32,7 +31,6 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
 
   const data = dataInfos?.[0];
   const { isFrench, getInternalPath } = useLanguage();
-  const { isLayoutDark } = useLayoutColor();
 
   return (
     <>
@@ -52,7 +50,6 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
         closeMenu={closeMenu}
         contactMenuRef={contactMenuRef}
         headerRef={headerRef}
-        isLayoutDark={isLayoutDark}
         isMenuOpen={isMenuOpen}
         logoRef={logoRef}
         openMenu={openMenu}

@@ -4,9 +4,6 @@ import { IconArrow } from '@/components/ui/icons';
 import { Testimonial } from '@/types';
 import { useEffect, useRef, useState } from 'react';
 import ItemTestimonial from './testimonials/item-testimonial';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLayoutColor } from '@/providers/layout-color.provider';
-import { useGSAP } from '@gsap/react';
 
 const PROGRESS_DURATION_MS = 8000;
 
@@ -86,26 +83,6 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
     const next = currentIndex + 1 >= testimonials.length ? 0 : currentIndex + 1;
     setCurrentIndex(next);
   }
-
-  const { setIsLayoutDark } = useLayoutColor();
-
-  const changeLayoutColor = () => {
-    if (!sectionRef.current) return;
-    ScrollTrigger.create({
-      trigger: sectionRef.current,
-      endTrigger: '#awards',
-      start: '200px bottom',
-      end: 'bottom 50px',
-      onEnter: () => setIsLayoutDark(true),
-      onEnterBack: () => setIsLayoutDark(true),
-      onLeave: () => setIsLayoutDark(false),
-      onLeaveBack: () => setIsLayoutDark(false),
-    });
-  };
-
-  useGSAP(() => {
-    changeLayoutColor();
-  }, []);
 
   if (!testimonials.length) return null;
 

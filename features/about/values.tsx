@@ -1,17 +1,14 @@
 import Title from '@/components/shared/title';
 import { useLanguage } from '@/providers/language.provider';
-import { useLayoutColor } from '@/providers/layout-color.provider';
 import { Value } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
 import ItemValue from './values/item-value';
 
 const Values = ({ values }: { values: Value[] }) => {
   const sectionRef = useRef(null);
   const itemsRefs = useRef<HTMLDivElement[] | HTMLLIElement[]>([]);
-  const { setIsLayoutDark } = useLayoutColor();
 
   const { isFrench } = useLanguage();
   const { contextSafe } = useGSAP();
@@ -41,23 +38,9 @@ const Values = ({ values }: { values: Value[] }) => {
       });
   });
 
-  const changeLayoutColor = () => {
-    if (!sectionRef.current) return;
-    ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: '50px top',
-      end: 'bottom 50px',
-      onEnter: () => setIsLayoutDark(true),
-      onEnterBack: () => setIsLayoutDark(true),
-      onLeave: () => setIsLayoutDark(false),
-      onLeaveBack: () => setIsLayoutDark(false),
-    });
-  };
-
   useGSAP(() => {
     setupAnimation();
     pinAnimation();
-    changeLayoutColor();
   }, []);
 
   return (

@@ -6,13 +6,11 @@ import Team from '@/features/about/team';
 import Values from '@/features/about/values';
 import FinalCta from '@/features/shared/final-cta';
 import { useSanityData } from '@/hooks/useSanityData';
-import { useLayoutColor } from '@/providers/layout-color.provider';
 import { fetchAwards } from '@/services/awards.service';
 import { fetchDataInfos } from '@/services/data.service';
 import { fetchTeam } from '@/services/team.service';
 import { fetchValues } from '@/services/values.service';
 import { InferGetStaticPropsType } from 'next';
-import { useEffect } from 'react';
 
 export default function Index({
   values,
@@ -30,12 +28,6 @@ export default function Index({
       acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
     0,
   );
-
-  const { setIsLayoutDark } = useLayoutColor();
-
-  useEffect(() => {
-    setIsLayoutDark(false);
-  }, []);
 
   return (
     <>

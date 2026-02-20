@@ -2,7 +2,6 @@ import Sound from '@/components/shared/sound';
 import AnimatedLink from '@/components/ui/animated-link';
 import { LogoFull } from '@/components/ui/icons';
 import { useLanguage } from '@/providers/language.provider';
-import clsx from 'clsx';
 import Link from 'next/link';
 import { RefObject } from 'react';
 
@@ -23,7 +22,6 @@ const Header = ({
   wrapperButtonRef,
   closeMenu,
   soundRef,
-  isLayoutDark,
   contactMenuRef,
   isMenuOpen,
   openMenu,
@@ -32,7 +30,6 @@ const Header = ({
   logoRef: RefObject<HTMLAnchorElement | null>;
   wrapperButtonRef: RefObject<HTMLDivElement | null>;
   soundRef: RefObject<HTMLButtonElement | null>;
-  isLayoutDark: boolean;
   contactMenuRef: RefObject<HTMLAnchorElement | null>;
   isMenuOpen: boolean;
   openMenu: () => void;
@@ -40,7 +37,7 @@ const Header = ({
 }) => {
   const { isFrench, getInternalPath } = useLanguage();
   return (
-    <header ref={headerRef} className="px-x-default fixed z-900 w-full">
+    <header ref={headerRef} className="px-x-default fixed z-900 w-full mix-blend-difference">
       <div className="flex items-center justify-between py-8">
         <Link
           ref={logoRef}
@@ -50,20 +47,15 @@ const Header = ({
           scroll={false}
           onClick={closeMenu}
         >
-          <LogoFull
-            className={clsx(
-              'h-auto w-24 transition-colors',
-              isLayoutDark ? 'fill-white' : 'fill-black',
-            )}
-          />
+          <LogoFull className="h-auto w-24 fill-white transition-colors" />
         </Link>
         <div ref={wrapperButtonRef} className="flex items-center gap-10">
-          <Sound ref={soundRef} className="shrink-0" isDark={isLayoutDark} />
+          <Sound ref={soundRef} className="shrink-0" />
           <AnimatedLink
             ref={contactMenuRef}
             className="p3-medium overflow-hidden whitespace-nowrap"
             href={getInternalPath('/contact')}
-            isDark={isLayoutDark}
+            isDark={true}
             scroll={false}
             onClick={closeMenu}
           >
@@ -71,7 +63,7 @@ const Header = ({
           </AnimatedLink>
           <AnimatedLink
             className="p3-medium whitespace-nowrap"
-            isDark={isLayoutDark}
+            isDark={true}
             isResizable
             onClick={isMenuOpen ? closeMenu : openMenu}
           >

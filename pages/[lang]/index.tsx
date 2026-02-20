@@ -4,15 +4,14 @@ import { getStaticPathsForLang, META } from '@/constants';
 import Awards from '@/features/home/awards';
 import Compatibility from '@/features/home/compatibility';
 import Expertise from '@/features/home/expertise';
-import FinalCta from '@/features/shared/final-cta';
 import Hero from '@/features/home/hero';
 import JoinUs from '@/features/home/join-us';
 import Processus from '@/features/home/processus';
 import Service from '@/features/home/service';
 import Testimonials from '@/features/home/testimonials';
+import FinalCta from '@/features/shared/final-cta';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useStickySectionTop } from '@/hooks/useStickySectionTop';
-import { useLayoutColor } from '@/providers/layout-color.provider';
 import { fetchAwards } from '@/services/awards.service';
 import { fetchCompatibility } from '@/services/compatibility.service';
 import { fetchDataInfos } from '@/services/data.service';
@@ -21,7 +20,7 @@ import { fetchServices } from '@/services/service.service';
 import { fetchTestimonials } from '@/services/testimonials.service';
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 export default function Home({
   expertise,
@@ -37,12 +36,6 @@ export default function Home({
   const testimonialsData = useSanityData(testimonials);
   const awardsData = useSanityData(awards);
   const dataInfosData = useSanityData(data);
-
-  const { setIsLayoutDark } = useLayoutColor();
-
-  useEffect(() => {
-    setIsLayoutDark(true);
-  }, []);
 
   const blackSectionRef = useRef<HTMLDivElement>(null);
   const stickyTop = useStickySectionTop(blackSectionRef);
