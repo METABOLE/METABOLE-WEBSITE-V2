@@ -86,6 +86,10 @@
   --inset-y-default: var(--y-default);
   --inset-y-double-default: var(--y-double-default);
 
+  /* TRANSORM */
+  --transform-translate-x-default: translateX(var(--x-default));
+  --transform-translate-y-default: translateY(var(--y-default));
+
   /* BREAKPOINTS */
   --breakpoint-xs: 380px;
 
