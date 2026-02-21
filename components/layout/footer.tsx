@@ -104,15 +104,21 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
   });
 
   const resetScrubAnimation = contextSafe(() => {
-    ScrollTrigger.getById('footer-scrub')?.kill();
+    const trigger = ScrollTrigger.getById('footer-scrub');
+    if (trigger) {
+      trigger.kill();
+    }
 
     if (isMobile) {
       gsap.set(containerSectionRef.current, {
-        transform: 'translateY(0px)',
-        borderRadius: '0px',
-        clearProps: 'willChange',
+        transform: 'translateY(0)',
+        borderRadius: 0,
+        clearProps: 'transform,borderRadius,willChange',
       });
-      gsap.set(wrapperRef.current, { paddingInline: '', clearProps: 'paddingInline' });
+      gsap.set(wrapperRef.current, {
+        paddingInline: '',
+        clearProps: 'paddingInline,paddingLeft,paddingRight',
+      });
       return;
     }
   });
@@ -120,9 +126,7 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
   useGSAP(() => {
     resetScrubAnimation();
     if (!isMobile) {
-      requestAnimationFrame(() => {
-        scrubAnimation();
-      });
+      scrubAnimation();
     }
   }, [isMobile]);
 
@@ -148,15 +152,17 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
           onMouseLeave={resetHaloPosition}
           onMouseMove={moveHalo}
         >
-          <FloatingHalo
-            ref={floatingHaloRef}
-            className="-z-10 -translate-x-1/2 -translate-y-1/2 opacity-30"
-            from="#1B17EE"
-            size="100vw"
-            to="#141418"
-          />
+          {!isMobile && (
+            <FloatingHalo
+              ref={floatingHaloRef}
+              className="-z-10 -translate-x-1/2 -translate-y-1/2 opacity-30"
+              from="#1B17EE"
+              size="100vw"
+              to="#141418"
+            />
+          )}
           <div ref={sectionRef} className="pt-y-default h-full w-full" id="footer">
-            <div className="gap-y-y-default mx-auto flex w-[calc(100vw-(var(--x-triple-default)*2))] flex-col">
+            <div className="gap-y-y-default px-x-default mx-auto flex w-full flex-col md:w-[calc(100vw-(var(--x-double-default)*2))] md:px-0">
               <div className="gap-y-y-default grid h-full grid-cols-1 gap-x-5 sm:grid-cols-2 md:grid-cols-6">
                 <Link
                   aria-label="Logo"

@@ -26,7 +26,7 @@ const Footer = ({ totalAwards, location }: { totalAwards: number; location: stri
       <div className="hidden md:block">
         <IconCross className="-translate-x-[5px] fill-black" />
       </div>
-      <p className="font-safiro-medium text-center text-sm! md:col-span-4">{location}</p>
+      <p className="font-safiro-medium! text-center text-sm! md:col-span-4">{location}</p>
       <div className="hidden justify-end md:flex">
         <IconCross className="translate-x-[5px] fill-black" />
       </div>
