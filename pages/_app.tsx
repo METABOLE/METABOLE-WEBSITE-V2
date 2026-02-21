@@ -26,7 +26,7 @@ interface CustomAppProps extends AppProps {
   Component: NextPageWithLayout;
   globalProps: {
     projects: SanityProps<ProjectType[]>;
-    dataInfos: SanityProps<Data[]>;
+    dataInfos: SanityProps<Data>;
     draftMode: boolean;
   };
 }
@@ -43,8 +43,9 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const hasData =
-      (resolvedGlobalProps.dataInfos.initial?.data?.length ?? 0) > 0 &&
-      (resolvedGlobalProps.projects.initial?.data?.length ?? 0) > 0;
+      (resolvedGlobalProps.dataInfos.initial?.data.email ?? '') !== '' &&
+      (resolvedGlobalProps.dataInfos.initial?.data.location ?? '') !== '' &&
+      (resolvedGlobalProps.dataInfos.initial?.data.socials ?? []).length > 0;
     if (hasData) return;
     window
       .fetch('/api/global-data')

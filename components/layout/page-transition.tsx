@@ -60,7 +60,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       >
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="w-x-default absolute left-0 col-span-1 h-full border-l border-l-[#E4E4FF]/10 bg-black"
+          className="w-x-default absolute left-0 col-span-1 h-full bg-black"
           custom={1}
           exit="exit"
           initial="initial"
@@ -68,7 +68,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-1 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative col-span-1 hidden h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black sm:block"
           custom={2}
           exit="exit"
           initial="initial"
@@ -76,7 +76,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-2 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative col-span-3 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black sm:col-span-2"
           custom={3}
           exit="exit"
           initial="initial"
@@ -84,7 +84,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-2 h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative col-span-2 hidden h-full w-[calc(100%+20px)] border-l border-l-[#E4E4FF]/10 bg-black sm:block"
           custom={4}
           exit="exit"
           initial="initial"
@@ -92,7 +92,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-2 h-full w-full border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative col-span-6 h-full w-full border-r border-l border-r-[#E4E4FF]/10 border-l-[#E4E4FF]/10 bg-black sm:col-span-2"
           custom={5}
           exit="exit"
           initial="initial"
@@ -100,7 +100,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-2 h-full w-[calc(100%+20px)] -translate-x-5 border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative z-10 col-span-2 hidden h-full w-full -translate-x-5 border-r border-r-[#E4E4FF]/10 bg-black sm:block sm:w-[calc(100%+20px)]"
           custom={6}
           exit="exit"
           initial="initial"
@@ -108,7 +108,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-2 h-full w-[calc(100%+20px)] -translate-x-5 border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative z-0 col-span-3 h-full w-[calc(100%+20px)] -translate-x-5 border-r border-r-[#E4E4FF]/10 bg-black sm:col-span-2"
           custom={7}
           exit="exit"
           initial="initial"
@@ -116,7 +116,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         />
         <motion.div
           animate={isLoading ? 'initial' : 'enter'}
-          className="relative col-span-1 h-full w-[calc(100%+20px)] -translate-x-5 border-l border-l-[#E4E4FF]/10 bg-black"
+          className="relative col-span-1 hidden h-full w-[calc(100%+20px)] -translate-x-5 border-r border-r-[#E4E4FF]/10 bg-black sm:block"
           custom={8}
           exit="exit"
           initial="initial"
