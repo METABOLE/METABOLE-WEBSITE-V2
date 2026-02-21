@@ -9,7 +9,6 @@ import { useEffect, useRef } from 'react';
 
 const SCALE_DOWN_DISTANCE = 600;
 const SCALE_MIN = 0.65;
-const TEXT_STAGGER = 0.2;
 
 const CardTeam = ({ label, name, photo, role }: Omit<Team, 'slug'>) => {
   const stickyRef = useRef<HTMLDivElement>(null);
@@ -49,11 +48,9 @@ const CardTeam = ({ label, name, photo, role }: Omit<Team, 'slug'>) => {
       gsap.set(scaleEl, { scale, transformOrigin: 'left center' });
       if (overlayRef.current) gsap.set(overlayRef.current, { opacity: progress });
 
-      const staggerProgress = (p: number, index: number) =>
-        Math.min(1, Math.max(0, (p - index * TEXT_STAGGER) / (1 - index * TEXT_STAGGER)));
-      setTextProgress(labelRef.current, staggerProgress(progress, 0));
-      setTextProgress(roleRef.current, staggerProgress(progress, 0.2));
-      setTextProgress(nameRef.current, staggerProgress(progress, 0.4));
+      setTextProgress(labelRef.current, progress);
+      setTextProgress(roleRef.current, progress);
+      setTextProgress(nameRef.current, progress);
     } else {
       stickyStartScrollRef.current = null;
       gsap.set(scaleEl, { scale: 1, transformOrigin: 'left center' });
@@ -103,7 +100,7 @@ const CardTeam = ({ label, name, photo, role }: Omit<Team, 'slug'>) => {
             </div>
           ) : null}
           {label ? (
-            <div className="overflow-hidden pt-2">
+            <div className="overflow-hidden">
               <div ref={labelRef} className="relative">
                 <span className="p3 text-black/30 lowercase">{label}</span>
               </div>

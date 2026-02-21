@@ -8,7 +8,7 @@ import gsap from 'gsap';
 import { useRef, useState } from 'react';
 import CardNumbers from './numbers/card-numbers';
 
-const Numbers = ({ data, totalAwards }: { data: Data[]; totalAwards: number }) => {
+const Numbers = ({ data, totalAwards }: { data: Data; totalAwards: number }) => {
   const sectionRef = useRef(null);
 
   const [values, setValues] = useState({
@@ -17,7 +17,7 @@ const Numbers = ({ data, totalAwards }: { data: Data[]; totalAwards: number }) =
     projects: 0,
   });
 
-  const [dataInfos] = data;
+  const { countriesCount, projectsCount } = data;
 
   const { isFrench } = useLanguage();
   const { contextSafe } = useGSAP();
@@ -39,13 +39,13 @@ const Numbers = ({ data, totalAwards }: { data: Data[]; totalAwards: number }) =
         },
       })
       .to(counterObjectNumber, {
-        value: dataInfos.countriesCount,
+        value: countriesCount,
         onUpdate: () => {
           setValues((prev) => ({ ...prev, countries: Math.floor(counterObjectNumber.value) }));
         },
       })
       .to(counterObjectNumber, {
-        value: dataInfos.projectsCount,
+        value: projectsCount,
         onUpdate: () => {
           setValues((prev) => ({ ...prev, projects: Math.floor(counterObjectNumber.value) }));
         },

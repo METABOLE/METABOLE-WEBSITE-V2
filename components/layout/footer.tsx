@@ -17,11 +17,8 @@ import Time from '../shared/time';
 import Hint from '../ui/hint';
 import { IconArrow, LogoSmall } from '../ui/icons';
 
-const Footer = ({ dataInfos }: { dataInfos: Data[] }) => {
-  const data = dataInfos?.[0];
-  const email = data?.email ?? '';
-  const location = data?.location ?? '';
-  const socials = data?.socials ?? [];
+const Footer = ({ dataInfos }: { dataInfos: Data }) => {
+  const { email, location, socials } = dataInfos;
 
   const animatedTitleRef = useRef<SVGSVGElement>(null);
   const wrapperRef = useRef(null);

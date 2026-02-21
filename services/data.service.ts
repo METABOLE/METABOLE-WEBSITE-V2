@@ -4,7 +4,7 @@ import { Data } from '@/types';
 
 export const fetchDataInfos = async (context: { draftMode?: boolean } = {}) => {
   const query = groq`
-    *[_type == "data"] {
+    *[_type == "data"][0] {
       email,
       countriesCount,
       projectsCount,
@@ -17,5 +17,5 @@ export const fetchDataInfos = async (context: { draftMode?: boolean } = {}) => {
     }
   `;
 
-  return await fetchSanityData<Data[]>(query, {}, context);
+  return await fetchSanityData<Data>(query, {}, context);
 };

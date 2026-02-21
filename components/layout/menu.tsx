@@ -11,7 +11,7 @@ import Links from './menu/links';
 import Projects from './menu/projects';
 import Socials from './menu/socials';
 
-const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Data[] }) => {
+const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Data }) => {
   const {
     refs: {
       logoRef,
@@ -29,8 +29,9 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
     closeMenu,
   } = useMenu();
 
-  const data = dataInfos?.[0];
   const { isFrench, getInternalPath } = useLanguage();
+
+  const { email, location, socials } = dataInfos;
 
   return (
     <>
@@ -79,19 +80,12 @@ const Menu = ({ projects, dataInfos }: { projects: ProjectType[]; dataInfos: Dat
                 hintId="hint-newsletter-menu"
                 isDark={true}
               />
-              {data?.socials && (
-                <Socials className="md:items-end md:text-right" socials={data.socials} />
-              )}
+              {socials && <Socials className="md:items-end md:text-right" socials={socials} />}
             </div>
           </div>
           <Divider className="hide-on-small-height hidden md:block" />
-          {data && (
-            <Infos
-              closeMenu={closeMenu}
-              email={data.email}
-              infosRef={infosRef}
-              location={data.location}
-            />
+          {email && location && (
+            <Infos closeMenu={closeMenu} email={email} infosRef={infosRef} location={location} />
           )}
         </div>
       </CutoutWrapper>

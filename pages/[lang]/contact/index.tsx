@@ -25,7 +25,7 @@ const Index = ({ awards, data }: InferGetStaticPropsType<typeof getStaticProps>)
         title={META.title}
         url={META.url}
       />
-      <Contact data={dataInfosData.data[0]} totalAwards={totalAwards} />
+      <Contact data={dataInfosData.data} totalAwards={totalAwards} />
     </>
   );
 };

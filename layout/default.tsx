@@ -25,7 +25,7 @@ const Layout = ({
   children,
 }: {
   projects: SanityProps<ProjectType[]>;
-  dataInfos: SanityProps<Data[]>;
+  dataInfos: SanityProps<Data>;
   children: ReactNode;
 }) => {
   const { isFrench } = useLanguage();

@@ -52,7 +52,7 @@ export default function Home({
         <link href={`${META.url}/fr`} rel="canonical" />
         <meta content={`${META.url}/fr`} property="og:url" />
       </Head>
-      <Hero location={dataInfosData.data[0].location} totalAwards={totalAwards} />
+      <Hero location={dataInfosData.data.location} totalAwards={totalAwards} />
       <Expertise expertise={expertiseData.data} />
       <Service services={servicesData.data} />
       <Compatibility compatibility={compatibilityData.data} />
