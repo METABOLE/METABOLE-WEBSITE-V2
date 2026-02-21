@@ -1,4 +1,3 @@
-import Title from '@/components/shared/title';
 import { IconCross } from '@/components/ui/icons';
 import { useTouchDevice } from '@/hooks/useTouchDevice';
 import { useLanguage } from '@/providers/language.provider';
@@ -91,9 +90,7 @@ const ItemService = ({ title, description, servicesList, index }: Service & { in
       onMouseLeave={isTouchDevice ? undefined : reset}
       onMouseMove={isTouchDevice ? undefined : onPointer}
     >
-      <Title className="p3-medium col-span-2 sm:col-span-1" color="black">
-        {index + 1}
-      </Title>
+      <p className="p3-medium col-span-2 sm:col-span-1">/{index + 1}</p>
       <div className="col-span-10 flex h-fit items-center justify-end gap-1 sm:col-span-4 sm:justify-start md:col-span-6 lg:col-span-2">
         <IconCross className="fill-blue shrink-0" />
         <p className="p3-medium uppercase">{title[isFrench ? 'fr' : 'en']}</p>

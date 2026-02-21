@@ -1,6 +1,7 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import Title from '@/components/shared/title';
 import { useLanguage } from '@/providers/language.provider';
+import { processus } from '@/services/processus.service';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -184,19 +185,17 @@ const ScrollerDesktop = () => {
           <div className="bg-blue/10 absolute top-0 left-0 h-[35px] w-full" />
           <div
             ref={titleRefs.first}
-            className="bg-blue pl-x-default flex h-[35px] w-full items-center gap-10 text-white"
+            className="bg-blue pl-x-double-default xl:pl-x-default flex h-[35px] w-full items-center gap-5 text-white xl:gap-10"
           >
             <span>/1</span>
-            <p className="p3-medium">{isFrench ? 'STRATÉGIE' : 'STRATEGY'}</p>
+            <p className="p3-medium">{processus[0].title[isFrench ? 'fr' : 'en']}</p>
           </div>
-          <div className="relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pr-5 pl-[calc(var(--x-default)+54px)] text-white">
+          <div className="pl-x-double-default relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pr-5 text-white xl:pl-[calc(var(--x-default)+54px)]">
             <BackgroundLines className="z-10" isDark={true} />
             <div ref={textRefs.first}>
-              <p className="p3-medium pb-6">2 SEM - 3 SEM</p>
+              <p className="p3-medium pb-6">{processus[0].duration[isFrench ? 'fr' : 'en']}</p>
               <p className="p3-regular text-white/70">
-                Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar
-                quis tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi
-                feugiat.
+                {processus[0].description[isFrench ? 'fr' : 'en']}
               </p>
             </div>
           </div>
@@ -208,19 +207,17 @@ const ScrollerDesktop = () => {
           <div className="bg-blue/10 absolute top-0 left-0 h-[35px] w-full" />
           <div
             ref={titleRefs.second}
-            className="bg-blue flex h-[35px] w-full items-center gap-10 pl-10 text-white"
+            className="bg-blue pl-x-default flex h-[35px] w-full items-center gap-5 text-white xl:gap-10 xl:pl-10"
           >
             <span>/2</span>
-            <p className="p3-medium">{isFrench ? 'DIRECTION ARTISTIQUE' : 'ARTISTIC DIRECTION'}</p>
+            <p className="p3-medium">{processus[1].title[isFrench ? 'fr' : 'en']}</p>
           </div>
-          <div className="relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pr-5 pl-[97px] text-white">
+          <div className="pl-x-default relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pr-5 text-white xl:pl-[97px]">
             <BackgroundLines className="left-1/2 z-10 -translate-x-1/2" isDark={true} />
             <div ref={textRefs.second}>
-              <p className="p3-medium pb-6">3 SEM - 3 SEM</p>
+              <p className="p3-medium pb-6">{processus[1].duration[isFrench ? 'fr' : 'en']}</p>
               <p className="p3-regular text-white/70">
-                Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar
-                quis tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi
-                feugiat.
+                {processus[1].description[isFrench ? 'fr' : 'en']}
               </p>
             </div>
           </div>
@@ -232,19 +229,17 @@ const ScrollerDesktop = () => {
           <div className="bg-blue/10 absolute top-0 left-0 h-[35px] w-full" />
           <div
             ref={titleRefs.third}
-            className="bg-blue flex h-[35px] w-full items-center gap-10 pl-10 text-white"
+            className="bg-blue pl-x-default flex h-[35px] w-full items-center gap-5 text-white xl:gap-10 xl:pl-10"
           >
             <span>/3</span>
-            <p className="p3-medium">{isFrench ? 'DÉVELOPPEMENT WEB' : 'WEB DEVELOPMENT'}</p>
+            <p className="p3-medium">{processus[2].title[isFrench ? 'fr' : 'en']}</p>
           </div>
-          <div className="pr-x-default relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 pl-[98px] text-white">
+          <div className="pr-x-default pl-x-default relative h-[calc(100vh+500px)] w-full overflow-hidden bg-black pt-20 text-white xl:pl-[98px]">
             <BackgroundLines className="right-0! left-auto z-20" isDark={true} />
             <div ref={textRefs.third}>
-              <p className="p3-medium pb-6">2 SEM - 3 SEM</p>
+              <p className="p3-medium pb-6">{processus[2].duration[isFrench ? 'fr' : 'en']}</p>
               <p className="p3-regular text-white/70">
-                Non urna at amet suscipit adipiscing bibendum et elit quis. Arcu tellus pulvinar
-                quis tortor fermentum consequat. Pellentesque commodo faucibus egestas facilisi
-                feugiat.
+                {processus[2].description[isFrench ? 'fr' : 'en']}
               </p>
             </div>
           </div>
