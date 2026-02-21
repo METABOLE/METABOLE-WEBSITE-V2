@@ -9,8 +9,7 @@ import { InferGetStaticPropsType } from 'next';
 export default function Home({ awards, data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const awardsData = useSanityData(awards);
   const dataInfosData = useSanityData(data);
-  const [dataInfos] = dataInfosData.data;
-  const { location } = dataInfos;
+  const { location } = dataInfosData.data;
   const totalAwards = awardsData.data.reduce(
     (acc, award) =>
       acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
