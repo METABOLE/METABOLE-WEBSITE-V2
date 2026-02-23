@@ -7,7 +7,9 @@ export const useEnvironment = () => {
 
   useEffect(() => {
     const isLocalhost =
-      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === '192.168.1.148';
     const isProd =
       window.location.hostname === 'metabole.studio' ||
       window.location.hostname === 'www.metabole.studio';

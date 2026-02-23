@@ -2,9 +2,10 @@
 
 :root {
   /* SPACINGS */
+  --x-triple-default: calc(var(--x-default) * 3);
   --x-double-default: calc(var(--x-default) * 2);
   --y-double-default: calc(var(--y-default) * 2);
-  --x-default: clamp(20px, 8vw, 100px);
+  --x-default: clamp(20px, 4vw, 40px);
   --y-default: clamp(20px, 8vh, 100px);
   --x-half-default: calc(var(--x-default) / 2);
   --y-half-default: calc(var(--y-default) / 2);
@@ -29,20 +30,9 @@
   --color-white: #f1f2ff;
   --color-black: #141418;
   --color-yellow: #caee17;
-  /* COLORS (secondary) */
-  --color-blue-70: #1b17eeb3;
-  --color-blue-30: #1b17ee59;
-  --color-blue-10: #1b17ee1a;
-  --color-white-70: #f1f2ffb3;
-  --color-white-30: #f1f2ff59;
-  --color-black-70: #141418b3;
-  --color-black-30: #14141859;
-  --color-yellow-70: #caee17b3;
-  --color-yellow-30: #caee1759;
   /* COLORS (tertiary) */
   --color-blur-glass: #c5c4ff4d;
   --color-menu: #e3e3ff;
-  --color-menu-00: #e3e3ff00;
 
   /* FONTS */
   --font-safiro-bold: var(--font-safiro-bold);
@@ -69,6 +59,7 @@
   /* INSET */
   --inset-x-default: var(--x-default);
   --inset-y-default: var(--y-default);
+  --inset-x-half-default: var(--x-half-default);
 
   /* GAP */
   --gap-x-default: var(--x-default);
@@ -93,6 +84,11 @@
   /* INSET */
   --inset-x-default: var(--x-default);
   --inset-y-default: var(--y-default);
+  --inset-y-double-default: var(--y-double-default);
+
+  /* TRANSORM */
+  --transform-translate-x-default: translateX(var(--x-default));
+  --transform-translate-y-default: translateY(var(--y-default));
 
   /* BREAKPOINTS */
   --breakpoint-xs: 380px;
@@ -132,6 +128,7 @@
   @apply origin-right;
 }
 
-.align-tracks-start {
-  align-tracks: start;
+/* ASPECT RATIOS */
+.aspect-square {
+  @apply aspect-square;
 }

@@ -1,7 +1,8 @@
-import Cursor from '@/components/ui/Cursor';
+import Cursor from '@/components/ui/cursor';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ReactNode } from 'react';
+import { CursorProvider } from './cursor.provider';
 import { LanguageProvider } from './language.provider';
 import { QueryProvider } from './query.provider';
 import { SmoothScrollProvider } from './smooth-scroll.provider';
@@ -11,14 +12,16 @@ import { PerformanceProvider } from './performance.provider';
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   return (
     <QueryProvider>
-      <Cursor />
-      <SoundProvider>
-        <PerformanceProvider>
-          <LanguageProvider>
-            <SmoothScrollProvider>{children}</SmoothScrollProvider>
-          </LanguageProvider>
-        </PerformanceProvider>
-      </SoundProvider>
+      <CursorProvider>
+        <Cursor />
+        <SoundProvider>
+          <PerformanceProvider>
+            <LanguageProvider>
+              <SmoothScrollProvider>{children}</SmoothScrollProvider>
+            </LanguageProvider>
+          </PerformanceProvider>
+        </SoundProvider>
+      </CursorProvider>
       <Analytics />
       <SpeedInsights />
     </QueryProvider>

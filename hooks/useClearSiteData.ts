@@ -37,9 +37,11 @@ const useClearSiteData = () => {
       // 4. Clear IndexedDB
       try {
         if ('indexedDB' in window) {
+          // eslint-disable-next-line no-undef
           const databases = await indexedDB.databases();
           for (const db of databases) {
             if (db.name) {
+              // eslint-disable-next-line no-undef
               indexedDB.deleteDatabase(db.name);
               console.info(`✅ IndexedDB "${db.name}" deleted`);
             }
@@ -52,8 +54,9 @@ const useClearSiteData = () => {
       // 5. Clear Cache Storage (Service Worker caches)
       try {
         if ('caches' in window) {
+          // eslint-disable-next-line no-undef
           const cacheNames = await caches.keys();
-
+          // eslint-disable-next-line no-undef
           await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
           console.info(`✅ ${cacheNames.length} cache(s) deleted`);
         }

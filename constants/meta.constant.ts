@@ -1,6 +1,9 @@
-export const meta = {
+export const META = {
+  title: 'METABOLE - Creative Studio | METABOLE STUDIO',
   description: {
-    fr: "Studio créatif digital spécialisé dans l'identité de marque, le design et le développement web. Nous créons des expériences numériques sur-mesure qui captivent et engagent.",
-    en: 'Creative digital studio specializing in brand identity, design and web development. We craft bespoke digital experiences that captivate and engage.',
+    fr: 'Le studio créatif premium des entreprises de demain. (Stratégie | Direction artistique | Développement web).',
+    en: "The premium creative studio of tomorrow's businesses. (Strategy | Artistic Direction | Web Development).",
   },
+  url: 'https://metabole.studio',
+  image: '/og-image.png',
 };

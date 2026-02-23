@@ -1,35 +1,113 @@
-import FloatingHalo from '@/components/shared/FloatingHalo';
-import Hero from '@/features/home/Hero';
-import Philosophy from '@/features/home/Philosophy';
-import Expertise from '@/features/shared/expertise/Expertise';
-import Faq from '@/features/shared/Faq';
-import Timeline from '@/features/shared/timeline/Timeline';
-import TrustedBy from '@/features/shared/TrustedBy/TrustedBy';
-import Us from '@/features/team/Us';
+import BackgroundLines from '@/components/layout/background-lines';
+import FloatingHalo from '@/components/shared/floating-halo';
+import { getStaticPathsForLang, META } from '@/constants';
+import Awards from '@/features/home/awards';
+import Compatibility from '@/features/home/compatibility';
+import Expertise from '@/features/home/expertise';
+import Hero from '@/features/home/hero';
+import JoinUs from '@/features/home/join-us';
+import Processus from '@/features/home/processus';
+import Service from '@/features/home/service';
+import Testimonials from '@/features/home/testimonials';
+import FinalCta from '@/features/shared/final-cta';
+import { useSanityData } from '@/hooks/useSanityData';
+import { useStickySectionTop } from '@/hooks/useStickySectionTop';
+import { fetchAwards } from '@/services/awards.service';
+import { fetchCompatibility } from '@/services/compatibility.service';
+import { fetchDataInfos } from '@/services/data.service';
+import { fetchExpertise } from '@/services/expertise.service';
+import { fetchServices } from '@/services/service.service';
+import { fetchTestimonials } from '@/services/testimonials.service';
+import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
+import { useRef } from 'react';
 
-export default function Home() {
+export default function Home({
+  expertise,
+  services,
+  compatibility,
+  testimonials,
+  awards,
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const expertiseData = useSanityData(expertise);
+  const servicesData = useSanityData(services);
+  const compatibilityData = useSanityData(compatibility);
+  const testimonialsData = useSanityData(testimonials);
+  const awardsData = useSanityData(awards);
+  const dataInfosData = useSanityData(data);
+
+  const blackSectionRef = useRef<HTMLDivElement>(null);
+  const stickyTop = useStickySectionTop(blackSectionRef);
+  const totalAwards = awardsData.data.reduce(
+    (acc, award) =>
+      acc + award.categories.reduce((acc, category) => acc + parseInt(category.number), 0),
+    0,
+  );
+
   return (
     <>
       <Head>
-        <title>Metabole - Creative Studio | Metabole STUDIO</title>
-        <link href="https://metabole.studio/fr" rel="canonical" />
-        <meta content="https://metabole.studio/fr" property="og:url" />
+        <title>{META.title}</title>
+        <link href={`${META.url}/fr`} rel="canonical" />
+        <meta content={`${META.url}/fr`} property="og:url" />
       </Head>
-      <div className="relative overflow-hidden">
+      <Hero location={dataInfosData.data.location} totalAwards={totalAwards} />
+      <Expertise expertise={expertiseData.data} />
+      <Service services={servicesData.data} />
+      <Compatibility compatibility={compatibilityData.data} />
+      <section
+        ref={blackSectionRef}
+        className="sticky z-90 overflow-hidden bg-black"
+        style={{ top: `-${stickyTop}px` }}
+      >
+        <BackgroundLines isDark={true} />
         <FloatingHalo
-          className="pointer-events-none absolute top-0 left-full -z-10 h-[150vw] w-[150vw] opacity-40"
-          from="#1b17ee"
-          to="#f1f2ff00"
+          className="top-0 left-0 -z-10 -translate-x-1/2 -translate-y-1/2 opacity-30"
+          from="#1B17EE"
+          size="clamp(800px, 150vw, 2000px)"
+          to="#141418"
         />
-        <Hero />
-        <Philosophy />
-        <Expertise />
-        <Timeline />
-        <Us />
-        <TrustedBy />
-        <Faq />
-      </div>
+        <FloatingHalo
+          className="right-0 bottom-0 z-10 translate-x-1/2 translate-y-1/2 opacity-30"
+          from="#1B17EE"
+          size="clamp(800px, 150vw, 2000px)"
+          to="#141418"
+        />
+        <Processus />
+        <Testimonials testimonials={testimonialsData.data} />
+        <Awards awards={awardsData.data} totalAwards={totalAwards} />
+      </section>
+      <JoinUs />
+      <FinalCta />
     </>
   );
 }
+
+export async function getStaticPaths() {
+  return getStaticPathsForLang();
+}
+
+export const getStaticProps = async (context: {
+  draftMode?: boolean;
+  params?: { lang: string };
+}) => {
+  const expertise = await fetchExpertise(context);
+  const services = await fetchServices(context);
+  const compatibility = await fetchCompatibility(context);
+  const testimonials = await fetchTestimonials(context);
+  const awards = await fetchAwards(context);
+  const data = await fetchDataInfos(context);
+
+  return {
+    props: {
+      expertise,
+      services,
+      compatibility,
+      testimonials,
+      awards,
+      data,
+      draftMode: expertise.draftMode,
+    },
+  };
+};

@@ -1,4 +1,4 @@
-import { getOSInfo, OS } from '@/utils/os.utils';
+import { getOSInfo, OS } from '@/utils';
 import { useEffect, useState } from 'react';
 
 export enum PERFORMANCE_LEVEL {

@@ -1,13 +1,8 @@
-import type { Language } from './language.type';
-
-export type ExpertiseItem = Language;
-
-export type ExpertiseCategory = Language & {
-  img: string;
-};
+import { Image, Slug } from 'sanity';
+import { BilingualString } from './language.type';
 
 export type Expertise = {
-  category: ExpertiseCategory;
-  description: Language;
-  items: ExpertiseItem[];
+  name: BilingualString;
+  slug: Slug;
+  image: Image;
 };

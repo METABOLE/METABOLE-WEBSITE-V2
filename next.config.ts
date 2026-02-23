@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   // experimental: {
   //   esmExternals: 'loose',
   // },
+  serverExternalPackages: ['@sanity/client', 'sanity'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
+  },
   async redirects() {
     return [
       {

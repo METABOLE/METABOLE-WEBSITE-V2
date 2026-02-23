@@ -1,3 +1,0 @@
-export const TIMELINE = {
-  DELAY_AFTER_PAGE_TRANSITION: 1.2,
-};

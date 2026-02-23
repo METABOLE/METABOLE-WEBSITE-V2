@@ -1,12 +1,12 @@
-import Button from '@/components/ui/Button';
-import { IconArrow } from '@/components/ui/Icons';
-import Input from '@/components/ui/Input';
-import Typography from '@/components/ui/Typography';
+import Button from '@/components/ui/button';
+import { IconArrow } from '@/components/ui/icons';
+import Input from '@/components/ui/input';
+import { getStaticPathsForLang } from '@/constants';
 import NewsletterLayout from '@/layout/newsletter';
 import { NextPageWithLayout } from '@/pages/_app';
 import { useLanguage } from '@/providers/language.provider';
 import { postUnsubscribeNewsletter } from '@/services/newsletter.service';
-import { COLORS, FORM_STATUS } from '@/types';
+import { FORM_STATUS } from '@/types';
 import { NewsletterUnsubscribeData } from '@/types/newsletter.type';
 import { isEmail } from '@/utils/validation.utils';
 import { useMutation } from '@tanstack/react-query';
@@ -90,9 +90,7 @@ const UnsubscribePage: NextPageWithLayout = () => {
   return (
     <div className="px-x-default py-y-default flex h-3/4 items-center justify-center">
       <div className="relative mx-auto flex w-full max-w-96 flex-col gap-12 overflow-hidden rounded-3xl bg-[#C5C4FF]/7 p-6 text-white backdrop-blur-xl">
-        <Typography className="p3 uppercase" variant="p">
-          {isFrench ? 'Se désinscrire' : 'Unsubscribe'}
-        </Typography>
+        <p className="p3 uppercase">{isFrench ? 'Se désinscrire' : 'Unsubscribe'}</p>
         <form className="" onSubmit={handleSubmit}>
           <Input
             errorMessage={error}
@@ -135,7 +133,7 @@ const UnsubscribePage: NextPageWithLayout = () => {
           href={getInternalPath('/')}
           scroll={false}
         >
-          <IconArrow className="rotate-45" color={COLORS.WHITE} />
+          <IconArrow className="rotate-45 fill-white" />
           {isFrench ? "Retour à l'accueil" : 'Back to home'}
         </Link>
       </div>
@@ -150,10 +148,7 @@ UnsubscribePage.getLayout = function getLayout(page: ReactElement) {
 export default UnsubscribePage;
 
 export async function getStaticPaths() {
-  return {
-    paths: [{ params: { lang: 'en' } }, { params: { lang: 'fr' } }],
-    fallback: false,
-  };
+  return getStaticPathsForLang();
 }
 
 export async function getStaticProps() {

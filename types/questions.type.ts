@@ -1,15 +1,15 @@
 import { ReactNode } from 'react';
-import { Language } from './language.type';
+import { BilingualString } from './language.type';
 
 export type QuestionType = {
   id: number;
-  question: Language;
+  question: BilingualString;
   answer: {
     en: ReactNode;
     fr: ReactNode;
   };
   link?: {
     url: string;
-    text: Language;
+    text: BilingualString;
   };
 };

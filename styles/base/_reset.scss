@@ -9,16 +9,35 @@ body {
 html {
   scrollbar-width: none;
   -ms-overflow-style: none;
+
   ::-moz-selection {
     background: var(--color-blue);
     color: var(--color-white);
   }
+
   ::selection {
     background: var(--color-blue);
     color: var(--color-white);
   }
+
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.text-blue,
+.text-black {
+  ::selection {
+    background: var(--color-blue) !important;
+    color: var(--color-white) !important;
+  }
+}
+
+.text-yellow,
+.text-white {
+  ::selection {
+    background: var(--color-yellow) !important;
+    color: var(--color-black) !important;
   }
 }
 
@@ -58,7 +77,12 @@ html {
 }
 
 .hide-on-small-height {
-  @media (max-height: 800px) {
+  @media (max-height: 900px) {
     display: none !important;
   }
+}
+
+.team-container>div {
+  display: flex;
+  gap: 20px;
 }
