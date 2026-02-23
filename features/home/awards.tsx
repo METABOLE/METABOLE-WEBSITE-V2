@@ -54,9 +54,9 @@ const AwardsComponent = ({
             AWARDS
           </Title>
           <Typography className="p3-regular col-span-4" variant="p">
-            Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit
-            gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus
-            sapien.
+            {isFrench
+              ? 'Nos projets sont régulièrement récompensés pour leur créativité, leur design et leur expérience.'
+              : 'Our projects are regularly awarded for their creativity, design, and user experience.'}
           </Typography>
           <div className="flex w-full justify-end md:col-span-2 md:-col-end-1">
             <SafeNumberFlow

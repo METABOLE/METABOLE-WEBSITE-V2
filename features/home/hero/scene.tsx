@@ -13,7 +13,6 @@ import {
   MeshStandardMaterial,
   Vector3,
 } from 'three';
-import Helpers from './helpers';
 
 const ROTATION = Math.PI * 0.35;
 const POSITION = 0.3;
@@ -131,24 +130,27 @@ export default function Scene() {
   const pointRef = useRef<PointLight>(null);
 
   return (
-    <div
-      className="absolute inset-0 z-0"
-      style={{ backgroundImage: 'linear-gradient(to bottom, #000014, #020138)' }}
-      aria-hidden
-    >
-      <Canvas
-        camera={{ fov: 50, position: [0, 0, 4.5] }}
-        dpr={[1, 2]}
-        gl={{ alpha: true, antialias: true }}
-        onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
-      >
-        <Helpers dirRef={dirRef} pointRef={pointRef}>
-          <ambientLight color={0x1b17ee} intensity={1} />
-          <directionalLight ref={dirRef} color={0xbdbcff} intensity={5.2} position={[-2, 2, 3]} />
-          <pointLight ref={pointRef} color={0xffffff} intensity={0.2} position={[1, 1, 1]} />
-          <LogoModel />
-        </Helpers>
-      </Canvas>
+    <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
+      <div className="sticky top-0 h-screen w-screen" aria-hidden>
+        <div
+          className="absolute inset-0 z-0"
+          style={{ background: 'linear-gradient(to bottom, #01021b 0%, #040148 100%)' }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 z-1">
+          <Canvas
+            camera={{ fov: 50, position: [0, 0, 4.5] }}
+            dpr={[1, 2]}
+            gl={{ alpha: true, antialias: true }}
+            onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
+          >
+            <ambientLight color={0x1b17ee} intensity={1} />
+            <directionalLight ref={dirRef} color={0xbdbcff} intensity={5.2} position={[-2, 2, 3]} />
+            <pointLight ref={pointRef} color={0xffffff} intensity={0.2} position={[1, 1, 1]} />
+            <LogoModel />
+          </Canvas>
+        </div>
+      </div>
     </div>
   );
 }

@@ -51,6 +51,9 @@ export function useMenu() {
     gsap.killTweensOf(animRefs.translate.current);
     gsap.killTweensOf(animRefs.scale.current);
     gsap.killTweensOf(animRefs.scaleX.current);
+    gsap.killTweensOf(headerRef.current);
+    gsap.killTweensOf(headerRef.current?.children || []);
+    gsap.killTweensOf(menuRef.current);
   });
 
   const openMenu = contextSafe(() => {
@@ -98,14 +101,14 @@ export function useMenu() {
         headerRef.current,
         {
           top: 32,
-          paddingTop: gsap.utils.clamp(20, 8 * window.innerHeight * 0.01, 100),
+          paddingTop: gsap.utils.clamp(20, 100, 8 * window.innerHeight * 0.01),
         },
         '<',
       )
       .to(
         headerRef.current?.children || [],
         {
-          paddingInline: gsap.utils.clamp(20, 4 * window.innerWidth * 0.01, 40),
+          paddingInline: gsap.utils.clamp(20, 40, 4 * window.innerWidth * 0.01),
           paddingBlock: 0,
         },
         '<',
@@ -189,7 +192,7 @@ export function useMenu() {
         headerRef.current,
         {
           top: 0,
-          paddingBlock: 0,
+          paddingTop: 0,
         },
         '<',
       )
@@ -208,12 +211,6 @@ export function useMenu() {
   });
 
   useShortcut('Escape', () => isMenuOpen && closeMenu());
-
-  // useGSAP(() => {
-  //   const onResize = () => setupMenu();
-  //   window.addEventListener('resize', onResize);
-  //   return () => window.removeEventListener('resize', onResize);
-  // }, []);
 
   return {
     refs: {
