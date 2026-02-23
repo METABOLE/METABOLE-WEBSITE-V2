@@ -12,7 +12,7 @@ const Hero = ({ totalAwards, location }: { totalAwards: number; location: string
   const stickyTop = useStickySectionTop(sectionRef);
 
   return (
-    <section ref={sectionRef} className="sticky h-screen" style={{ top: `-${stickyTop}px` }}>
+    <section ref={sectionRef} className="sticky" style={{ top: `-${stickyTop}px` }}>
       <Scene />
       <BackgroundLines className="z-0" isDark={true} />
       <Baseline />
