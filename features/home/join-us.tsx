@@ -98,12 +98,12 @@ const JoinUs = () => {
             className="hidden md:block"
             parallaxOffset={-200}
           >
-            <Image
-              alt="Join Us"
+            <video
               className="h-full w-full object-cover"
-              height={1000}
-              src="/images/home/join-us/join-us-2.jpg"
-              width={1000}
+              src="/images/home/join-us/join-us-2.mp4"
+              autoPlay
+              loop
+              muted
             />
           </ParallaxImage>
           <div className="space-y-10">
