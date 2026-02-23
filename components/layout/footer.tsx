@@ -163,10 +163,10 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
           )}
           <div ref={sectionRef} className="pt-y-default h-full w-full" id="footer">
             <div className="gap-y-y-default px-x-default mx-auto flex w-full flex-col md:w-[calc(100vw-(var(--x-double-default)*2))] md:px-0">
-              <div className="gap-y-y-default grid h-full grid-cols-1 gap-x-5 sm:grid-cols-2 md:grid-cols-6">
+              <div className="gap-y-y-default grid h-full grid-cols-2 gap-x-5 md:grid-cols-6">
                 <Link
                   aria-label="Logo"
-                  className="pb-y-half-default col-span-1 h-fit w-fit cursor-pointer sm:col-span-2 md:col-span-1"
+                  className="pb-y-half-default col-span-1 h-fit w-fit cursor-pointer"
                   href={getInternalPath('/')}
                   scroll={false}
                   onMouseMove={(e) => useMagnet(e, 0.8)}
@@ -174,6 +174,7 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
                 >
                   <LogoSmall className="w-12" color={COLORS.YELLOW} />
                 </Link>
+                <Language className="ml-auto md:hidden" isDark={true} />
                 <nav>
                   <ul className="flex flex-col gap-4">
                     <li>Pages</li>
@@ -208,15 +209,15 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
                   </ul>
                 </nav>
                 <div className="hidden md:block" />
-                <div className="gap-y-default col-span-1 flex flex-col sm:col-span-2">
+                <div className="gap-y-default col-span-2 flex flex-col sm:col-span-2">
                   <NewsletterForm animate={false} hintId="hint-newsletter-footer" isDark={false} />
-                  <Language className="md:ml-auto" isDark={true} />
+                  <Language className="hidden md:ml-auto md:block" isDark={true} />
                 </div>
               </div>
               <div className="flex w-full flex-col justify-between gap-5 md:flex-row md:items-center lg:grid lg:grid-cols-6">
-                <p>Metabole® 2025</p>
-                <p className="whitespace-nowrap">{location}</p>
-                <Time className="block md:hidden lg:block" isDark={true} />
+                <p className="hidden md:block">Metabole® 2025</p>
+                <p className="hidden whitespace-nowrap md:block">{location}</p>
+                <Time className="hidden lg:block" isDark={true} />
                 <a className="cursor-pointer" href={'mailto:' + email}>
                   {email}
                 </a>
@@ -233,7 +234,7 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
             <Link aria-label="Contact" href={getInternalPath('/contact')} scroll={false}>
               <svg
                 ref={animatedTitleRef}
-                className="mx-auto h-auto w-[calc(100vw-(var(--x-triple-default)*2))]"
+                className="px-x-default mx-auto h-auto w-full"
                 fill="none"
                 height="231"
                 viewBox="0 0 1120 231"
