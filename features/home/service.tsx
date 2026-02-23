@@ -3,8 +3,10 @@ import Title from '@/components/shared/title';
 import Typography from '@/components/ui/typography';
 import { Service } from '@/types';
 import ItemService from './service/item-service';
+import { useLanguage } from '@/providers/language.provider';
 
 const ServiceComponent = ({ services }: { services: Service[] }) => {
+  const { isFrench } = useLanguage();
   return (
     <section className="py-y-default sticky z-90 bg-white">
       <BackgroundLines />
@@ -13,8 +15,9 @@ const ServiceComponent = ({ services }: { services: Service[] }) => {
           SERVICES
         </Title>
         <Typography className="p3 col-span-5" variant="p">
-          Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit
-          gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.
+          {isFrench
+            ? 'De la stratégie à la mise en ligne, nous concevons des expériences digitales complètes, utiles et durables.'
+            : 'From strategy to launch, we design complete digital experiences that are useful and built to last.'}
         </Typography>
       </div>
       <div className="px-x-default pt-y-default flex flex-col gap-5">
