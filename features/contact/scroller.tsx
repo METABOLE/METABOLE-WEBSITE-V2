@@ -35,6 +35,7 @@ const Scroller = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
               <div className=""></div>
               <Image
@@ -51,6 +52,7 @@ const Scroller = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
             </div>
           </ScrollingContainerVertical>
@@ -72,6 +74,7 @@ const Scroller = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
               <div className=""></div>
               <Image
@@ -88,6 +91,7 @@ const Scroller = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
             </div>
           </ScrollingContainerVertical>
@@ -109,6 +113,7 @@ const Scroller = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
               <div className=""></div>
               <Image
@@ -125,6 +130,7 @@ const Scroller = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
             </div>
           </ScrollingContainerVertical>
