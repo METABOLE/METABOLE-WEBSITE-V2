@@ -109,7 +109,9 @@ function FlatText({ scrollProgressRef }: { scrollProgressRef: RefObject<number> 
 
 function LogoModel() {
   const groupRef = useRef<Group>(null);
-  const { x: mouseX, y: mouseY } = useMousePosition();
+  const { mousePosition } = useMousePosition({ options: { listenTouch: true } });
+  const mouseX = mousePosition.x;
+  const mouseY = mousePosition.y;
   const proxy = useRef({ rotationX: 0, rotationY: 0 });
 
   const { scene } = useGLTF('/3d/obj/logo-m.glb', true);
@@ -166,27 +168,23 @@ function SceneLight({ scrollProgressRef }: { scrollProgressRef?: RefObject<numbe
   const progressRef = scrollProgressRef ?? defaultProgressRef;
 
   return (
-    <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
-      <div className="sticky top-0 h-screen w-screen" aria-hidden>
-        <div className="absolute inset-0">
-          <Canvas
-            camera={{ fov: 50, position: [0, 0, 4.5] }}
-            dpr={[1, 2]}
-            gl={{ alpha: true, antialias: true }}
-            onCreated={({ gl }) => {
-              gl.setClearColor(0x000000, 0);
-              Object.assign(gl, {
-                toneMapping: ACESFilmicToneMapping,
-                toneMappingExposure: 1.2,
-              });
-            }}
-          >
-            <Environment preset="studio" />
-            <FlatText scrollProgressRef={progressRef} />
-            <LogoModel />
-          </Canvas>
-        </div>
-      </div>
+    <div className="absolute top-0 left-0 z-0 h-screen w-screen" aria-hidden>
+      <Canvas
+        camera={{ fov: 50, position: [0, 0, 4.5] }}
+        dpr={[1, 2]}
+        gl={{ alpha: true, antialias: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+          Object.assign(gl, {
+            toneMapping: ACESFilmicToneMapping,
+            toneMappingExposure: 1.2,
+          });
+        }}
+      >
+        <Environment preset="studio" />
+        <FlatText scrollProgressRef={progressRef} />
+        <LogoModel />
+      </Canvas>
     </div>
   );
 }

@@ -56,12 +56,15 @@ const JoinUs = () => {
   }, [isBelowMD]);
 
   return (
-    <section ref={sectionRef} className="pt-y-double-default sticky z-90 bg-white">
+    <section
+      ref={sectionRef}
+      className="md:pt-y-double-default py-y-double-default sticky z-90 bg-white md:pb-0"
+    >
       <BackgroundLines />
       <div className="px-x-default">
         <Title color="blue">{isFrench ? 'NOUS REJOINDRE' : 'JOIN US'}</Title>
       </div>
-      <div className="px-x-default px-x grid pb-[400px] md:grid-cols-[50px_5fr_2fr_5fr_50px]">
+      <div className="px-x-default px-x grid md:grid-cols-[50px_5fr_2fr_5fr_50px] md:pb-[400px]">
         <div
           ref={itemsRefs.left}
           className="pt-y-default pb-y-default gap-y-default col-span-2 flex flex-col md:pb-0"

@@ -28,7 +28,8 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
 
   const isMobile = useMatchMedia(BREAKPOINTS.MD);
   const { isFrench, getInternalPath } = useLanguage();
-  const { x, y } = useMousePosition(wrapperRef);
+  const { mousePosition } = useMousePosition({ containerRef: wrapperRef });
+  const { x, y } = mousePosition;
   const { smoothScrollTo } = useSmoothScroll();
   const { contextSafe } = useGSAP();
 

@@ -18,7 +18,9 @@ const POSITION_SCALE = 0.4;
 
 function LogoModel() {
   const groupRef = useRef<Group>(null);
-  const { x: mouseX, y: mouseY } = useMousePosition();
+  const { mousePosition } = useMousePosition();
+  const mouseX = mousePosition.x;
+  const mouseY = mousePosition.y;
   const proxy = useRef({
     rotationX: 0,
     rotationY: 0,
