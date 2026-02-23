@@ -104,6 +104,7 @@ const JoinUs = () => {
               autoPlay
               loop
               muted
+              playsInline
             />
           </ParallaxImage>
           <div className="space-y-10">
