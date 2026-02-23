@@ -92,7 +92,7 @@ const TestimonialsComponent = ({ testimonials }: { testimonials: Testimonial[] }
         <Title className="col-span-3" color="yellow">
           TESTIMONIALS
         </Title>
-        <div className="p3-regular col-span-2 col-start-8 hidden items-center justify-center gap-4 text-white md:flex">
+        <div className="p3-regular col-span-3 col-start-7 hidden -translate-x-5 items-center justify-center gap-4 text-white md:flex lg:col-span-2 lg:col-start-8">
           <button aria-label="Témoignage précédent" type="button" onClick={handlePrevious}>
             <IconArrow className="-rotate-90 cursor-pointer fill-white opacity-70 transition-[scale,opacity] hover:scale-120 hover:opacity-100" />
           </button>

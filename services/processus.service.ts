@@ -5,8 +5,8 @@ export const processus = [
       en: 'STRATEGY',
     },
     description: {
-      fr: 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.',
-      en: 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.',
+      fr: 'Définir une stratégie de marque claire pour positionner votre projet durablement.',
+      en: 'Defining a clear brand strategy to position your project and create long-term value.',
     },
     duration: {
       fr: '2 SEM - 3 SEM',
@@ -19,8 +19,8 @@ export const processus = [
       en: 'ARTISTIC DIRECTION',
     },
     description: {
-      fr: 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.',
-      en: 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.',
+      fr: 'Créer une identité visuelle forte et distinctive, fidèle à l’ADN de votre marque.',
+      en: 'Crafting a strong and distinctive visual identity that reflects your brand’s DNA.',
     },
     duration: {
       fr: '3 SEM - 3 SEM',
@@ -33,8 +33,8 @@ export const processus = [
       en: 'WEB DEVELOPMENT',
     },
     description: {
-      fr: 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.',
-      en: 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.',
+      fr: 'Développer des expériences digitales rapides, immersives et évolutives.',
+      en: 'Building fast, immersive, and scalable digital experiences for long-term growth.',
     },
     duration: {
       fr: '2 SEM - 3 SEM',
