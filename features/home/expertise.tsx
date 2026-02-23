@@ -19,8 +19,8 @@ const ExpertiseComponent = ({ expertise }: { expertise: Expertise[] }) => {
           </Typography>
           <Typography className="p3 md:col-span-5" variant="p">
             {isFrench
-              ? 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.'
-              : 'Neque suscipit dui nisl iaculis in orci tristique mauris at. Semper diam mi ultrices sit gravida nisl ut nunc. Elementum donec rhoncus elit cras tellus nibh rhoncus tellus sapien.'}
+              ? 'Nous accompagnons des marques et des entreprises issues de secteurs variés, avec des besoins et des enjeux différents.'
+              : 'We work with brands and companies from diverse industries, each with their own challenges and goals.'}
           </Typography>
         </div>
       </div>
