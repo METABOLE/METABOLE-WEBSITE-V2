@@ -3,9 +3,11 @@ import Button from '@/components/ui/button';
 import { useLanguage } from '@/providers/language.provider';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import dynamic from 'next/dynamic';
 import { useRef } from 'react';
-import SceneLight from '../home/hero/scene-light';
 import { usePerformance } from '@/providers/performance.provider';
+
+const SceneLight = dynamic(() => import('../home/hero/scene-light'), { ssr: false });
 import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
 import Image from 'next/image';
 import clsx from 'clsx';

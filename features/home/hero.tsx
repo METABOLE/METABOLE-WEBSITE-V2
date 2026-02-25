@@ -1,10 +1,12 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import { useStickySectionTop } from '@/hooks/useStickySectionTop';
+import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 import Baseline from './hero/baseline';
 import Footer from './hero/footer';
 import Manifesto from './hero/manifesto';
-import Scene from './hero/scene';
+
+const Scene = dynamic(() => import('./hero/scene'), { ssr: false });
 
 const Hero = ({ totalAwards, location }: { totalAwards: number; location: string }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
