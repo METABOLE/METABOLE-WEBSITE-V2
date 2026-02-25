@@ -9,6 +9,8 @@ type AnchorRect = { left: number; top: number; width: number; height: number };
 
 const SHOWREEL_VIDEO_SRC = '/images/home/hero/showreel.mp4';
 const SHOWREEL_VIDEO_WEBM = '/images/home/hero/showreel.webm';
+const SHOWREEL_THUMB_SRC = '/images/home/hero/showreel-thumb.mp4';
+const SHOWREEL_THUMB_WEBM = '/images/home/hero/showreel-thumb.webm';
 
 const Showreel = () => {
   const { lockScroll, unlockScroll } = useScroll();
@@ -19,21 +21,22 @@ const Showreel = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [anchorRect, setAnchorRect] = useState<AnchorRect | null>(null);
   const [expandTarget, setExpandTarget] = useState<'anchor' | 'center'>('anchor');
-  const [videoReady, setVideoReady] = useState(false);
+  const [loadFullVideo, setLoadFullVideo] = useState(false);
+  const [fullVideoVisible, setFullVideoVisible] = useState(false);
 
-  useEffect(() => {
-    const activate = () => setVideoReady(true);
-    if (document.readyState === 'complete') {
-      activate();
-    } else {
-      window.addEventListener('load', activate, { once: true });
-      return () => window.removeEventListener('load', activate);
-    }
-  }, []);
+  const isClosingRef = useRef(false);
+  const isOpeningRef = useRef(false);
+  const openingFallbackRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const OPEN_ANIMATION_DURATION_MS = 1000;
 
   const open = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
+    if (openingFallbackRef.current) {
+      clearTimeout(openingFallbackRef.current);
+      openingFallbackRef.current = null;
+    }
     const rect = el.getBoundingClientRect();
     setAnchorRect({
       left: rect.left,
@@ -44,11 +47,22 @@ const Showreel = () => {
     setExpandTarget('anchor');
     setIsClosing(false);
     setIsExpanded(true);
+    setLoadFullVideo(true);
+    setFullVideoVisible(true);
+    isOpeningRef.current = true;
+    openingFallbackRef.current = setTimeout(() => {
+      openingFallbackRef.current = null;
+      if (!isOpeningRef.current) return;
+      isOpeningRef.current = false;
+      playerRef.current?.play();
+    }, OPEN_ANIMATION_DURATION_MS + 50);
   }, []);
 
-  const isClosingRef = useRef(false);
-
   const close = useCallback(() => {
+    if (openingFallbackRef.current) {
+      clearTimeout(openingFallbackRef.current);
+      openingFallbackRef.current = null;
+    }
     const placeholder = placeholderRef.current;
     if (placeholder) {
       const rect = placeholder.getBoundingClientRect();
@@ -59,23 +73,36 @@ const Showreel = () => {
         height: rect.height,
       });
     }
+    isOpeningRef.current = false;
     isClosingRef.current = true;
     setIsClosing(true);
     setExpandTarget('anchor');
+    setFullVideoVisible(false);
   }, []);
 
   const handleTransitionEnd = useCallback(
     (e: React.TransitionEvent) => {
       if (e.target !== e.currentTarget) return;
       const prop = e.propertyName;
-      if (prop !== 'left' && prop !== 'width') return;
-      if (!isClosingRef.current) return;
-      if (expandTarget !== 'anchor') return;
-      isClosingRef.current = false;
-      setIsClosing(false);
-      setIsExpanded(false);
-      setAnchorRect(null);
-      playerRef.current?.play();
+      const isLayoutProp =
+        prop === 'left' || prop === 'top' || prop === 'width' || prop === 'height';
+      if (!isLayoutProp) return;
+
+      if (isClosingRef.current && expandTarget === 'anchor') {
+        isClosingRef.current = false;
+        setIsClosing(false);
+        setIsExpanded(false);
+        setAnchorRect(null);
+        setLoadFullVideo(false);
+      } else if (isOpeningRef.current) {
+        if (openingFallbackRef.current) {
+          clearTimeout(openingFallbackRef.current);
+          openingFallbackRef.current = null;
+        }
+        isOpeningRef.current = false;
+        setFullVideoVisible(true);
+        playerRef.current?.play();
+      }
     },
     [expandTarget],
   );
@@ -84,7 +111,7 @@ const Showreel = () => {
     if (isExpanded) lockScroll();
     else unlockScroll();
     return () => unlockScroll();
-  }, [isExpanded, lockScroll, unlockScroll]);
+  }, [isExpanded]);
 
   useLayoutEffect(() => {
     if (!isExpanded || expandTarget !== 'anchor' || isClosingRef.current) return;
@@ -152,20 +179,39 @@ const Showreel = () => {
         onClick={() => !isExpanded && open()}
         onTransitionEnd={handleTransitionEnd}
       >
-        {videoReady ? (
+        {/* Low-quality thumbnail — always playing, negligible network cost */}
+        <video
+          preload="auto"
+          className={clsx(
+            'aspect-video w-full object-cover transition-opacity duration-700',
+            fullVideoVisible ? 'opacity-0' : 'opacity-100',
+          )}
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={SHOWREEL_THUMB_WEBM} type="video/webm" />
+          <source src={SHOWREEL_THUMB_SRC} type="video/mp4" />
+        </video>
+
+        {loadFullVideo && (
           <Player
-            ref={playerRef}
             ariaLabel="Showreel Metabole"
-            showControls={isExpanded}
-            src={SHOWREEL_VIDEO_SRC}
-            srcWebm={SHOWREEL_VIDEO_WEBM}
+            preload="auto"
+            showControls={isExpanded && fullVideoVisible}
+            className={clsx(
+              'absolute! inset-0 z-50 transition-opacity duration-700',
+              fullVideoVisible ? 'opacity-100' : 'opacity-0',
+            )}
             autoPlay
             loop
             muted
             playsInline
-          />
-        ) : (
-          <div className="relative aspect-video w-full bg-black" />
+          >
+            <source src={SHOWREEL_VIDEO_WEBM} type="video/webm" />
+            <source src={SHOWREEL_VIDEO_SRC} type="video/mp4" />
+          </Player>
         )}
         {!isExpanded && <div className="absolute inset-0 z-10 cursor-pointer" aria-hidden />}
         <div
