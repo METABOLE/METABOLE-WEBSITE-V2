@@ -14,16 +14,16 @@ export default function Document(props: DocumentProps) {
         <link
           as="font"
           crossOrigin="anonymous"
-          href="/fonts/Safiro-SemiBold.otf"
+          href="/fonts/Safiro-Medium.woff2"
           rel="preload"
-          type="font/otf"
+          type="font/woff2"
         />
         <link
           as="font"
           crossOrigin="anonymous"
-          href="/fonts/Safiro-Medium.otf"
+          href="/fonts/Safiro-Regular.woff2"
           rel="preload"
-          type="font/otf"
+          type="font/woff2"
         />
       </Head>
       <body className="antialiased">
