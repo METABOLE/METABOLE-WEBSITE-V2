@@ -1,19 +1,20 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import Button from '@/components/ui/button';
+import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
+import { useInView } from '@/hooks/useInView';
 import { useLanguage } from '@/providers/language.provider';
+import { usePerformance } from '@/providers/performance.provider';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import clsx from 'clsx';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useRef } from 'react';
-import { usePerformance } from '@/providers/performance.provider';
 
 const SceneLight = dynamic(() => import('../home/hero/scene-light'), { ssr: false });
-import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
-import Image from 'next/image';
-import clsx from 'clsx';
 
 const FinalCta = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const { ref: sectionRef, inView } = useInView<HTMLElement>({ once: false });
   const scrollProgressRef = useRef(0);
 
   const { performanceLevel } = usePerformance();
@@ -45,7 +46,7 @@ const FinalCta = () => {
       <div className="bg-blue/10 absolute top-0 h-px w-full"></div>
 
       {performanceLevel === PERFORMANCE_LEVEL.HIGH ? (
-        <SceneLight scrollProgressRef={scrollProgressRef} />
+        <SceneLight paused={!inView} scrollProgressRef={scrollProgressRef} />
       ) : (
         <Image
           alt="Scene Light"

@@ -147,8 +147,8 @@ export default function Scene() {
             <div className="absolute inset-0 z-1">
               <Canvas
                 camera={{ fov: 50, position: [0, 0, 4.5] }}
-                dpr={[1, 2]}
-                gl={{ alpha: true, antialias: true }}
+                dpr={[1, 1.5]}
+                gl={{ alpha: true, antialias: true, powerPreference: 'low-power' }}
                 onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
               >
                 <ambientLight color={0x1b17ee} intensity={1} />

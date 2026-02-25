@@ -29,7 +29,7 @@ const GLASS_MAT = {
   distortionScale: 0.2,
   ior: 1.1,
   roughness: 0.01,
-  samples: 10,
+  samples: 4,
   thickness: 0.1,
   transmission: 1,
 };
@@ -163,7 +163,13 @@ function LogoModel() {
   );
 }
 
-function SceneLight({ scrollProgressRef }: { scrollProgressRef?: RefObject<number> } = {}) {
+function SceneLight({
+  scrollProgressRef,
+  paused = false,
+}: {
+  scrollProgressRef?: RefObject<number>;
+  paused?: boolean;
+} = {}) {
   const defaultProgressRef = useRef(0);
   const progressRef = scrollProgressRef ?? defaultProgressRef;
 
@@ -172,7 +178,8 @@ function SceneLight({ scrollProgressRef }: { scrollProgressRef?: RefObject<numbe
       <Canvas
         camera={{ fov: 50, position: [0, 0, 4.5] }}
         dpr={[1, 2]}
-        gl={{ alpha: true, antialias: true }}
+        frameloop={paused ? 'never' : 'always'}
+        gl={{ alpha: true, antialias: false, powerPreference: 'low-power' }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
           Object.assign(gl, {
