@@ -60,7 +60,7 @@ const FinalCta = () => {
       <h2 className="font-safiro-regular! flex w-full flex-col gap-2 text-[clamp(38px,5vw,96px)]!">
         <span
           className={clsx(
-            'inline-block translate-x-1/4 text-left',
+            'inline-block text-left md:translate-x-1/4',
             performanceLevel === PERFORMANCE_LEVEL.LOW ? 'opacity-100' : 'opacity-0',
           )}
         >

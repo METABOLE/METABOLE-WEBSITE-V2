@@ -1,5 +1,6 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import Title from '@/components/shared/title';
+import { useIdleCallback } from '@/hooks/useIdleCallback';
 import { useLanguage } from '@/providers/language.provider';
 import { processus } from '@/services/processus.service';
 import { useGSAP } from '@gsap/react';
@@ -136,10 +137,10 @@ const ScrollerMobile = () => {
       );
   });
 
-  useGSAP(() => {
+  useIdleCallback(() => {
     setupAnimation();
     pinAnimation();
-  }, []);
+  });
 
   return (
     <section ref={sectionRef} className="sticky h-screen bg-white pt-[100px]">
