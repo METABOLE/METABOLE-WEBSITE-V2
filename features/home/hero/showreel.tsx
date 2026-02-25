@@ -32,7 +32,6 @@ const Showreel = () => {
     setExpandTarget('anchor');
     setIsClosing(false);
     setIsExpanded(true);
-    playerRef.current?.load();
   }, []);
 
   const isClosingRef = useRef(false);
