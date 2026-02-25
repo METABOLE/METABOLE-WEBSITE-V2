@@ -5,6 +5,8 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useSta
 
 export type PlayerProps = {
   src: string;
+  /** WebM source (VP9). When provided, browser picks the best format automatically. */
+  srcWebm?: string;
   autoPlay?: boolean;
   loop?: boolean;
   muted?: boolean;
@@ -26,6 +28,7 @@ export type PlayerHandle = {
 const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
   {
     src,
+    srcWebm,
     autoPlay = false,
     loop = false,
     muted = true,
@@ -123,12 +126,15 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
         muted={muted}
         playsInline={playsInline}
         preload={preload}
-        src={src}
         title={titleText}
         onClick={handleVideoClick}
         onPause={handlePause}
         onPlay={handlePlay}
-      />
+        {...(!srcWebm && { src })}
+      >
+        {srcWebm && <source src={srcWebm} type="video/webm" />}
+        {srcWebm && <source src={src} type="video/mp4" />}
+      </video>
     </div>
   );
 });

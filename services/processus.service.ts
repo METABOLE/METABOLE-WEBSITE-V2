@@ -37,8 +37,8 @@ export const processus = [
       en: 'Building fast, immersive, and scalable digital experiences for long-term growth.',
     },
     duration: {
-      fr: '2 SEM - 3 SEM',
-      en: '2 WEEKS - 3 WEEKS',
+      fr: '3 SEM - 4 SEM',
+      en: '3 WEEKS - 4 WEEKS',
     },
   },
 ];
