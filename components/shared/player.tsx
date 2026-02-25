@@ -12,22 +12,16 @@ import {
 } from 'react';
 
 export type PlayerProps = {
-  /** Video URL. Use when you have a single source; for multiple formats (e.g. WebM + MP4), pass <source> in children instead. */
   src?: string;
-  /** Poster image URL (first frame or custom thumbnail). */
   poster?: string;
   autoPlay?: boolean;
   loop?: boolean;
   muted?: boolean;
   playsInline?: boolean;
   className?: string;
-  /** Controls browser preload behaviour. Default "metadata" (first frame only). */
   preload?: 'none' | 'metadata' | 'auto';
-  /** When true, cursor becomes play/pause over the player. Default true. */
   showControls?: boolean;
-  /** Accessible label for the video. */
   ariaLabel?: string;
-  /** <source> (and optionally <track>) elements. Use for multiple formats (e.g. WebM then MP4) or when not using src. */
   children?: ReactNode;
 };
 

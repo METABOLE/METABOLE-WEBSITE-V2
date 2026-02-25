@@ -12,7 +12,6 @@ import '@/styles/main.scss';
 import '@/styles/tailwind.css';
 import { Data, ProjectType, SanityProps } from '@/types';
 import { AnimatePresence } from 'framer-motion';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { NextPage } from 'next';
 import type { AppContext, AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
@@ -39,7 +38,6 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
   const [resolvedGlobalProps, setResolvedGlobalProps] = useState(globalProps);
   const { draftMode } = resolvedGlobalProps;
 
-  // When globalProps are empty (e.g. client-side nav to 404), fetch from API so layout always has data
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const hasData =
@@ -76,12 +74,6 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
     }
   };
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined' && !('attachInternals' in HTMLElement.prototype)) {
-  //     import('element-internals-polyfill');
-  //   }
-  // }, []);
-
   useEffect(() => {
     resetScroll(isScreenLoader && !isDev);
   }, [isScreenLoader, isDev, resetScroll]);
@@ -101,7 +93,9 @@ function App({ Component, pageProps, globalProps }: CustomAppProps) {
                   handdlePageChange();
                   requestAnimationFrame(() => {
                     setTimeout(() => {
-                      ScrollTrigger.refresh();
+                      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+                        ScrollTrigger.refresh();
+                      });
                     }, 300);
                   });
                 }}

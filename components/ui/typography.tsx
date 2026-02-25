@@ -1,3 +1,4 @@
+import { useIdleCallback } from '@/hooks/useIdleCallback';
 import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
 import { usePerformance } from '@/providers/performance.provider';
 import { useGSAP } from '@gsap/react';
@@ -53,10 +54,10 @@ const Typography = ({
     });
   });
 
-  useGSAP(() => {
+  useIdleCallback(() => {
     if (performanceLevel === PERFORMANCE_LEVEL.LOW) return;
     revealAnimation();
-  }, []);
+  });
 
   const Tag = variant;
 
