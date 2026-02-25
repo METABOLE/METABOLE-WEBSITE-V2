@@ -10,6 +10,8 @@ export type PlayerProps = {
   muted?: boolean;
   playsInline?: boolean;
   className?: string;
+  /** Controls browser preload behaviour. Default "metadata" (first frame only). */
+  preload?: 'none' | 'metadata' | 'auto';
   /** When true, cursor becomes play/pause over the player. Default true. */
   showControls?: boolean;
   /** Accessible label for the video. */
@@ -18,6 +20,7 @@ export type PlayerProps = {
 
 export type PlayerHandle = {
   play: () => void;
+  load: () => void;
 };
 
 const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
@@ -28,6 +31,7 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
     muted = true,
     playsInline = true,
     className,
+    preload = 'metadata',
     showControls = true,
     ariaLabel = 'Vidéo',
   },
@@ -92,6 +96,10 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
           setIsPlaying(true);
         }
       },
+      load: () => {
+        const video = videoRef.current;
+        if (video) video.load();
+      },
     }),
     [],
   );
@@ -114,7 +122,7 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
         loop={loop}
         muted={muted}
         playsInline={playsInline}
-        preload="auto"
+        preload={preload}
         src={src}
         title={titleText}
         onClick={handleVideoClick}

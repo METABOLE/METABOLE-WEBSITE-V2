@@ -143,6 +143,7 @@ const Showreel = () => {
         <Player
           ref={playerRef}
           ariaLabel="Showreel Metabole"
+          preload="none"
           showControls={isExpanded}
           src={SHOWREEL_VIDEO_SRC}
           autoPlay

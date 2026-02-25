@@ -21,6 +21,7 @@ const JoinUs = () => {
     right: useRef<HTMLDivElement>(null),
   };
 
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { isFrench, getInternalPath } = useLanguage();
   const isBelowMD = useMatchMedia(BREAKPOINTS.MD);
   const { contextSafe } = useGSAP();
@@ -98,7 +99,9 @@ const JoinUs = () => {
         </div>
         <div ref={itemsRefs.right} className="gap-y-default col-span-2 -col-end-1 flex flex-col">
           <video
-            className="aspect-square h-full w-full object-cover"
+            ref={videoRef}
+            className="aspect-square h-auto w-full overflow-hidden object-cover"
+            preload="none"
             src="/images/home/join-us/join-us-2.mp4"
             autoPlay
             loop

@@ -51,7 +51,7 @@ const CardExpertise = ({ name, image }: Expertise) => {
           alt={name.fr}
           className="h-full w-full object-cover"
           height={1080}
-          src={urlFor(image).url()}
+          src={urlFor(image).quality(50).url()}
           width={1080}
         />
       </div>
