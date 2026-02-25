@@ -212,7 +212,7 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
                 <div className="hidden md:block" />
                 <div className="gap-y-default col-span-2 flex flex-col sm:col-span-2">
                   <NewsletterForm animate={false} hintId="hint-newsletter-footer" isDark={false} />
-                  <Language className="hidden md:ml-auto md:block" isDark={true} />
+                  <Language className="ml-auto hidden md:flex" isDark={true} />
                 </div>
               </div>
               <div className="flex w-full flex-col justify-between gap-5 md:flex-row md:items-center lg:grid lg:grid-cols-6">
@@ -227,7 +227,7 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
                   onClick={() => smoothScrollTo(0, 1800)}
                 >
                   <IconArrow className="fill-white" />
-                  <p>Back to top</p>
+                  <p>{isFrench ? 'Retour en haut' : 'Back to top'}</p>
                 </button>
               </div>
               <div className="h-px w-full bg-white/12" />
