@@ -1,12 +1,21 @@
 import { CURSOR_TYPE, useCursor } from '@/providers/cursor.provider';
 import { useLanguage } from '@/providers/language.provider';
 import { clsx } from 'clsx';
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import {
+  forwardRef,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 
 export type PlayerProps = {
-  src: string;
-  /** WebM source (VP9). When provided, browser picks the best format automatically. */
-  srcWebm?: string;
+  /** Video URL. Use when you have a single source; for multiple formats (e.g. WebM + MP4), pass <source> in children instead. */
+  src?: string;
+  /** Poster image URL (first frame or custom thumbnail). */
+  poster?: string;
   autoPlay?: boolean;
   loop?: boolean;
   muted?: boolean;
@@ -18,6 +27,8 @@ export type PlayerProps = {
   showControls?: boolean;
   /** Accessible label for the video. */
   ariaLabel?: string;
+  /** <source> (and optionally <track>) elements. Use for multiple formats (e.g. WebM then MP4) or when not using src. */
+  children?: ReactNode;
 };
 
 export type PlayerHandle = {
@@ -28,7 +39,7 @@ export type PlayerHandle = {
 const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
   {
     src,
-    srcWebm,
+    poster,
     autoPlay = false,
     loop = false,
     muted = true,
@@ -37,6 +48,7 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
     preload = 'metadata',
     showControls = true,
     ariaLabel = 'Vidéo',
+    children,
   },
   ref,
 ) {
@@ -46,6 +58,8 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
 
   const { setCursor } = useCursor();
   const { isFrench } = useLanguage();
+
+  const useSrcAttr = src != null && !children;
 
   useEffect(() => {
     if (isOverPlayerRef.current && showControls) {
@@ -125,15 +139,15 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(function Player(
         loop={loop}
         muted={muted}
         playsInline={playsInline}
+        poster={poster}
         preload={preload}
         title={titleText}
+        {...(useSrcAttr && { src })}
         onClick={handleVideoClick}
         onPause={handlePause}
         onPlay={handlePlay}
-        {...(!srcWebm && { src })}
       >
-        {srcWebm && <source src={srcWebm} type="video/webm" />}
-        {srcWebm && <source src={src} type="video/mp4" />}
+        {children}
       </video>
     </div>
   );

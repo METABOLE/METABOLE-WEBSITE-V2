@@ -35,6 +35,9 @@ const ScreenLoader = () => {
     )
       return;
 
+    gsap.set([barRefs.horizontalRight.current, barRefs.horizontalLeft.current], { scaleX: 0 });
+    gsap.set(barRefs.vertical.current, { scaleY: 0 });
+
     gsap
       .timeline({
         delay: 1,
@@ -47,20 +50,10 @@ const ScreenLoader = () => {
         scale: 1,
         duration: 0.5,
       })
-      .to(
-        barRefs.vertical.current,
-        {
-          scaleY: 1,
-          duration: 0.5,
-        },
-        '<',
-      )
+      .to(barRefs.vertical.current, { scaleY: 0.008, duration: 0.5 }, '<')
       .to(
         [barRefs.horizontalRight.current, barRefs.horizontalLeft.current],
-        {
-          scaleX: 1,
-          duration: 0.5,
-        },
+        { scaleX: 0.004, duration: 0.5 },
         '<',
       )
       .to({}, { duration: 0.5 })
@@ -79,20 +72,10 @@ const ScreenLoader = () => {
       )
       .to(
         [barRefs.horizontalRight.current, barRefs.horizontalLeft.current],
-        {
-          duration: 2,
-          width: '50vw',
-        },
+        { scaleX: 1, duration: 2 },
         'progress+=0.2',
       )
-      .to(
-        barRefs.vertical.current,
-        {
-          duration: 2,
-          height: '100vh',
-        },
-        'progress+=0.2',
-      )
+      .to(barRefs.vertical.current, { scaleY: 1, duration: 2 }, 'progress+=0.2')
       .to({}, { duration: 1 })
       .add(() => setIsRevealed(true));
   });
@@ -179,15 +162,15 @@ const ScreenLoader = () => {
       </div>
       <div
         ref={barRefs.vertical}
-        className="absolute top-1/2 left-1/2 h-2 w-0.5 -translate-x-1/2 -translate-y-1/2 scale-y-0 bg-white"
+        className="absolute top-1/2 left-1/2 h-screen w-0.5 -translate-x-1/2 -translate-y-1/2 bg-white"
       />
       <div
         ref={barRefs.horizontalRight}
-        className="absolute top-1/2 right-1/2 h-0.5 w-1 origin-right -translate-y-1/2 scale-x-0 bg-white"
+        className="absolute top-1/2 right-1/2 h-0.5 w-1/2 origin-right -translate-y-1/2 bg-white"
       />
       <div
         ref={barRefs.horizontalLeft}
-        className="absolute top-1/2 left-1/2 h-0.5 w-1 origin-left -translate-y-1/2 scale-x-0 bg-white"
+        className="absolute top-1/2 left-1/2 h-0.5 w-1/2 origin-left -translate-y-1/2 bg-white"
       />
     </div>
   );

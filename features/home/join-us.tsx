@@ -60,20 +60,6 @@ const JoinUs = () => {
     }
   }, [isBelowMD]);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!videoInView || !video) return;
-    const webm = document.createElement('source');
-    webm.src = '/images/home/join-us/join-us-2.webm';
-    webm.type = 'video/webm';
-    const mp4 = document.createElement('source');
-    mp4.src = '/images/home/join-us/join-us-2.mp4';
-    mp4.type = 'video/mp4';
-    video.appendChild(webm);
-    video.appendChild(mp4);
-    video.load();
-  }, [videoInView]);
-
   return (
     <section
       ref={sectionRef}
@@ -119,12 +105,19 @@ const JoinUs = () => {
           <video
             ref={videoRef}
             className="aspect-square h-auto w-full overflow-hidden object-cover"
-            preload="none"
+            preload={videoInView ? 'auto' : 'none'}
             autoPlay
             loop
             muted
             playsInline
-          />
+          >
+            {videoInView && (
+              <>
+                <source src="/images/home/join-us/join-us-2.webm" type="video/webm" />
+                <source src="/images/home/join-us/join-us-2.mp4" type="video/mp4" />
+              </>
+            )}
+          </video>
           <div className="space-y-10">
             <Typography className="p3-regular" variant="h4">
               {isFrench

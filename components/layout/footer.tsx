@@ -74,11 +74,6 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
   });
 
   const scrubAnimation = contextSafe(() => {
-    gsap.set(containerSectionRef.current, {
-      transform: 'translateY(-300px)',
-      willChange: 'transform',
-    });
-
     gsap
       .timeline({
         scrollTrigger: {
@@ -148,7 +143,7 @@ const Footer = ({ dataInfos }: { dataInfos: Data }) => {
       <footer ref={wrapperRef}>
         <div
           ref={containerSectionRef}
-          className="h-fit w-full overflow-hidden bg-black text-white"
+          className="h-fit w-full overflow-hidden bg-black text-white md:-translate-y-[300px] md:will-change-transform"
           id="wrapper-footer"
           onMouseLeave={resetHaloPosition}
           onMouseMove={moveHalo}
