@@ -4,6 +4,7 @@ import Title from '@/components/shared/title';
 import Button from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
+import { useInView } from '@/hooks/useInView';
 import { useLanguage } from '@/providers/language.provider';
 import { BREAKPOINTS } from '@/types';
 import { useGSAP } from '@gsap/react';
@@ -21,7 +22,10 @@ const JoinUs = () => {
     right: useRef<HTMLDivElement>(null),
   };
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { ref: videoRef, inView: videoInView } = useInView<HTMLVideoElement>({
+    rootMargin: '200px',
+    once: true,
+  });
   const { isFrench, getInternalPath } = useLanguage();
   const isBelowMD = useMatchMedia(BREAKPOINTS.MD);
   const { contextSafe } = useGSAP();
@@ -55,6 +59,20 @@ const JoinUs = () => {
       });
     }
   }, [isBelowMD]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!videoInView || !video) return;
+    const webm = document.createElement('source');
+    webm.src = '/images/home/join-us/join-us-2.webm';
+    webm.type = 'video/webm';
+    const mp4 = document.createElement('source');
+    mp4.src = '/images/home/join-us/join-us-2.mp4';
+    mp4.type = 'video/mp4';
+    video.appendChild(webm);
+    video.appendChild(mp4);
+    video.load();
+  }, [videoInView]);
 
   return (
     <section
@@ -102,7 +120,6 @@ const JoinUs = () => {
             ref={videoRef}
             className="aspect-square h-auto w-full overflow-hidden object-cover"
             preload="none"
-            src="/images/home/join-us/join-us-2.mp4"
             autoPlay
             loop
             muted

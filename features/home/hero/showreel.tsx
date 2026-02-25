@@ -7,7 +7,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 
 type AnchorRect = { left: number; top: number; width: number; height: number };
 
-const SHOWREEL_VIDEO_SRC = '/videos/showreel.mp4';
+const SHOWREEL_VIDEO_SRC = '/images/home/hero/showreel.mp4';
+const SHOWREEL_VIDEO_WEBM = '/images/home/hero/showreel.webm';
 
 const Showreel = () => {
   const { lockScroll, unlockScroll } = useScroll();
@@ -18,6 +19,17 @@ const Showreel = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [anchorRect, setAnchorRect] = useState<AnchorRect | null>(null);
   const [expandTarget, setExpandTarget] = useState<'anchor' | 'center'>('anchor');
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const activate = () => setVideoReady(true);
+    if (document.readyState === 'complete') {
+      activate();
+    } else {
+      window.addEventListener('load', activate, { once: true });
+      return () => window.removeEventListener('load', activate);
+    }
+  }, []);
 
   const open = useCallback(() => {
     const el = containerRef.current;
@@ -140,17 +152,21 @@ const Showreel = () => {
         onClick={() => !isExpanded && open()}
         onTransitionEnd={handleTransitionEnd}
       >
-        <Player
-          ref={playerRef}
-          ariaLabel="Showreel Metabole"
-          preload="none"
-          showControls={isExpanded}
-          src={SHOWREEL_VIDEO_SRC}
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+        {videoReady ? (
+          <Player
+            ref={playerRef}
+            ariaLabel="Showreel Metabole"
+            showControls={isExpanded}
+            src={SHOWREEL_VIDEO_SRC}
+            srcWebm={SHOWREEL_VIDEO_WEBM}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <div className="relative aspect-video w-full bg-black" />
+        )}
         {!isExpanded && <div className="absolute inset-0 z-10 cursor-pointer" aria-hidden />}
         <div
           className={clsx(

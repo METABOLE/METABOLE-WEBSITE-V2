@@ -88,6 +88,9 @@ const eslintConfig = [
         requestIdleCallback: 'readonly',
         cancelIdleCallback: 'readonly',
         DeviceOrientationEvent: 'readonly',
+        IntersectionObserver: 'readonly',
+        IntersectionObserverEntry: 'readonly',
+        IntersectionObserverInit: 'readonly',
 
         // Events
         MouseEvent: 'readonly',
