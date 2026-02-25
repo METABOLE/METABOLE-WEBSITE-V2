@@ -1,3 +1,5 @@
+import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
+import { usePerformance } from '@/providers/performance.provider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -22,7 +24,9 @@ const Typography = ({
 }) => {
   const textRef = useRef(null);
 
+  const { performanceLevel } = usePerformance();
   const { contextSafe } = useGSAP();
+
   const revealAnimation = contextSafe(() => {
     if (!textRef.current) return;
 
@@ -50,6 +54,7 @@ const Typography = ({
   });
 
   useGSAP(() => {
+    if (performanceLevel === PERFORMANCE_LEVEL.LOW) return;
     revealAnimation();
   }, []);
 

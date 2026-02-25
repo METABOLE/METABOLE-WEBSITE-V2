@@ -1,3 +1,5 @@
+import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
+import { usePerformance } from '@/providers/performance.provider';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -17,6 +19,7 @@ const Title = ({
   const titleRef = useRef<HTMLHeadingElement>(null);
   const overlayRef = useRef<HTMLSpanElement>(null);
 
+  const { performanceLevel } = usePerformance();
   const { contextSafe } = useGSAP();
 
   const revealAnimation = contextSafe(() => {
@@ -36,6 +39,7 @@ const Title = ({
   });
 
   useGSAP(() => {
+    if (performanceLevel === PERFORMANCE_LEVEL.LOW) return;
     revealAnimation();
   }, []);
 
@@ -49,16 +53,18 @@ const Title = ({
       )}
     >
       <span>/{children}</span>
-      <div className="absolute inset-0 overflow-hidden" style={{ clipPath: SLASH_FULL }}>
-        <span
-          ref={overlayRef}
-          className={clsx('absolute inset-0 h-full w-full', color ? `bg-${color}` : 'bg-yellow')}
-          style={{
-            clipPath: SLASH_FULL,
-            backgroundColor: color ? `var(--color-${color})` : 'inherit',
-          }}
-        />
-      </div>
+      {performanceLevel === PERFORMANCE_LEVEL.HIGH && (
+        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: SLASH_FULL }}>
+          <span
+            ref={overlayRef}
+            className={clsx('absolute inset-0 h-full w-full', color ? `bg-${color}` : 'bg-yellow')}
+            style={{
+              clipPath: SLASH_FULL,
+              backgroundColor: color ? `var(--color-${color})` : 'inherit',
+            }}
+          />
+        </div>
+      )}
     </h2>
   );
 };

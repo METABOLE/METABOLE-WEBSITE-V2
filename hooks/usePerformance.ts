@@ -1,10 +1,17 @@
-import { getOSInfo, OS } from '@/utils';
+import { getOSInfo, OS } from '@/utils/os.utils';
 import { useEffect, useState } from 'react';
 
 export enum PERFORMANCE_LEVEL {
   HIGH = 'high',
   LOW = 'low',
 }
+
+// 🔧 TEST ONLY: Force LOW performance level via localStorage
+const FORCE_LOW_STORAGE_KEY = 'force-low-performance';
+const isForceLowPerformanceEnabled = () => {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem(FORCE_LOW_STORAGE_KEY) === 'true';
+};
 
 interface PerformanceMetrics {
   performanceLevel: PERFORMANCE_LEVEL;
@@ -55,6 +62,22 @@ const usePerformanceHook = (): PerformanceMetrics & PerformanceUtils => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const detectPerformance = async () => {
+        // 🔧 TEST MODE: Force LOW performance if enabled
+        if (isForceLowPerformanceEnabled()) {
+          console.warn('⚠️ FORCE_LOW_PERFORMANCE is enabled - forcing LOW performance level');
+          const osInfo = getOSInfo();
+          setMetrics({
+            performanceLevel: PERFORMANCE_LEVEL.LOW,
+            executionTime: 999,
+            score: 30,
+            isLoading: false,
+            os: osInfo.os,
+            osVersion: osInfo.version,
+            isOldOS: false,
+          });
+          return;
+        }
+
         // Vérification OS anciens
         const osInfo = getOSInfo();
 

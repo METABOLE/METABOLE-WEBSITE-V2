@@ -24,14 +24,22 @@ const getTimeRemaining = () => {
   }
 };
 
+const FORCE_LOW_STORAGE_KEY = 'force-low-performance';
+const LONG_PRESS_DURATION = 1000;
+
 const PerformanceIndicator = () => {
   const { performanceLevel, executionTime, score, isLoading, os, osVersion, isOldOS } =
     usePerformance();
-  const isTouchDevice = useTouchDevice();
+  const isTouch = useTouchDevice();
 
   const { clearSiteData } = useClearSiteData();
   const [isHovered, setIsHovered] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<string>('--');
+  const [longPressTimer, setLongPressTimer] = useState<NodeJS.Timeout | null>(null);
+  const [longPressProgress, setLongPressProgress] = useState(0);
+  const [progressInterval, setProgressInterval] = useState<NodeJS.Timeout | null>(null);
+  const isForcedLow =
+    typeof window !== 'undefined' && localStorage.getItem(FORCE_LOW_STORAGE_KEY) === 'true';
 
   useEffect(() => {
     setTimeRemaining(getTimeRemaining());
@@ -40,8 +48,16 @@ const PerformanceIndicator = () => {
       setTimeRemaining(getTimeRemaining());
     }, 60000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      clearInterval(interval);
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+      }
+      if (progressInterval) {
+        clearInterval(progressInterval);
+      }
+    };
+  }, [longPressTimer, progressInterval]);
 
   const handleClick = async () => {
     if (
@@ -51,6 +67,65 @@ const PerformanceIndicator = () => {
     ) {
       await clearSiteData();
     }
+  };
+
+  const toggleForceLowPerformance = () => {
+    const isCurrentlyForced = localStorage.getItem(FORCE_LOW_STORAGE_KEY) === 'true';
+
+    if (isCurrentlyForced) {
+      localStorage.removeItem(FORCE_LOW_STORAGE_KEY);
+      console.info('🔧 Force LOW performance: DISABLED');
+    } else {
+      localStorage.setItem(FORCE_LOW_STORAGE_KEY, 'true');
+      console.info('🔧 Force LOW performance: ENABLED');
+    }
+
+    window.location.reload();
+  };
+
+  const handleLongPressStart = () => {
+    const startTime = Date.now();
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / LONG_PRESS_DURATION) * 100, 100);
+      setLongPressProgress(progress);
+
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 16);
+
+    setProgressInterval(interval);
+
+    const timer = setTimeout(() => {
+      toggleForceLowPerformance();
+    }, LONG_PRESS_DURATION);
+
+    setLongPressTimer(timer);
+  };
+
+  const handleLongPressEnd = () => {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      setLongPressTimer(null);
+    }
+    if (progressInterval) {
+      clearInterval(progressInterval);
+      setProgressInterval(null);
+    }
+    setLongPressProgress(0);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    handleLongPressEnd();
+  };
+
+  const getDisplayText = () => {
+    if (isForcedLow) return 'Forced LOW';
+    if (isOldOS) return 'Old OS';
+    return `${executionTime.toFixed(0)}ms`;
   };
 
   return (
@@ -64,7 +139,14 @@ const PerformanceIndicator = () => {
         )}
       >
         <div className="mb-2 flex items-center justify-between border-b border-slate-700 pb-2">
-          <span className="font-semibold text-slate-200">Performance Metrics</span>
+          <span className="font-semibold text-slate-200">
+            Performance Metrics
+            {isForcedLow && (
+              <span className="ml-1 text-xs text-orange-400" title="Test mode: forced LOW">
+                🔧
+              </span>
+            )}
+          </span>
           <div
             className={clsx(
               'rounded-full px-2 py-0.5 text-xs font-bold',
@@ -100,29 +182,53 @@ const PerformanceIndicator = () => {
             <span className="font-mono text-xs text-slate-400">{timeRemaining}</span>
           </div>
         </div>
-        <button
-          className="mt-2 w-full border-t border-slate-700 pt-2 text-left text-xs text-slate-500"
-          onClick={handleClick}
-        >
-          Click to clear cache & reload
-        </button>
+        <div className="mt-2 space-y-1 border-t border-slate-700 pt-2 text-xs">
+          <button
+            className="w-full text-left text-slate-600 transition-colors"
+            onClick={handleClick}
+          >
+            Click to clear cache & reload
+          </button>
+          <div className="text-slate-600">
+            Long press ({LONG_PRESS_DURATION / 1000}s) to {isForcedLow ? 'disable' : 'enable'} test
+            mode
+          </div>
+        </div>
       </div>
 
       <button
-        className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-400/30 bg-slate-300/30 px-2 py-1 text-sm font-medium shadow-lg backdrop-blur-xl transition-all hover:scale-105"
-        onClick={isTouchDevice ? undefined : handleClick}
+        className="relative cursor-pointer overflow-hidden rounded-full border border-slate-400/30 bg-slate-300/30 text-sm font-medium shadow-lg transition-all select-none hover:scale-105"
+        onClick={isTouch ? undefined : handleClick}
+        onMouseDown={handleLongPressStart}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleLongPressEnd}
+        onTouchCancel={handleLongPressEnd}
+        onTouchEnd={handleLongPressEnd}
+        onTouchStart={handleLongPressStart}
       >
-        <div
-          className={clsx(
-            'flex h-2 w-2 items-center gap-2 rounded-full',
-            performanceLevel === PERFORMANCE_LEVEL.HIGH && 'bg-green-500',
-            performanceLevel === PERFORMANCE_LEVEL.LOW && 'bg-red-500',
-          )}
-        />
-        <div className="text-xs opacity-75">
-          {isOldOS ? 'Old OS' : executionTime.toFixed(0) + 'ms'}
+        {longPressProgress > 0 && (
+          <div
+            className={clsx(
+              'absolute inset-0 h-full origin-left',
+              isForcedLow ? 'bg-green-500' : 'bg-red-500',
+            )}
+            style={{
+              transform: `scaleX(${longPressProgress}%)`,
+              transition: 'transform 0.016s linear',
+            }}
+          />
+        )}
+
+        <div className="flex h-full w-full items-center gap-2 px-2 py-1 backdrop-blur-xs">
+          <div
+            className={clsx(
+              'relative z-10 flex h-2 w-2 items-center gap-2 rounded-full',
+              performanceLevel === PERFORMANCE_LEVEL.HIGH && 'bg-green-500',
+              performanceLevel === PERFORMANCE_LEVEL.LOW && 'bg-red-500',
+            )}
+          />
+          <div className="relative z-10 text-xs opacity-75">{getDisplayText()}</div>
         </div>
       </button>
     </div>
