@@ -52,11 +52,7 @@ const FinalCta = () => {
           {isFrench ? "aujourd'hui" : 'today'}
         </span>
       </h2>
-      <Button
-        className="bottom-y-double-default absolute"
-        color="secondary"
-        href={getInternalPath('/contact')}
-      >
+      <Button className="bottom-y-double-default absolute" href={getInternalPath('/contact')}>
         {isFrench ? 'Contactez-nous' : 'Contact us'}
       </Button>
     </section>
