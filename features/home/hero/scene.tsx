@@ -1,7 +1,10 @@
 import { useMousePosition } from '@/hooks/useMousePosition';
+import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
+import { usePerformance } from '@/providers/performance.provider';
 import { useGLTF } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
+import Image from 'next/image';
 import { useEffect, useMemo, useRef } from 'react';
 import {
   type DirectionalLight,
@@ -129,27 +132,46 @@ export default function Scene() {
   const dirRef = useRef<DirectionalLight>(null);
   const pointRef = useRef<PointLight>(null);
 
+  const { performanceLevel } = usePerformance();
+
   return (
-    <div className="absolute top-0 left-0 z-0 h-full w-screen" aria-hidden>
+    <div className="absolute top-0 left-0 -z-10 h-full w-screen" aria-hidden>
       <div className="sticky top-0 h-screen w-screen" aria-hidden>
-        <div
-          className="absolute inset-0 z-0"
-          style={{ background: 'linear-gradient(to bottom, #01021b 0%, #040148 100%)' }}
-          aria-hidden
-        />
-        <div className="absolute inset-0 z-1">
-          <Canvas
-            camera={{ fov: 50, position: [0, 0, 4.5] }}
-            dpr={[1, 2]}
-            gl={{ alpha: true, antialias: true }}
-            onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
-          >
-            <ambientLight color={0x1b17ee} intensity={1} />
-            <directionalLight ref={dirRef} color={0xbdbcff} intensity={5.2} position={[-2, 2, 3]} />
-            <pointLight ref={pointRef} color={0xffffff} intensity={0.2} position={[1, 1, 1]} />
-            <LogoModel />
-          </Canvas>
-        </div>
+        {performanceLevel === PERFORMANCE_LEVEL.HIGH ? (
+          <>
+            <div
+              className="absolute inset-0 z-0"
+              style={{ background: 'linear-gradient(to bottom, #01021b 0%, #040148 100%)' }}
+              aria-hidden
+            />
+            <div className="absolute inset-0 z-1">
+              <Canvas
+                camera={{ fov: 50, position: [0, 0, 4.5] }}
+                dpr={[1, 2]}
+                gl={{ alpha: true, antialias: true }}
+                onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
+              >
+                <ambientLight color={0x1b17ee} intensity={1} />
+                <directionalLight
+                  ref={dirRef}
+                  color={0xbdbcff}
+                  intensity={5.2}
+                  position={[-2, 2, 3]}
+                />
+                <pointLight ref={pointRef} color={0xffffff} intensity={0.2} position={[1, 1, 1]} />
+                <LogoModel />
+              </Canvas>
+            </div>
+          </>
+        ) : (
+          <Image
+            alt="Scene"
+            className="absolute top-0 left-0 -z-10 h-screen w-screen object-cover"
+            height={1920}
+            src="/images/home/hero/scene-dark.png"
+            width={1080}
+          />
+        )}
       </div>
     </div>
   );

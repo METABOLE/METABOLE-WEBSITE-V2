@@ -18,9 +18,7 @@ const Team = ({ team }: { team: TeamType[] }) => {
               ? 'Travailler avec Metabole, c’est surtout savoir que l’on va faire du bon travail ensemble avec des clients qui nous ressemblent. Ambitieux et bienveillants. Leur satisfaction est notre premier objectif.'
               : 'Working with Metabole means knowing we will do great work together, with clients who share our values. Ambitious and kind. Their satisfaction is our top priority.'}
           </Typography>
-          <Button color="secondary" href="/contact">
-            {isFrench ? 'CONTACTEZ-NOUS' : 'CONTACT US'}
-          </Button>
+          <Button href="/contact">{isFrench ? 'CONTACTEZ-NOUS' : 'CONTACT US'}</Button>
         </div>
       </div>
       <HorizontalSmoothScroll className="pr-x-default team-container col-span-12 flex w-[calc(100%+var(--x-default))] shrink-0 lg:col-span-7">

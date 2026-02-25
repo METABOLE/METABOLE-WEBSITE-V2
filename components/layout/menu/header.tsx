@@ -30,7 +30,7 @@ const Header = ({
   logoRef: RefObject<HTMLAnchorElement | null>;
   wrapperButtonRef: RefObject<HTMLDivElement | null>;
   soundRef: RefObject<HTMLButtonElement | null>;
-  contactMenuRef: RefObject<HTMLAnchorElement | null>;
+  contactMenuRef: RefObject<HTMLDivElement | null>;
   isMenuOpen: boolean;
   openMenu: () => void;
   closeMenu: () => void;
@@ -53,17 +53,15 @@ const Header = ({
           <Sound ref={soundRef} className="shrink-0" />
           <AnimatedLink
             ref={contactMenuRef}
-            className="p3-medium hidden overflow-hidden whitespace-nowrap md:block"
+            className="p3-medium hidden overflow-hidden whitespace-nowrap text-white md:block"
             href={getInternalPath('/contact')}
-            isDark={true}
             scroll={false}
             onClick={closeMenu}
           >
             CONTACT
           </AnimatedLink>
           <AnimatedLink
-            className="p3-medium whitespace-nowrap"
-            isDark={true}
+            className="p3-medium whitespace-nowrap text-white"
             isResizable
             onClick={isMenuOpen ? closeMenu : openMenu}
           >

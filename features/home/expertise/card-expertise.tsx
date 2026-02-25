@@ -1,3 +1,5 @@
+import { PERFORMANCE_LEVEL } from '@/hooks/usePerformance';
+import { usePerformance } from '@/providers/performance.provider';
 import { urlFor } from '@/sanity/lib/image';
 import { Expertise } from '@/types';
 import gsap from 'gsap';
@@ -9,7 +11,10 @@ const CardExpertise = ({ name, image }: Expertise) => {
   const textRef = useRef<HTMLHeadingElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
 
+  const { performanceLevel } = usePerformance();
+
   useLayoutEffect(() => {
+    if (performanceLevel === PERFORMANCE_LEVEL.LOW) return;
     const card = cardRef.current;
     const text = textRef.current;
     const imageWrapper = imageWrapperRef.current;
@@ -23,7 +28,7 @@ const CardExpertise = ({ name, image }: Expertise) => {
       const translateXPercent = (progress - 0.5) * 80;
       const imageTranslateX = (1 - progress) * 200;
 
-      text.style.transform = `translate(-50%, -50%) translateX(${translateXPercent}%)`;
+      text.style.transform = `translate(0, -50%) translateX(${translateXPercent}%)`;
       imageWrapper.style.transform = `translate(-50%, 0) translateX(${imageTranslateX}px)`;
     };
 
@@ -52,8 +57,13 @@ const CardExpertise = ({ name, image }: Expertise) => {
       </div>
       <h3
         ref={textRef}
-        className="h2 absolute top-1/2 left-1/2 z-10 text-center text-white"
-        style={{ transform: 'translate(-50%, -50%) translateX(40%)' }}
+        className="h2 absolute top-1/2 z-10 w-full text-center text-white"
+        style={{
+          transform:
+            performanceLevel === PERFORMANCE_LEVEL.HIGH
+              ? 'translate(0, -50%) translateX(40%)'
+              : 'translate(0, -50%)',
+        }}
       >
         {name.fr}
       </h3>

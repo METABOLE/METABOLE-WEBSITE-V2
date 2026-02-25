@@ -113,7 +113,7 @@ const JoinUs = () => {
                 ? 'Vous êtes à la fois créatif, ambitieux, stratégique et sympa. Venez, on s’écrit et on voit ce qu’on peut faire ensemble.'
                 : 'You are both creative, ambitious, strategic and nice. Come, we write and see what we can do together.'}
             </Typography>
-            <Button color="secondary" href={getInternalPath('/contact')}>
+            <Button href={getInternalPath('/contact')}>
               {isFrench ? 'Contactez-nous' : 'Contact Us'}
             </Button>
           </div>

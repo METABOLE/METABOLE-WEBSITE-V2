@@ -120,14 +120,6 @@
   --ease-bounce-in-out: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* SAFELIST */
-.origin-left {
-  @apply origin-left;
-}
-.origin-right {
-  @apply origin-right;
-}
-
 /* ASPECT RATIOS */
 .aspect-square {
   @apply aspect-square;
