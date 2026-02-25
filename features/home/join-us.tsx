@@ -82,7 +82,11 @@ const JoinUs = () => {
               </>
             )}
           </Typography>
-          <ParallaxImage aspectRatio="aspect-square" parallaxOffset={-200}>
+          <ParallaxImage
+            aspectRatio="aspect-square"
+            className="hidden md:block"
+            parallaxOffset={-200}
+          >
             <Image
               alt="Join Us"
               className="h-full w-full object-cover"
@@ -93,20 +97,14 @@ const JoinUs = () => {
           </ParallaxImage>
         </div>
         <div ref={itemsRefs.right} className="gap-y-default col-span-2 -col-end-1 flex flex-col">
-          <ParallaxImage
-            aspectRatio="aspect-square"
-            className="hidden md:block"
-            parallaxOffset={-200}
-          >
-            <video
-              className="h-full w-full object-cover"
-              src="/images/home/join-us/join-us-2.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
-          </ParallaxImage>
+          <video
+            className="aspect-square h-full w-full object-cover"
+            src="/images/home/join-us/join-us-2.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
           <div className="space-y-10">
             <Typography className="p3-regular" variant="h4">
               {isFrench

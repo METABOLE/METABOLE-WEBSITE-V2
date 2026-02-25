@@ -204,10 +204,22 @@ export function useMenu() {
         },
         '<',
       )
-      .to(contactMenuRef.current, {
-        width: 'auto',
-        gap: 0,
-      });
+      .to(
+        wrapperButtonRef.current,
+        {
+          duration: 0.4,
+          gap: 40,
+        },
+        '<',
+      )
+      .to(
+        contactMenuRef.current,
+        {
+          width: 'auto',
+          gap: 0,
+        },
+        '<',
+      );
   });
 
   useShortcut('Escape', () => isMenuOpen && closeMenu());

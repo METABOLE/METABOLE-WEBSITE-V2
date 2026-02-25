@@ -112,7 +112,7 @@ const AnimatedLink = forwardRef<HTMLDivElement, AnimatedLinkProps>(
         <DynamicElement
           ref={ref}
           className={clsx(
-            'inline-block w-fit cursor-pointer overflow-hidden uppercase transition-colors duration-200',
+            'w-fit cursor-pointer overflow-hidden uppercase transition-colors duration-200',
             disabled ? 'cursor-default! opacity-70' : 'cursor-pointer',
             className,
           )}
@@ -121,9 +121,7 @@ const AnimatedLink = forwardRef<HTMLDivElement, AnimatedLinkProps>(
           href={href}
           target={target}
         >
-          <div className="flex h-full w-full items-center justify-center px-4 whitespace-nowrap">
-            {children}
-          </div>
+          <div className="whitespace-nowrap">{children}</div>
         </DynamicElement>
       );
     }
@@ -133,7 +131,7 @@ const AnimatedLink = forwardRef<HTMLDivElement, AnimatedLinkProps>(
         <DynamicElement
           ref={ref}
           className={clsx(
-            'group/animated-link inline-block w-fit cursor-pointer overflow-hidden uppercase backdrop-blur-xl',
+            'group/animated-link w-fit cursor-pointer overflow-hidden uppercase',
             disabled ? 'cursor-none! opacity-70' : 'cursor-pointer',
             className,
           )}
@@ -146,7 +144,7 @@ const AnimatedLink = forwardRef<HTMLDivElement, AnimatedLinkProps>(
         >
           <div
             ref={buttonRef}
-            className="z-20 flex h-full w-full items-center"
+            className="z-20 flex h-full w-full items-center uppercase"
             onMouseMove={(e) => useMagnet(e, 0.4)}
             onMouseOut={(e) => useResetMagnet(e)}
           >
@@ -181,7 +179,7 @@ const AnimatedLink = forwardRef<HTMLDivElement, AnimatedLinkProps>(
           <div
             ref={hiddenButtonRef}
             className={clsx(
-              'pointer-events-none invisible fixed top-0 left-0 -z-10 h-full w-fit items-center justify-center whitespace-nowrap uppercase opacity-0',
+              'pointer-events-none invisible fixed top-0 left-0 -z-10 h-full whitespace-nowrap uppercase opacity-0',
               className,
             )}
           >
