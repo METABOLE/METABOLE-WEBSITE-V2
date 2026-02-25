@@ -10,14 +10,16 @@ const Links = ({ closeMenu }: { closeMenu: () => void }) => {
       <ul className="flex flex-col gap-5">
         {LINKS.map((link) => (
           <li key={link.href} className="overflow-hidden">
-            <AnimatedLink
-              className="h2 link menu-item-translate hover:text-blue cursor-pointer text-black/70 uppercase"
-              href={getInternalPath(link.href)}
-              scroll={false}
-              onClick={closeMenu}
-            >
-              {link.text[isFrench ? 'fr' : 'en']}
-            </AnimatedLink>
+            <div className="menu-item-translate">
+              <AnimatedLink
+                className="h2 link hover:text-blue cursor-pointer text-black/70"
+                href={getInternalPath(link.href)}
+                scroll={false}
+                onClick={closeMenu}
+              >
+                {link.text[isFrench ? 'fr' : 'en']}
+              </AnimatedLink>
+            </div>
           </li>
         ))}
       </ul>
