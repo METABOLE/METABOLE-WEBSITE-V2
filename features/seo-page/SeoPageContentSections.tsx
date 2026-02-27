@@ -1,14 +1,16 @@
+import HorizontalSmoothScroll from '@/components/shared/horizontal-smooth-scroll';
+import { IconCross } from '@/components/ui/icons';
 import RichTextSeo from '@/components/ui/rich-text-seo';
-import React from 'react';
+import SeoPageTestimonialItem from '@/features/seo-page/SeoPageTestimonialItem';
 import {
   SeoPageSection,
-  SeoPageSectionCadrage,
   SeoPageSectionContenu,
   SeoPageSectionFaq,
-  SeoPageSectionInternalLinks,
   SeoPageSectionRelatedProjects,
   SeoPageSectionTestimonials,
 } from '@/types';
+import clsx from 'clsx';
+import React, { useRef, useState } from 'react';
 
 const ContenuBlock = ({
   section,
@@ -33,22 +35,16 @@ const TestimonialsBlock = ({
   isFrench: boolean;
 }) => (
   <section>
-    {section.testimonials?.map((t) => (
-      <article key={t.name}>
-        <p>{isFrench ? t.testimony.fr : t.testimony.en}</p>
-        <footer>
-          <span>{t.name}</span>
-          {' · '}
-          <span>{isFrench ? t.role.fr : t.role.en}</span>
-          {t.company && (
-            <>
-              {', '}
-              <span>{t.company}</span>
-            </>
-          )}
-        </footer>
-      </article>
-    ))}
+    <h3 className="h3 pb-y-half-default">
+      {isFrench ? 'Ils nous ont fait confiance' : 'They trusted us'}
+    </h3>
+    <HorizontalSmoothScroll>
+      <div className="flex gap-5">
+        {section.testimonials?.map((t) => (
+          <SeoPageTestimonialItem key={t.name} isFrench={isFrench} testimonial={t} />
+        ))}
+      </div>
+    </HorizontalSmoothScroll>
   </section>
 );
 
@@ -73,56 +69,62 @@ const RelatedProjectsBlock = ({
   </section>
 );
 
+const FaqItem = ({ question, answer }: { question: string; answer: React.ReactNode }) => {
+  const [open, setOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div>
+      <dt>
+        <button
+          aria-expanded={open}
+          className="border-blue/10 flex h-[60px] w-full cursor-pointer items-center border-t"
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          <span
+            aria-hidden="true"
+            className="hidden w-[60px] items-center justify-center sm:flex"
+            style={{
+              transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
+              transition: 'transform 0.3s ease',
+            }}
+          >
+            <IconCross className={clsx('h-3.5 w-3.5', open ? 'fill-blue' : 'fill-black')} />
+          </span>
+          <span className={clsx('p2', open ? 'text-blue' : 'text-black')}>{question}</span>
+        </button>
+      </dt>
+      <dd
+        className="p3 overflow-hidden transition-all duration-300 sm:pl-[60px]"
+        style={{
+          maxHeight: open ? `${contentRef.current?.scrollHeight ?? 9999}px` : '0px',
+        }}
+      >
+        <div ref={contentRef} className="pb-[18px]">
+          {answer}
+        </div>
+      </dd>
+    </div>
+  );
+};
+
 const FaqBlock = ({ section, isFrench }: { section: SeoPageSectionFaq; isFrench: boolean }) => (
   <section>
-    <h3 className="h3">
+    <h3 className="h3 pb-y-half-default">
       {isFrench ? 'FAQ : Questions fréquentes' : 'FAQ : Frequently asked questions'}
     </h3>
-    <dl>
+    <dl className="border-blue/10 border-b">
       {section.items?.map((item) => (
-        <div key={item._key}>
-          <dt>{isFrench ? item.question.fr : item.question.en}</dt>
-          <dd>
-            <RichTextSeo value={isFrench ? item.answer.fr : item.answer.en} />
-          </dd>
-        </div>
+        <FaqItem
+          key={item._key}
+          answer={<RichTextSeo value={isFrench ? item.answer.fr : item.answer.en} />}
+          question={isFrench ? item.question.fr : item.question.en}
+        />
       ))}
     </dl>
   </section>
 );
-
-const InternalLinksBlock = ({
-  section,
-  isFrench,
-}: {
-  section: SeoPageSectionInternalLinks;
-  isFrench: boolean;
-}) => (
-  <nav>
-    <ul>
-      {section.links?.map((link) => (
-        <li key={link._key}>
-          <a href={link.url}>{isFrench ? link.anchor.fr : link.anchor.en}</a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-);
-
-const CadrageBlock = ({
-  section,
-  isFrench,
-}: {
-  section: SeoPageSectionCadrage;
-  isFrench: boolean;
-}) => {
-  const content = isFrench ? section.content.fr : section.content.en;
-  return (
-    <section>
-      <RichTextSeo value={content} />
-    </section>
-  );
-};
 
 // ——— Dispatcher ———
 
@@ -148,12 +150,6 @@ const SeoPageContentSections = ({ sections, isFrench }: Props) => (
           break;
         case 'seoPageSectionFaq':
           block = <FaqBlock isFrench={isFrench} section={section} />;
-          break;
-        case 'seoPageSectionInternalLinks':
-          block = <InternalLinksBlock isFrench={isFrench} section={section} />;
-          break;
-        case 'seoPageSectionCadrage':
-          block = <CadrageBlock isFrench={isFrench} section={section} />;
           break;
         default:
           return null;

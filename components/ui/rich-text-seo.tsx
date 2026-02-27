@@ -12,10 +12,14 @@ const RichTextSeo = ({ value }: RichTextSeoProps) => {
       value={value}
       components={{
         block: {
-          normal: ({ children }) => <p className="pb-y-half-default max-w-3xl">{children}</p>,
-          h2: ({ children }) => <h2 className="h2 pb-y-half-default text-blue">{children}</h2>,
-          h3: ({ children }) => <h3 className="h3 pb-y-half-default">{children}</h3>,
-          h4: ({ children }) => <h4 className="h4">{children}</h4>,
+          normal: ({ children }) => (
+            <p className="not-last:pb-y-half-default max-w-3xl">{children}</p>
+          ),
+          h2: ({ children }) => (
+            <h2 className="h2 not-last:pb-y-half-default text-blue">{children}</h2>
+          ),
+          h3: ({ children }) => <h3 className="h3 not-last:pb-y-half-default">{children}</h3>,
+          h4: ({ children }) => <h4 className="h4 not-last:pb-y-half-default">{children}</h4>,
         },
         list: {
           bullet: ({ children }) => <ul>{children}</ul>,

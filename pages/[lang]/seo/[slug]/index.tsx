@@ -19,7 +19,7 @@ export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof ge
   if (!data) return null;
 
   return (
-    <>
+    <div className="seo">
       <SEO
         descriptionEn={data.metaDescription}
         descriptionFr={data.metaDescription}
@@ -53,7 +53,7 @@ export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof ge
         )}
         {data.ctaFinal && <SeoPageCtaSection cta={data.ctaFinal} isFrench={isFrench} />}
       </div>
-    </>
+    </div>
   );
 }
 

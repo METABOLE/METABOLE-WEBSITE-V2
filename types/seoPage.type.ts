@@ -48,25 +48,11 @@ export type SeoPageSectionInternalLink = {
   url: string;
 };
 
-export type SeoPageSectionInternalLinks = {
-  _type: 'seoPageSectionInternalLinks';
-  _key: string;
-  links: SeoPageSectionInternalLink[];
-};
-
-export type SeoPageSectionCadrage = {
-  _type: 'seoPageSectionCadrage';
-  _key: string;
-  content: BilingualRichTextSeo;
-};
-
 export type SeoPageSection =
   | SeoPageSectionContenu
   | SeoPageSectionTestimonials
   | SeoPageSectionRelatedProjects
-  | SeoPageSectionFaq
-  | SeoPageSectionInternalLinks
-  | SeoPageSectionCadrage;
+  | SeoPageSectionFaq;
 
 // ——— Blocs fixes ———
 
@@ -82,7 +68,7 @@ export type SeoPageIntro = {
 };
 
 export type SeoPageCtaFinal = {
-  text?: BilingualRichTextSeo;
+  text?: BilingualString;
   buttonLabel?: BilingualString;
   href?: string;
 };
@@ -94,7 +80,6 @@ export type SeoPageBreadcrumbItem = {
 };
 
 // ——— Document principal ———
-
 export type SeoPage = {
   _id: string;
   // Métadonnées SEO

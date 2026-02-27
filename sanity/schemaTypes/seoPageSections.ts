@@ -164,7 +164,7 @@ export const seoPageSectionCta = defineType({
   title: 'CTA final',
   type: 'object',
   fields: [
-    defineField({ name: 'text', title: 'Texte', type: 'bilingualRichTextSeo' }),
+    defineField({ name: 'text', title: 'Texte', type: 'bilingualText' }),
     defineField({ name: 'buttonLabel', title: 'Libellé bouton', type: 'bilingualString' }),
     defineField({ name: 'href', title: 'URL', type: 'string' }),
   ],
