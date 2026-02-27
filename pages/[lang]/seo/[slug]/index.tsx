@@ -8,9 +8,9 @@ import SeoPageIntroSection from '@/features/seo-page/SeoPageIntroSection';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchDataInfos } from '@/services/data.service';
-import { fetchPaths, fetchSeoPage } from '@/services/seoPage.service';
+import { fetchAllSeoPageSlugs, fetchSeoPage } from '@/services/seoPage.service';
 import { SanityProps, SeoPage } from '@/types';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
 export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSanityData(page);
@@ -108,14 +108,14 @@ function buildJsonLd(page: SeoPage, isFrench: boolean) {
   return { '@context': 'https://schema.org', '@graph': graphs };
 }
 
-// ——— Routing ———
-export const getStaticPaths = async () => {
-  const paths = (await fetchPaths()).map((seoPage: SeoPage) => ({
-    params: { project: seoPage.slug },
-  }));
+export const getStaticPaths: GetStaticPaths = async () => {
+  const slugs = await fetchAllSeoPageSlugs();
+  const langs = ['fr', 'en'] as const;
 
   return {
-    paths,
+    paths: slugs.flatMap(({ slug }: { slug: string }) =>
+      langs.map((lang) => ({ params: { lang, slug } })),
+    ),
     fallback: false,
   };
 };

@@ -1,7 +1,6 @@
 import { SeoPage } from '@/types';
 import { groq } from 'next-sanity';
 import { fetchSanityData } from './sanity.service';
-import { client } from '@/sanity/lib/client';
 
 const BILINGUAL_RICH_TEXT_SEO_FRAGMENT = groq`fr, en`;
 
@@ -32,21 +31,10 @@ const SECTION_FRAGMENT = groq`
 `;
 
 /** Tous les slugs — utilisé dans getStaticPaths de [slug] */
-export const fetchPaths = async () => {
-  const query = `
-    *[_type == "projects"] {
-      slug,
-      name
-    }
-  `;
-
-  const seoPages = await client.fetch(query);
-
-  const paths = seoPages.map((seoPage: SeoPage) => ({
-    slug: seoPage.slug.current,
-  }));
-
-  return paths;
+export const fetchAllSeoPageSlugs = async () => {
+  const query = groq`*[_type == "seoPage" && defined(slug.current)]{ "slug": slug.current }`;
+  const { initial } = await fetchSanityData<{ slug: string }[]>(query);
+  return initial.data;
 };
 
 /** Liste légère — utilisé dans la page index /seo */
