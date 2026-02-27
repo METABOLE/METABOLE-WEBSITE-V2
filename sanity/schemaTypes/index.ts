@@ -1,21 +1,23 @@
 import { type SchemaTypeDefinition } from 'sanity';
-import projects from './projects';
-import expertise from './expertise';
-import bilingualString from './bilingualString';
+import awards from './awards';
 import bilingualRichText from './bilingualRichText';
-import service from './service';
-import compatibility from './compatibility';
-import testimonial from './testimonial';
+import bilingualRichTextSeo from './bilingualRichTextSeo';
+import bilingualString from './bilingualString';
+import bilingualText from './bilingualText';
 import { blockContent } from './blockContent';
 import { blockContentSeo } from './blockContentSeo';
-import bilingualRichTextSeo from './bilingualRichTextSeo';
-import bilingualText from './bilingualText';
-import awards from './awards';
-import values from './values';
+import blogPost from './blogPost';
+import { blogPostSectionTypes } from './blogPostSections';
+import compatibility from './compatibility';
 import data from './data';
-import team from './team';
+import expertise from './expertise';
+import projects from './projects';
 import seoPage from './seoPage';
 import { seoPageSectionTypes } from './seoPageSections';
+import service from './service';
+import team from './team';
+import testimonial from './testimonial';
+import values from './values';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -36,5 +38,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     data,
     seoPage,
     ...seoPageSectionTypes,
+    blogPost,
+    ...blogPostSectionTypes,
   ],
 };

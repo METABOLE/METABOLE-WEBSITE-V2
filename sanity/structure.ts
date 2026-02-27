@@ -29,6 +29,10 @@ export const structure: StructureResolver = (S, context) =>
         .title('PAGE SEO')
         .icon(DocumentIcon)
         .child(S.documentTypeList('seoPage').title('Pages SEO')),
+      S.listItem()
+        .title('ARTICLE DE BLOG')
+        .icon(DocumentIcon)
+        .child(S.documentTypeList('blogPost').title('Articles de blog')),
       orderableDocumentListDeskItem({
         type: 'projects',
         title: 'PROJECT',
