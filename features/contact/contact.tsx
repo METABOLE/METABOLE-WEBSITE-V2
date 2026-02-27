@@ -2,8 +2,8 @@ import FullWidthTypo from '@/components/shared/full-width-typo';
 import { BREAKPOINTS, Data } from '@/types';
 import ContactForm from './contact-form';
 import Scroller from './scroller';
-import Footer from './footer';
 import { useMatchMedia } from '@/hooks/useCheckScreenSize';
+import Footer from '../shared/footer';
 
 const Contact = ({ data, totalAwards }: { data: Data; totalAwards: number }) => {
   const isTablet = useMatchMedia(BREAKPOINTS.MD);
@@ -14,7 +14,12 @@ const Contact = ({ data, totalAwards }: { data: Data; totalAwards: number }) => 
         <FullWidthTypo className="font-safiro-regular text-blue">CONTACT</FullWidthTypo>
         <ContactForm className="w-full shrink-0" />
       </div>
-      <Footer location={data.location} totalAwards={totalAwards} />
+      <Footer
+        className="absolute!"
+        isDark={false}
+        location={data.location}
+        totalAwards={totalAwards}
+      />
     </div>
   );
 };

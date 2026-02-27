@@ -3,7 +3,6 @@ import { getStaticPathsForLang, META } from '@/constants';
 import { useSanityData } from '@/hooks/useSanityData';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchAllSeoPages } from '@/services/seoPage.service';
-import { SanityProps } from '@/types';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 

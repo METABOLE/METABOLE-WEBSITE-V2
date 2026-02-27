@@ -3,7 +3,7 @@ import { useStickySectionTop } from '@/hooks/useStickySectionTop';
 import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 import Baseline from './hero/baseline';
-import Footer from './hero/footer';
+import Footer from '../shared/footer';
 import Manifesto from './hero/manifesto';
 
 const Scene = dynamic(() => import('./hero/scene'), { ssr: false });
@@ -19,7 +19,7 @@ const Hero = ({ totalAwards, location }: { totalAwards: number; location: string
       <BackgroundLines className="z-0" isDark={true} />
       <Baseline />
       <Manifesto />
-      <Footer location={location} totalAwards={totalAwards} />
+      <Footer hasShowreel={true} isDark={true} location={location} totalAwards={totalAwards} />
     </section>
   );
 };

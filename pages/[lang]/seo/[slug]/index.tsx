@@ -1,3 +1,4 @@
+import BackgroundLines from '@/components/layout/background-lines';
 import SEO from '@/components/ui/SEO';
 import { META } from '@/constants';
 import SeoPageContentSections from '@/features/seo-page/SeoPageContentSections';
@@ -5,15 +6,15 @@ import SeoPageCtaSection from '@/features/seo-page/SeoPageCtaSection';
 import SeoPageHeroSection from '@/features/seo-page/SeoPageHeroSection';
 import SeoPageIntroSection from '@/features/seo-page/SeoPageIntroSection';
 import { useSanityData } from '@/hooks/useSanityData';
+import { useLanguage } from '@/providers/language.provider';
+import { fetchDataInfos } from '@/services/data.service';
 import { fetchPaths, fetchSeoPage } from '@/services/seoPage.service';
 import { SanityProps, SeoPage } from '@/types';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
 
 export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSanityData(page);
-  const { query } = useRouter();
-  const isFrench = query.lang === 'fr';
+  const { isFrench } = useLanguage();
 
   if (!data) return null;
 
@@ -36,15 +37,22 @@ export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof ge
         }}
       />
 
-      <SeoPageHeroSection hero={data.hero} isFrench={isFrench} />
+      <SeoPageHeroSection
+        breadcrumbItems={data.schemaBreadcrumbItems ?? []}
+        hero={data.hero}
+        isFrench={isFrench}
+        location="Paris | Rotteradam"
+        totalAwards={17}
+      />
 
-      {data.introduction && <SeoPageIntroSection intro={data.introduction} isFrench={isFrench} />}
-
-      {data.content && data.content.length > 0 && (
-        <SeoPageContentSections isFrench={isFrench} sections={data.content} />
-      )}
-
-      {data.ctaFinal && <SeoPageCtaSection cta={data.ctaFinal} isFrench={isFrench} />}
+      <div className="pb-y-double-default sticky top-0 min-h-screen bg-white text-black">
+        <BackgroundLines isDark={false} />
+        {data.introduction && <SeoPageIntroSection intro={data.introduction} isFrench={isFrench} />}
+        {data.content && data.content.length > 0 && (
+          <SeoPageContentSections isFrench={isFrench} sections={data.content} />
+        )}
+        {data.ctaFinal && <SeoPageCtaSection cta={data.ctaFinal} isFrench={isFrench} />}
+      </div>
     </>
   );
 }
@@ -118,6 +126,7 @@ export const getStaticProps: GetStaticProps<{
   const { params, draftMode = false } = context;
   const slug = params?.slug as string;
 
+  const dataInfos = await fetchDataInfos(context);
   const page = await fetchSeoPage(slug, { draftMode });
 
   if (!page.initial.data) {
@@ -126,6 +135,7 @@ export const getStaticProps: GetStaticProps<{
 
   return {
     props: {
+      dataInfos,
       page,
       draftMode,
     },

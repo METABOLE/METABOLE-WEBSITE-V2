@@ -12,21 +12,21 @@ const RichTextSeo = ({ value }: RichTextSeoProps) => {
       value={value}
       components={{
         block: {
-          normal: ({ children }) => <p>{children}</p>,
-          h2: ({ children }) => <h2>{children}</h2>,
-          h3: ({ children }) => <h3>{children}</h3>,
-          h4: ({ children }) => <h4>{children}</h4>,
+          normal: ({ children }) => <p className="pb-y-half-default max-w-3xl">{children}</p>,
+          h2: ({ children }) => <h2 className="h2 pb-y-half-default text-blue">{children}</h2>,
+          h3: ({ children }) => <h3 className="h3 pb-y-half-default">{children}</h3>,
+          h4: ({ children }) => <h4 className="h4">{children}</h4>,
         },
         list: {
           bullet: ({ children }) => <ul>{children}</ul>,
           number: ({ children }) => <ol>{children}</ol>,
         },
         listItem: {
-          bullet: ({ children }) => <li>{children}</li>,
-          number: ({ children }) => <li>{children}</li>,
+          bullet: ({ children }) => <li className="">{children}</li>,
+          number: ({ children }) => <li className="">{children}</li>,
         },
         marks: {
-          strong: ({ children }) => <strong>{children}</strong>,
+          strong: ({ children }) => <strong className="text-blue">{children}</strong>,
           em: ({ children }) => <em>{children}</em>,
           link: ({ value: mark, children }) => (
             <a href={mark?.href} rel="noopener noreferrer">

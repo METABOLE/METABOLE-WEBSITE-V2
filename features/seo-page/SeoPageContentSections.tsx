@@ -1,4 +1,5 @@
 import RichTextSeo from '@/components/ui/rich-text-seo';
+import React from 'react';
 import {
   SeoPageSection,
   SeoPageSectionCadrage,
@@ -32,8 +33,8 @@ const TestimonialsBlock = ({
   isFrench: boolean;
 }) => (
   <section>
-    {section.testimonials?.map((t, i) => (
-      <article key={i}>
+    {section.testimonials?.map((t) => (
+      <article key={t.name}>
         <p>{isFrench ? t.testimony.fr : t.testimony.en}</p>
         <footer>
           <span>{t.name}</span>
@@ -74,6 +75,9 @@ const RelatedProjectsBlock = ({
 
 const FaqBlock = ({ section, isFrench }: { section: SeoPageSectionFaq; isFrench: boolean }) => (
   <section>
+    <h3 className="h3">
+      {isFrench ? 'FAQ : Questions fréquentes' : 'FAQ : Frequently asked questions'}
+    </h3>
     <dl>
       {section.items?.map((item) => (
         <div key={item._key}>
@@ -129,23 +133,38 @@ interface Props {
 
 const SeoPageContentSections = ({ sections, isFrench }: Props) => (
   <>
-    {sections.map((section) => {
+    {sections.map((section, index) => {
+      let block: React.ReactNode = null;
+
       switch (section._type) {
         case 'seoPageSectionContenu':
-          return <ContenuBlock key={section._key} isFrench={isFrench} section={section} />;
+          block = <ContenuBlock isFrench={isFrench} section={section} />;
+          break;
         case 'seoPageSectionTestimonials':
-          return <TestimonialsBlock key={section._key} isFrench={isFrench} section={section} />;
+          block = <TestimonialsBlock isFrench={isFrench} section={section} />;
+          break;
         case 'seoPageSectionRelatedProjects':
-          return <RelatedProjectsBlock key={section._key} isFrench={isFrench} section={section} />;
+          block = <RelatedProjectsBlock isFrench={isFrench} section={section} />;
+          break;
         case 'seoPageSectionFaq':
-          return <FaqBlock key={section._key} isFrench={isFrench} section={section} />;
+          block = <FaqBlock isFrench={isFrench} section={section} />;
+          break;
         case 'seoPageSectionInternalLinks':
-          return <InternalLinksBlock key={section._key} isFrench={isFrench} section={section} />;
+          block = <InternalLinksBlock isFrench={isFrench} section={section} />;
+          break;
         case 'seoPageSectionCadrage':
-          return <CadrageBlock key={section._key} isFrench={isFrench} section={section} />;
+          block = <CadrageBlock isFrench={isFrench} section={section} />;
+          break;
         default:
           return null;
       }
+
+      return (
+        <div key={section._key} className="pt-y-default px-x-default gap-y-y-default flex flex-col">
+          {block}
+          {index < sections.length - 1 && <div className="bg-blue/20 h-px w-full" />}
+        </div>
+      );
     })}
   </>
 );

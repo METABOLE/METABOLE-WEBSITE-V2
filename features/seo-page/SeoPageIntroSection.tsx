@@ -10,7 +10,7 @@ const SeoPageIntroSection = ({ intro, isFrench }: Props) => {
   const content = isFrench ? intro.content.fr : intro.content.en;
 
   return (
-    <section>
+    <section className="px-x-default pt-y-default">
       <RichTextSeo value={content} />
     </section>
   );
