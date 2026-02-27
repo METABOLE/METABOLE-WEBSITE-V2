@@ -25,14 +25,6 @@ export const structure: StructureResolver = (S, context) =>
         .title('DONNÉES DU SITE')
         .icon(DatabaseIcon)
         .child(S.document().schemaType('data').documentId(SITE_DATA_ID).title('Données du site')),
-      S.listItem()
-        .title('PAGE SEO')
-        .icon(DocumentIcon)
-        .child(S.documentTypeList('seoPage').title('Pages SEO')),
-      S.listItem()
-        .title('ARTICLE DE BLOG')
-        .icon(DocumentIcon)
-        .child(S.documentTypeList('blogPost').title('Articles de blog')),
       orderableDocumentListDeskItem({
         type: 'projects',
         title: 'PROJECT',
@@ -91,4 +83,13 @@ export const structure: StructureResolver = (S, context) =>
         S,
         context,
       }),
+      S.divider().title('SEO'),
+      S.listItem()
+        .title('PAGE SEO')
+        .icon(DocumentIcon)
+        .child(S.documentTypeList('seoPage').title('Pages SEO')),
+      S.listItem()
+        .title('ARTICLE DE BLOG')
+        .icon(DocumentIcon)
+        .child(S.documentTypeList('blogPost').title('Articles de blog')),
     ]);
