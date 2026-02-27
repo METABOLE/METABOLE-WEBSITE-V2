@@ -113,10 +113,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const langs = ['fr', 'en'] as const;
 
   return {
-    paths: slugs.flatMap(({ slug }: { slug: string }) =>
-      langs.map((lang) => ({ params: { lang, slug } })),
+    paths: (slugs ?? []).flatMap(({ slug }: { slug: string }) =>
+      langs.map((lang) => ({ params: { lang, page: slug } })),
     ),
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
@@ -124,7 +124,7 @@ export const getStaticProps: GetStaticProps<{
   page: SanityProps<SeoPage>;
 }> = async (context) => {
   const { params, draftMode = false } = context;
-  const slug = params?.slug as string;
+  const slug = params?.page as string;
 
   const dataInfos = await fetchDataInfos(context);
   const page = await fetchSeoPage(slug, { draftMode });
