@@ -17,3 +17,4 @@ export * from './testimonial.type';
 export * from './value.type';
 export * from './team.type';
 export * from './seoPage.type';
+export * from './blogPost.type';
