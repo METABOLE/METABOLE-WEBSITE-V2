@@ -5,12 +5,17 @@ import BlogPostContentSections from '@/features/blog-post/BlogPostContentSection
 import BlogPostFooterSection from '@/features/blog-post/BlogPostFooterSection';
 import BlogPostHeroSection from '@/features/blog-post/BlogPostHeroSection';
 import BlogPostIntroSection from '@/features/blog-post/BlogPostIntroSection';
+import BlogPostTableOfContents from '@/features/blog-post/BlogPostTableOfContents';
 import { useSanityData } from '@/hooks/useSanityData';
+import { extractHeadings } from '@/lib/blog-headings';
 import { useLanguage } from '@/providers/language.provider';
 import { fetchAllBlogPostSlugs, fetchBlogPost } from '@/services/blogPost.service';
 import { fetchDataInfos } from '@/services/data.service';
-import { BlogPost, SanityProps } from '@/types';
+import { BlogPost, BlogPostSectionContenu, SanityProps } from '@/types';
+import clsx from 'clsx';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useMemo } from 'react';
+import { PortableTextBlock } from 'sanity';
 
 function buildBreadcrumbs(isFrench: boolean, slug: string, title: string) {
   const lang = isFrench ? 'fr' : 'en';
@@ -24,6 +29,15 @@ function buildBreadcrumbs(isFrench: boolean, slug: string, title: string) {
 export default function BlogPostRoute({ post }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSanityData(post);
   const { isFrench } = useLanguage();
+
+  const headings = useMemo(() => {
+    if (!data?.content) return [];
+    const lang = isFrench ? 'fr' : 'en';
+    const blocks = (data.content as BlogPostSectionContenu[])
+      .filter((s) => s._type === 'blogPostSectionContenu')
+      .flatMap((s) => (s.content?.[lang] ?? []) as PortableTextBlock[]);
+    return extractHeadings(blocks);
+  }, [data?.content, isFrench]);
 
   if (!data) return null;
 
@@ -62,12 +76,25 @@ export default function BlogPostRoute({ post }: InferGetStaticPropsType<typeof g
       <div className="pb-y-double-default sticky top-0 min-h-screen bg-white text-black">
         <BackgroundLines isDark={false} />
 
-        <BlogPostIntroSection isFrench={isFrench} post={data} />
+        <div
+          className={clsx(
+            'px-x-default pt-y-default grid grid-cols-1',
+            headings.length > 0 && 'lg:grid-cols-[minmax(0,220px)_1fr] lg:gap-x-16',
+          )}
+        >
+          {headings.length > 0 && (
+            <aside className="lg:sticky lg:top-8 lg:self-start">
+              <BlogPostTableOfContents headings={headings} isFrench={isFrench} />
+            </aside>
+          )}
+          <main className="min-w-0">
+            <BlogPostIntroSection isFrench={isFrench} post={data} />
 
-        {data.content && data.content.length > 0 && (
-          <BlogPostContentSections isFrench={isFrench} sections={data.content} />
-        )}
-
+            {data.content && data.content.length > 0 && (
+              <BlogPostContentSections isFrench={isFrench} sections={data.content} />
+            )}
+          </main>
+        </div>
         <BlogPostFooterSection isFrench={isFrench} post={data} />
       </div>
     </div>
