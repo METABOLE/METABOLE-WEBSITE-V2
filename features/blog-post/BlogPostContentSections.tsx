@@ -21,7 +21,7 @@ const ContenuBlock = ({
   const content = isFrench ? section.content.fr : section.content.en;
   return (
     <section>
-      <RichTextSeo value={content} />
+      <RichTextSeo value={content} withAnchors />
     </section>
   );
 };

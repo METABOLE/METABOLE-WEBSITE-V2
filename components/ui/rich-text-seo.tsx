@@ -1,12 +1,21 @@
+import { slugify } from '@/lib/blog-headings';
 import { PortableText } from 'next-sanity';
 import { PortableTextBlock } from 'sanity';
 
 interface RichTextSeoProps {
   value: PortableTextBlock[];
+  /** Ajoute des id d'ancre sur les H2/H3 pour le sommaire */
+  withAnchors?: boolean;
+}
+
+function getChildrenText(children: React.ReactNode): string {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) return children.map(getChildrenText).join('');
+  return '';
 }
 
 /** Renderer PortableText adapté au blockContentSeo : H2, H3, H4, listes, liens. */
-const RichTextSeo = ({ value }: RichTextSeoProps) => {
+const RichTextSeo = ({ value, withAnchors }: RichTextSeoProps) => {
   return (
     <PortableText
       value={value}
@@ -15,10 +24,22 @@ const RichTextSeo = ({ value }: RichTextSeoProps) => {
           normal: ({ children }) => (
             <p className="not-last:pb-y-half-default max-w-3xl">{children}</p>
           ),
-          h2: ({ children }) => (
-            <h2 className="h2 not-last:pb-y-half-default text-blue">{children}</h2>
-          ),
-          h3: ({ children }) => <h3 className="h3 not-last:pb-y-half-default">{children}</h3>,
+          h2: ({ children }) => {
+            const id = withAnchors ? slugify(getChildrenText(children)) : undefined;
+            return (
+              <h2 className="h2 not-last:pb-y-half-default text-blue scroll-mt-[100px]" id={id}>
+                {children}
+              </h2>
+            );
+          },
+          h3: ({ children }) => {
+            const id = withAnchors ? slugify(getChildrenText(children)) : undefined;
+            return (
+              <h3 className="h3 not-last:pb-y-half-default scroll-mt-[100px]" id={id}>
+                {children}
+              </h3>
+            );
+          },
           h4: ({ children }) => <h4 className="h4 not-last:pb-y-half-default">{children}</h4>,
         },
         list: {

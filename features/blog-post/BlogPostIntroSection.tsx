@@ -1,7 +1,11 @@
 import RichTextSeo from '@/components/ui/rich-text-seo';
+import BlogPostTableOfContents from '@/features/blog-post/BlogPostTableOfContents';
+import { extractHeadings } from '@/lib/blog-headings';
 import { urlFor } from '@/sanity/lib/image';
-import { BlogPost } from '@/types';
+import { BlogPost, BlogPostSectionContenu } from '@/types';
 import Image from 'next/image';
+import { useMemo } from 'react';
+import { PortableTextBlock } from 'sanity';
 
 interface Props {
   post: BlogPost;
@@ -10,6 +14,18 @@ interface Props {
 
 const BlogPostIntroSection = ({ post, isFrench }: Props) => {
   const lang = isFrench ? 'fr' : 'en';
+
+  const headings = useMemo(() => {
+    if (!post.content) return [];
+    const allBlocks: PortableTextBlock[] = [];
+    for (const section of post.content) {
+      if (section._type === 'blogPostSectionContenu') {
+        const blocks = (section as BlogPostSectionContenu).content?.[lang];
+        if (Array.isArray(blocks)) allBlocks.push(...(blocks as PortableTextBlock[]));
+      }
+    }
+    return extractHeadings(allBlocks);
+  }, [post.content, lang]);
 
   return (
     <section className="px-x-default pt-y-default">
@@ -45,6 +61,9 @@ const BlogPostIntroSection = ({ post, isFrench }: Props) => {
           </ol>
         </div>
       )}
+
+      {/* Table of contents */}
+      <BlogPostTableOfContents headings={headings} isFrench={isFrench} />
     </section>
   );
 };
