@@ -36,12 +36,9 @@ const BlogPostTableOfContents = ({ headings, isFrench }: Props) => {
   if (headings.length === 0) return null;
 
   return (
-    <nav
-      aria-label={isFrench ? 'Sommaire' : 'Table of contents'}
-      className="border-blue/10 bg-blue/3 mt-y-half-default rounded-sm border p-6"
-    >
-      <p className="p2 text-blue mb-4 font-semibold">
-        {isFrench ? '📋 Sommaire' : '📋 Table of contents'}
+    <nav aria-label={isFrench ? 'Sommaire' : 'Table of contents'}>
+      <p className="p3-medium text-blue mb-4 font-semibold uppercase">
+        {isFrench ? 'Sommaire' : 'Table of contents'}
       </p>
       <ol className="space-y-2">
         {headings.map(({ id, text, level }) => (
@@ -49,8 +46,8 @@ const BlogPostTableOfContents = ({ headings, isFrench }: Props) => {
             <a
               href={`#${id}`}
               className={clsx(
-                'p3 transition-colors duration-150 hover:underline',
-                activeId === id ? 'text-blue font-semibold' : 'text-black/60',
+                'p3 text-black hover:underline',
+                activeId === id ? 'opacity-100' : 'opacity-60',
               )}
               onClick={(e) => {
                 e.preventDefault();

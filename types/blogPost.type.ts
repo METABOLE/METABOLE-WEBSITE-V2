@@ -27,16 +27,10 @@ export type BlogPostSectionStatQuote = {
   sourceUrl?: string;
 };
 
-export type BlogPostSectionFaqItem = {
+export type BlogPostFaqItem = {
   _key: string;
   question: BilingualString;
   answer: BilingualRichTextSeo;
-};
-
-export type BlogPostSectionFaq = {
-  _type: 'blogPostSectionFaq';
-  _key: string;
-  items: BlogPostSectionFaqItem[];
 };
 
 export type BlogPostSectionRelatedProjects = {
@@ -50,7 +44,6 @@ export type BlogPostSection =
   | BlogPostSectionContenu
   | BlogPostSectionTipBox
   | BlogPostSectionStatQuote
-  | BlogPostSectionFaq
   | BlogPostSectionRelatedProjects;
 
 // ——— Sous-types ———
@@ -99,6 +92,7 @@ export type BlogPost = {
   introduction: BilingualRichTextSeo;
   keyTakeaways?: BlogPostKeyTakeaway[];
   content?: BlogPostSection[];
+  faq?: BlogPostFaqItem[];
   conclusion?: BilingualRichTextSeo;
   ctaLabel?: BilingualString;
   ctaHref?: string;

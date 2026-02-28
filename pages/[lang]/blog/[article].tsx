@@ -76,26 +76,22 @@ export default function BlogPostRoute({ post }: InferGetStaticPropsType<typeof g
       <div className="pb-y-double-default sticky top-0 min-h-screen bg-white text-black">
         <BackgroundLines isDark={false} />
 
-        <div
-          className={clsx(
-            'px-x-default pt-y-default grid grid-cols-1',
-            headings.length > 0 && 'lg:grid-cols-[minmax(0,220px)_1fr] lg:gap-x-16',
-          )}
-        >
-          {headings.length > 0 && (
-            <aside className="lg:sticky lg:top-8 lg:self-start">
-              <BlogPostTableOfContents headings={headings} isFrench={isFrench} />
-            </aside>
-          )}
-          <main className="min-w-0">
-            <BlogPostIntroSection isFrench={isFrench} post={data} />
-
-            {data.content && data.content.length > 0 && (
-              <BlogPostContentSections isFrench={isFrench} sections={data.content} />
+        <div>
+          <div className={clsx('px-x-default pt-y-default grid grid-cols-12 gap-5')}>
+            {headings.length > 0 && (
+              <aside className="top-[100px] col-span-3 lg:sticky lg:self-start">
+                <BlogPostTableOfContents headings={headings} isFrench={isFrench} />
+              </aside>
             )}
-          </main>
+            <main className="px-x-default col-span-9">
+              <BlogPostIntroSection isFrench={isFrench} post={data} />
+              {data.content && data.content.length > 0 && (
+                <BlogPostContentSections isFrench={isFrench} sections={data.content} />
+              )}
+            </main>
+          </div>
+          <BlogPostFooterSection isFrench={isFrench} post={data} />
         </div>
-        <BlogPostFooterSection isFrench={isFrench} post={data} />
       </div>
     </div>
   );
@@ -141,20 +137,16 @@ function buildJsonLd(
     })),
   });
 
-  // FAQPage — collecte toutes les sections FAQ
-  const faqSections = post.content?.filter((s) => s._type === 'blogPostSectionFaq') ?? [];
-  const faqItems = faqSections.flatMap((s) =>
-    s._type === 'blogPostSectionFaq'
-      ? s.items.map((item) => ({
-          '@type': 'Question',
-          name: lang === 'fr' ? item.question.fr : item.question.en,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: lang === 'fr' ? item.answer.fr : item.answer.en,
-          },
-        }))
-      : [],
-  );
+  // FAQPage — section FAQ en fin d'article
+  const faqItems =
+    post.faq?.map((item) => ({
+      '@type': 'Question',
+      name: lang === 'fr' ? item.question.fr : item.question.en,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: lang === 'fr' ? item.answer.fr : item.answer.en,
+      },
+    })) ?? [];
   if (faqItems.length) {
     graphs.push({ '@type': 'FAQPage', mainEntity: faqItems });
   }

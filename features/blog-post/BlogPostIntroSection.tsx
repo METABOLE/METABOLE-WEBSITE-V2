@@ -12,10 +12,10 @@ const BlogPostIntroSection = ({ post, isFrench }: Props) => {
   const lang = isFrench ? 'fr' : 'en';
 
   return (
-    <section className="px-x-default pt-y-default">
+    <section className="space-y-y-half-default">
       {/* Featured image */}
       {post.featuredImage && (
-        <div className="pb-y-default relative aspect-video w-full overflow-hidden rounded-sm">
+        <div className="b-y-half-default relative aspect-video w-full overflow-hidden rounded-sm">
           <Image
             alt={post.featuredImageAlt?.[lang] ?? post.metaTitle}
             className="object-cover"
@@ -27,22 +27,25 @@ const BlogPostIntroSection = ({ post, isFrench }: Props) => {
       )}
 
       {/* Introduction */}
-      <RichTextSeo value={post.introduction[lang]} />
+      <div className="pt-y-half-default intro">
+        <RichTextSeo isIntro={true} value={post.introduction[lang]} />
+      </div>
 
       {/* Key Takeaways */}
       {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-        <div className="border-blue/10 bg-blue/5 mt-y-half-default rounded-sm border p-6">
-          <p className="p2 text-blue mb-4 font-semibold">
-            {isFrench ? '💡 À retenir' : '💡 Key takeaways'}
+        <div>
+          <p className="p2 pb-y-half-default text-black">
+            {isFrench
+              ? 'Les points essentiels de cet article :'
+              : 'The key takeaways of this article :'}
           </p>
-          <ol className="space-y-2">
-            {post.keyTakeaways.map((item, index) => (
-              <li key={item._key} className="p3 flex gap-3">
-                <span className="text-blue shrink-0 font-semibold">{index + 1}.</span>
-                <span>{item.text[lang]}</span>
+          <ul className="[&_li::marker]:text-blue list-disc space-y-2 pl-6 [&_li]:text-black">
+            {post.keyTakeaways.map((item) => (
+              <li key={item._key} className="bullet">
+                {item.text[lang]}
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       )}
     </section>

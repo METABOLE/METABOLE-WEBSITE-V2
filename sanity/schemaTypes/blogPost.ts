@@ -3,7 +3,6 @@ import { defineArrayMember, defineField, defineType } from 'sanity';
 import { AutoSlugInput } from '../components/AutoSlugInput';
 import {
   blogPostSectionContenu,
-  blogPostSectionFaq,
   blogPostSectionRelatedProjects,
   blogPostSectionStatQuote,
   blogPostSectionTipBox,
@@ -206,17 +205,54 @@ export default defineType({
       type: 'array',
       group: 'content',
       description:
-        "Ajouter des blocs dans l'ordre souhaité : Contenu (H2/H3), Tip Box, Stat/Citation, FAQ, Projets liés.",
+        "Ajouter des blocs dans l'ordre souhaité : Contenu (H2/H3), Tip Box, Stat/Citation, Projets liés.",
       of: [
         defineArrayMember({ type: blogPostSectionContenu.name }),
         defineArrayMember({ type: blogPostSectionTipBox.name }),
         defineArrayMember({ type: blogPostSectionStatQuote.name }),
-        defineArrayMember({ type: blogPostSectionFaq.name }),
         defineArrayMember({ type: blogPostSectionRelatedProjects.name }),
       ],
     }),
 
     // ——— 5. BAS D'ARTICLE ———
+    defineField({
+      name: 'faq',
+      title: 'FAQ — Questions fréquentes',
+      type: 'array',
+      group: 'footer',
+      description:
+        "Section FAQ en fin d'article. Active le schema FAQPage (rich results Google). 2 à 6 questions.",
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'question',
+              title: 'Question',
+              type: 'bilingualString',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'answer',
+              title: 'Réponse',
+              type: 'bilingualRichTextSeo',
+              description: '60–100 mots. Répondre directement dès la première phrase.',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: { question: 'question.fr' },
+            prepare: ({ question }: { question?: string }) => ({
+              title:
+                question && question.length > 60
+                  ? `${question.slice(0, 60)}…`
+                  : question || 'Question',
+            }),
+          },
+        }),
+      ],
+      validation: (Rule) => Rule.min(2).max(6),
+    }),
     defineField({
       name: 'conclusion',
       title: 'Conclusion',

@@ -1,13 +1,56 @@
 import Button from '@/components/ui/button';
+import { IconCross } from '@/components/ui/icons';
 import RichTextSeo from '@/components/ui/rich-text-seo';
 import { urlFor } from '@/sanity/lib/image';
-import { BlogPost, BlogPostRelated } from '@/types';
+import { BlogPost, BlogPostFaqItem, BlogPostRelated } from '@/types';
+import clsx from 'clsx';
 import Image from 'next/image';
+import React, { useRef, useState } from 'react';
 
 interface Props {
   post: BlogPost;
   isFrench: boolean;
 }
+
+const FaqItem = ({ question, answer }: { question: string; answer: React.ReactNode }) => {
+  const [open, setOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div>
+      <dt>
+        <button
+          aria-expanded={open}
+          className="border-blue/10 flex h-[60px] w-full cursor-pointer items-center border-t"
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          <span
+            aria-hidden="true"
+            className="hidden w-[60px] items-center justify-center sm:flex"
+            style={{
+              transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
+              transition: 'transform 0.3s ease',
+            }}
+          >
+            <IconCross className={clsx('h-3.5 w-3.5', open ? 'fill-blue' : 'fill-black')} />
+          </span>
+          <span className={clsx('p2', open ? 'text-blue' : 'text-black')}>{question}</span>
+        </button>
+      </dt>
+      <dd
+        className="p3 overflow-hidden transition-all duration-300 sm:pl-[60px]"
+        style={{
+          maxHeight: open ? `${contentRef.current?.scrollHeight ?? 9999}px` : '0px',
+        }}
+      >
+        <div ref={contentRef} className="pb-[18px]">
+          {answer}
+        </div>
+      </dd>
+    </div>
+  );
+};
 
 const RelatedPostCard = ({ post, isFrench }: { post: BlogPostRelated; isFrench: boolean }) => {
   const lang = isFrench ? 'fr' : 'en';
@@ -38,6 +81,24 @@ const BlogPostFooterSection = ({ post, isFrench }: Props) => {
 
   return (
     <>
+      {/* FAQ — section à part entière en fin d'article */}
+      {post.faq && post.faq.length > 0 && (
+        <section className="px-x-default pt-y-default pb-y-default">
+          <h2 className="h3 mb-y-half-default">
+            {isFrench ? 'FAQ : Questions fréquentes' : 'FAQ : Frequently asked questions'}
+          </h2>
+          <dl className="border-blue/10 border-b">
+            {post.faq.map((item: BlogPostFaqItem) => (
+              <FaqItem
+                key={item._key}
+                answer={<RichTextSeo value={item.answer[lang]} />}
+                question={item.question[lang]}
+              />
+            ))}
+          </dl>
+        </section>
+      )}
+
       {/* Conclusion */}
       {post.conclusion && (
         <section className="px-x-default pt-y-default">
@@ -98,7 +159,7 @@ const BlogPostFooterSection = ({ post, isFrench }: Props) => {
 
       {/* Related projects */}
       {post.relatedProjects && post.relatedProjects.length > 0 && (
-        <section className="px-x-default pt-y-default pb-y-default">
+        <section className="px-x-default pt-y-default">
           <p className="p3 mb-3 tracking-widest text-black/50 uppercase">
             {isFrench ? 'Projets clients liés' : 'Related client projects'}
           </p>

@@ -1,15 +1,12 @@
 import RichTextSeo from '@/components/ui/rich-text-seo';
-import { IconCross } from '@/components/ui/icons';
 import {
   BlogPostSection,
   BlogPostSectionContenu,
-  BlogPostSectionFaq,
   BlogPostSectionRelatedProjects,
   BlogPostSectionStatQuote,
   BlogPostSectionTipBox,
 } from '@/types';
-import clsx from 'clsx';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 const ContenuBlock = ({
   section,
@@ -39,9 +36,11 @@ const TipBoxBlock = ({
 
   return (
     <section>
-      <div className="border-blue bg-blue/5 rounded-sm border-l-4 p-6">
-        <p className="p3 text-blue mb-3 font-semibold tracking-wide uppercase">💡 {label}</p>
-        <RichTextSeo value={content} />
+      <div className="bg-linear-to-b from-[#000019] to-[#000049] p-8">
+        <p className="p3 text-yellow mb-3 font-semibold tracking-wide uppercase">{label}</p>
+        <div className="text-white">
+          <RichTextSeo value={content} />
+        </div>
       </div>
     </section>
   );
@@ -58,21 +57,19 @@ const StatQuoteBlock = ({
 
   return (
     <section>
-      <blockquote className="border-blue/20 border-l-4 pl-6">
-        <p className="h3 text-blue/80 italic">{section.quote[lang]}</p>
+      <blockquote className="bg-linear-to-b from-[#000019] to-[#000049] p-8">
+        <p className="p2 font-safiro-regular-italic text-white italic">{section.quote[lang]}</p>
         {section.source && (
-          <footer className="p3 mt-3 text-black/50">
-            {section.sourceUrl ? (
-              <a
-                className="underline underline-offset-2"
-                href={section.sourceUrl}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                — {section.source}
-              </a>
-            ) : (
-              <span>— {section.source}</span>
+          <footer className="mt-6">
+            <p className="font-safiro-regular! text-sm! text-white">
+              {isFrench ? 'Nom de la source :' : 'Source name :'} {section.source}
+            </p>
+            {section.sourceUrl && (
+              <p className="text-yellow font-safiro-regular! text-sm! underline underline-offset-2">
+                <a href={section.sourceUrl} rel="noopener noreferrer" target="_blank">
+                  {isFrench ? 'Lien vers la source' : 'Link to the source'}
+                </a>
+              </p>
             )}
           </footer>
         )}
@@ -80,63 +77,6 @@ const StatQuoteBlock = ({
     </section>
   );
 };
-
-const FaqItem = ({ question, answer }: { question: string; answer: React.ReactNode }) => {
-  const [open, setOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <div>
-      <dt>
-        <button
-          aria-expanded={open}
-          className="border-blue/10 flex h-[60px] w-full cursor-pointer items-center border-t"
-          type="button"
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          <span
-            aria-hidden="true"
-            className="hidden w-[60px] items-center justify-center sm:flex"
-            style={{
-              transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
-              transition: 'transform 0.3s ease',
-            }}
-          >
-            <IconCross className={clsx('h-3.5 w-3.5', open ? 'fill-blue' : 'fill-black')} />
-          </span>
-          <span className={clsx('p2', open ? 'text-blue' : 'text-black')}>{question}</span>
-        </button>
-      </dt>
-      <dd
-        className="p3 overflow-hidden transition-all duration-300 sm:pl-[60px]"
-        style={{
-          maxHeight: open ? `${contentRef.current?.scrollHeight ?? 9999}px` : '0px',
-        }}
-      >
-        <div ref={contentRef} className="pb-[18px]">
-          {answer}
-        </div>
-      </dd>
-    </div>
-  );
-};
-
-const FaqBlock = ({ section, isFrench }: { section: BlogPostSectionFaq; isFrench: boolean }) => (
-  <section>
-    <h3 className="h3 pb-y-half-default">
-      {isFrench ? 'FAQ : Questions fréquentes' : 'FAQ : Frequently asked questions'}
-    </h3>
-    <dl className="border-blue/10 border-b">
-      {section.items?.map((item) => (
-        <FaqItem
-          key={item._key}
-          answer={<RichTextSeo value={isFrench ? item.answer.fr : item.answer.en} />}
-          question={isFrench ? item.question.fr : item.question.en}
-        />
-      ))}
-    </dl>
-  </section>
-);
 
 const RelatedProjectsBlock = ({
   section,
@@ -173,7 +113,7 @@ interface Props {
 
 const BlogPostContentSections = ({ sections, isFrench }: Props) => (
   <>
-    {sections.map((section, index) => {
+    {sections.map((section) => {
       let block: React.ReactNode = null;
 
       switch (section._type) {
@@ -186,9 +126,6 @@ const BlogPostContentSections = ({ sections, isFrench }: Props) => (
         case 'blogPostSectionStatQuote':
           block = <StatQuoteBlock isFrench={isFrench} section={section} />;
           break;
-        case 'blogPostSectionFaq':
-          block = <FaqBlock isFrench={isFrench} section={section} />;
-          break;
         case 'blogPostSectionRelatedProjects':
           block = <RelatedProjectsBlock isFrench={isFrench} section={section} />;
           break;
@@ -197,9 +134,8 @@ const BlogPostContentSections = ({ sections, isFrench }: Props) => (
       }
 
       return (
-        <div key={section._key} className="pt-y-default px-x-default gap-y-y-default flex flex-col">
+        <div key={section._key} className="pt-y-default">
           {block}
-          {index < sections.length - 1 && <div className="bg-blue/20 h-px w-full" />}
         </div>
       );
     })}

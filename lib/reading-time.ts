@@ -16,9 +16,6 @@ function wordsFromSection(section: BlogPostSection, lang: 'fr' | 'en'): number {
       return countTextBlocks(section.content?.[lang]) * WORDS_PER_BLOCK;
     case 'blogPostSectionStatQuote':
       return 10;
-    case 'blogPostSectionFaq':
-      // question (~10 mots) + réponse (~2 blocs)
-      return (section.items?.length ?? 0) * (10 + 2 * WORDS_PER_BLOCK);
     default:
       return 0;
   }
@@ -41,6 +38,11 @@ export function getReadingTime(post: BlogPost, lang: 'fr' | 'en'): string {
 
   if (post.conclusion?.[lang]) {
     totalWords += countTextBlocks(post.conclusion[lang]) * WORDS_PER_BLOCK;
+  }
+
+  // FAQ — question (~10 mots) + réponse (~2 blocs par item)
+  if (post.faq?.length) {
+    totalWords += post.faq.length * (10 + 2 * WORDS_PER_BLOCK);
   }
 
   const minutes = Math.max(1, Math.round(totalWords / WPM));

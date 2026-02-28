@@ -12,11 +12,6 @@ const BLOG_SECTION_FRAGMENT = groq`
   quote { fr, en },
   source,
   sourceUrl,
-  items[] {
-    _key,
-    question { fr, en },
-    answer { ${BILINGUAL_RICH_TEXT_SEO_FRAGMENT} }
-  },
   intro { fr, en },
   projects[]-> { _id, name, slug }
 `;
@@ -68,6 +63,11 @@ export const fetchBlogPost = async (slug: string, context: { draftMode?: boolean
       introduction { ${BILINGUAL_RICH_TEXT_SEO_FRAGMENT} },
       keyTakeaways[] { _key, text { fr, en } },
       content[] { ${BLOG_SECTION_FRAGMENT} },
+      faq[] {
+        _key,
+        question { fr, en },
+        answer { ${BILINGUAL_RICH_TEXT_SEO_FRAGMENT} }
+      },
       conclusion { ${BILINGUAL_RICH_TEXT_SEO_FRAGMENT} },
       ctaLabel { fr, en },
       ctaHref,

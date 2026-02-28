@@ -1,4 +1,5 @@
 import { slugify } from '@/lib/blog-headings';
+import clsx from 'clsx';
 import { PortableText } from 'next-sanity';
 import { PortableTextBlock } from 'sanity';
 
@@ -6,6 +7,7 @@ interface RichTextSeoProps {
   value: PortableTextBlock[];
   /** Ajoute des id d'ancre sur les H2/H3 pour le sommaire */
   withAnchors?: boolean;
+  isIntro?: boolean;
 }
 
 function getChildrenText(children: React.ReactNode): string {
@@ -15,14 +17,16 @@ function getChildrenText(children: React.ReactNode): string {
 }
 
 /** Renderer PortableText adapté au blockContentSeo : H2, H3, H4, listes, liens. */
-const RichTextSeo = ({ value, withAnchors }: RichTextSeoProps) => {
+const RichTextSeo = ({ value, withAnchors, isIntro = false }: RichTextSeoProps) => {
   return (
     <PortableText
       value={value}
       components={{
         block: {
           normal: ({ children }) => (
-            <p className="not-last:pb-y-half-default max-w-3xl">{children}</p>
+            <p className={clsx('not-last:pb-y-half-default', isIntro ? 'p1' : 'p3 max-w-3xl')}>
+              {children}
+            </p>
           ),
           h2: ({ children }) => {
             const id = withAnchors ? slugify(getChildrenText(children)) : undefined;

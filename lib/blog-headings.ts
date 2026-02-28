@@ -20,6 +20,15 @@ function getBlockText(block: PortableTextBlock): string {
   return (block.children as { text?: string }[])?.map((c) => c.text ?? '').join('') ?? '';
 }
 
+/** Extrait le texte brut d'un tableau de blocs PortableText */
+export function portableTextToPlainText(blocks: PortableTextBlock[]): string {
+  if (!Array.isArray(blocks)) return '';
+  return blocks
+    .filter((b) => b._type === 'block')
+    .map(getBlockText)
+    .join(' ');
+}
+
 export function extractHeadings(blocks: PortableTextBlock[]): Heading[] {
   if (!Array.isArray(blocks)) return [];
   return blocks

@@ -80,55 +80,6 @@ export const blogPostSectionStatQuote = defineType({
   },
 });
 
-/** FAQ — active les rich results FAQPage · chaque question = H3 */
-export const blogPostSectionFaq = defineType({
-  name: 'blogPostSectionFaq',
-  title: 'FAQ',
-  type: 'object',
-  description:
-    'Si ce bloc est présent, le schema FAQPage est automatiquement activé (rich results Google).',
-  fields: [
-    defineField({
-      name: 'items',
-      title: 'Questions / Réponses',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'question',
-              title: 'Question',
-              type: 'bilingualString',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'answer',
-              title: 'Réponse',
-              type: 'bilingualRichTextSeo',
-              description: '60–100 mots. Répondre directement dès la première phrase.',
-              validation: (Rule) => Rule.required(),
-            }),
-          ],
-          preview: {
-            select: { question: 'question.fr' },
-            prepare: ({ question }: { question?: string }) => ({
-              title:
-                question && question.length > 60
-                  ? `${question.slice(0, 60)}…`
-                  : question || 'Question',
-            }),
-          },
-        }),
-      ],
-      validation: (Rule) => Rule.min(2).max(6),
-    }),
-  ],
-  preview: {
-    prepare: () => ({ title: 'FAQ' }),
-  },
-});
-
 /** Projets liés — preuve sociale dans le corps ou en bas d'article */
 export const blogPostSectionRelatedProjects = defineType({
   name: 'blogPostSectionRelatedProjects',
@@ -158,6 +109,5 @@ export const blogPostSectionTypes = [
   blogPostSectionContenu,
   blogPostSectionTipBox,
   blogPostSectionStatQuote,
-  blogPostSectionFaq,
   blogPostSectionRelatedProjects,
 ];
