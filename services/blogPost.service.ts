@@ -21,6 +21,24 @@ const BLOG_SECTION_FRAGMENT = groq`
   projects[]-> { _id, name, slug }
 `;
 
+/** Liste légère — utilisé dans la page listing /blog */
+export const fetchAllBlogPosts = async (context: { draftMode?: boolean } = {}) => {
+  const query = groq`
+    *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc) {
+      _id,
+      slug,
+      metaTitle,
+      h1 { fr, en },
+      featuredImage,
+      featuredImageAlt { fr, en },
+      publishedAt,
+      category,
+      author-> { name }
+    }
+  `;
+  return await fetchSanityData<BlogPost[]>(query, {}, context);
+};
+
 /** Tous les slugs — utilisé dans getStaticPaths */
 export const fetchAllBlogPostSlugs = async () => {
   const query = groq`*[_type == "blogPost" && defined(slug.current)]{ "slug": slug.current }`;
@@ -43,7 +61,6 @@ export const fetchBlogPost = async (slug: string, context: { draftMode?: boolean
       featuredImage,
       featuredImageAlt { fr, en },
       schemaPrincipalType,
-      schemaBreadcrumbItems[] { _key, name, url },
       h1 { fr, en },
       author-> { name, role { fr, en }, photo, slug },
       publishedAt,

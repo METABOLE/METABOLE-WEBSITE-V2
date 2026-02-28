@@ -68,7 +68,6 @@ export const fetchSeoPage = async (slug: string, context: { draftMode?: boolean 
       schemaPrincipalType,
       schemaAreaServed,
       schemaServiceType,
-      schemaBreadcrumbItems[] { _key, name, url },
       hero {
         h1 { fr, en },
         tagline { fr, en },

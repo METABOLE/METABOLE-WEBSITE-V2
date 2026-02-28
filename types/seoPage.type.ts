@@ -73,12 +73,6 @@ export type SeoPageCtaFinal = {
   href?: string;
 };
 
-export type SeoPageBreadcrumbItem = {
-  _key: string;
-  name: string;
-  url: string;
-};
-
 // ——— Document principal ———
 export type SeoPage = {
   _id: string;
@@ -94,7 +88,6 @@ export type SeoPage = {
   schemaPrincipalType?: 'Service' | 'ProfessionalService';
   schemaAreaServed?: string;
   schemaServiceType?: string[];
-  schemaBreadcrumbItems?: SeoPageBreadcrumbItem[];
   // Contenu
   hero: SeoPageHero;
   introduction?: SeoPageIntro;

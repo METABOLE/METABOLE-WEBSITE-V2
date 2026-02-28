@@ -78,12 +78,6 @@ export type BlogPostRelated = {
   author: Pick<Team, 'name'>;
 };
 
-export type BlogPostBreadcrumbItem = {
-  _key: string;
-  name: string;
-  url: string;
-};
-
 // ——— Document principal ———
 
 export type BlogPost = {
@@ -98,7 +92,6 @@ export type BlogPost = {
   featuredImage: Image;
   featuredImageAlt: BilingualString;
   schemaPrincipalType?: 'Article' | 'BlogPosting';
-  schemaBreadcrumbItems?: BlogPostBreadcrumbItem[];
   h1: BilingualString;
   author: Team;
   publishedAt: string;

@@ -1,4 +1,4 @@
-import { SeoPageBreadcrumbItem, SeoPageHero } from '@/types';
+import { SeoPageHero } from '@/types';
 import Footer from '../shared/footer';
 import BackgroundLines from '@/components/layout/background-lines';
 import Breadcrumb from '@/components/ui/breadcrumb';
@@ -8,7 +8,7 @@ interface Props {
   hero: SeoPageHero;
   isFrench: boolean;
   location: string;
-  breadcrumbItems?: SeoPageBreadcrumbItem[];
+  breadcrumbItems?: { name: string; url: string }[];
   totalAwards: number;
 }
 

@@ -1,26 +1,15 @@
 import BackgroundLines from '@/components/layout/background-lines';
 import Breadcrumb from '@/components/ui/breadcrumb';
-import { urlFor } from '@/sanity/lib/image';
-import { BlogPost, BlogPostBreadcrumbItem } from '@/types';
-import Image from 'next/image';
-import Footer from '../shared/footer';
+import { IconCross } from '@/components/ui/icons';
+import { BlogPost } from '@/types';
 
 interface Props {
   post: BlogPost;
   isFrench: boolean;
   location: string;
   totalAwards: number;
-  breadcrumbItems?: BlogPostBreadcrumbItem[];
+  breadcrumbItems?: { name: string; url: string }[];
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  'strategie-web': 'Stratégie web',
-  'design-creativite': 'Design & créativité',
-  developpement: 'Développement',
-  'seo-performance': 'SEO & performance',
-  branding: 'Branding',
-  actualites: 'Actualités',
-};
 
 function formatDate(dateStr: string, isFrench: boolean): string {
   return new Date(dateStr).toLocaleDateString(isFrench ? 'fr-FR' : 'en-GB', {
@@ -30,9 +19,8 @@ function formatDate(dateStr: string, isFrench: boolean): string {
   });
 }
 
-const BlogPostHeroSection = ({ post, breadcrumbItems, isFrench, location, totalAwards }: Props) => {
+const BlogPostHeroSection = ({ post, breadcrumbItems, isFrench }: Props) => {
   const lang = isFrench ? 'fr' : 'en';
-  const categoryLabel = CATEGORY_LABELS[post.category] ?? post.category;
 
   return (
     <section className="sticky top-0 flex min-h-screen flex-col justify-between bg-linear-to-b from-[#000019] to-[#000049] pt-[calc(100px+var(--y-half-default))] text-white">
@@ -43,64 +31,41 @@ const BlogPostHeroSection = ({ post, breadcrumbItems, isFrench, location, totalA
       )}
 
       <div className="px-x-default gap-y-y-default grid h-full grid-cols-12 gap-x-5">
-        {/* Category badge */}
-        <div className="col-span-12">
-          <span className="border-blue/40 text-blue/80 inline-block rounded-full border px-3 py-1 text-xs font-medium tracking-widest uppercase">
-            {categoryLabel}
-          </span>
-        </div>
-
         {/* H1 */}
-        <h1 className="col-span-10 col-start-2">{post.h1[lang]}</h1>
-
-        {/* Author + dates */}
-        <div className="col-span-12 flex flex-wrap items-center gap-x-6 gap-y-3">
-          {post.author && (
-            <div className="flex items-center gap-3">
-              {post.author.photo && (
-                <Image
-                  alt={post.author.name}
-                  className="h-9 w-9 rounded-full object-cover"
-                  height={36}
-                  src={urlFor(post.author.photo).width(72).height(72).url()}
-                  width={36}
-                />
-              )}
-              <span className="p3 font-medium">{post.author.name}</span>
-            </div>
-          )}
-
-          <span className="h-4 w-px bg-white/20" />
-
-          <time className="p3 text-white/60" dateTime={post.publishedAt}>
-            {isFrench ? 'Publié le' : 'Published on'} {formatDate(post.publishedAt, isFrench)}
-          </time>
-
-          {post.updatedAt && post.updatedAt !== post.publishedAt && (
-            <>
-              <span className="h-4 w-px bg-white/20" />
-              <time className="p3 text-white/60" dateTime={post.updatedAt}>
-                {isFrench ? 'Mis à jour le' : 'Updated on'} {formatDate(post.updatedAt, isFrench)}
-              </time>
-            </>
-          )}
-
-          {post.tags && post.tags.length > 0 && (
-            <>
-              <span className="h-4 w-px bg-white/20" />
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span key={tag} className="p3 text-white/50">
-                    #{tag}
-                  </span>
-                ))}
+        <div className="space-y-y-default col-span-10 col-start-2">
+          <h1 className="h1">{post.h1[lang]}</h1>
+          <div className="flex flex-wrap items-center">
+            {post.author && (
+              <div className="label">
+                <p>
+                  Par <span className="text-yellow">{post.author.name}</span>
+                </p>
+                <p className="text-white/70">{post.author.role[lang]}</p>
+                <p className="text-white/70">@Metabole Studio</p>
               </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
-      <Footer isDark={true} location={location} totalAwards={totalAwards} />
+      <div className="px-x-default flex h-fit w-full grid-cols-3 items-center justify-between gap-5 pb-8 text-white sm:grid md:grid-cols-12">
+        <time className="text-left text-sm! md:col-span-3" dateTime={post.publishedAt}>
+          Publié le : {formatDate(post.publishedAt, isFrench)}
+        </time>
+        <div className="hidden md:block">
+          <IconCross className="-translate-x-[5px] fill-white" />
+        </div>
+        <time
+          className="font-safiro-medium! text-center text-sm! md:col-span-4"
+          dateTime={post.updatedAt}
+        >
+          {post.updatedAt ? 'Mis à jour le : ' + formatDate(post.updatedAt, isFrench) : ''}
+        </time>
+        <div className="hidden justify-end md:flex">
+          <IconCross className="translate-x-[5px] fill-white" />
+        </div>
+        <p className="hidden text-right text-sm! sm:block md:col-span-3">8 min de lecture</p>
+      </div>
     </section>
   );
 };

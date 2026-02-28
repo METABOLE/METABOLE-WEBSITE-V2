@@ -48,6 +48,12 @@
   --margin-x-default: var(--x-default);
   --margin-y-default: var(--y-default);
 
+  /* SPACE */
+  --space-x-default: var(--x-default);
+  --space-y-default: var(--y-default);
+  --space-x-half-default: var(--x-half-default);
+  --space-y-half-default: var(--y-half-default);
+
   /* INSET */
   --inset-x-default: var(--x-default);
   --inset-y-default: var(--y-default);

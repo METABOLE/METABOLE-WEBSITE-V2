@@ -92,25 +92,7 @@ export default defineType({
       type: 'string',
       group: 'schema',
     }),
-    defineField({
-      name: 'schemaBreadcrumbItems',
-      title: 'BreadcrumbList (éléments)',
-      type: 'array',
-      group: 'schema',
-      of: [
-        defineArrayMember({
-          type: 'object',
-          fields: [
-            defineField({ name: 'name', type: 'string', title: 'Nom' }),
-            defineField({ name: 'url', type: 'string', title: 'URL' }),
-          ],
-          preview: {
-            select: { name: 'name' },
-            prepare: ({ name }: { name?: string }) => ({ title: name || 'Élément' }),
-          },
-        }),
-      ],
-    }),
+    // schemaBreadcrumbItems retiré — breadcrumb généré automatiquement : Accueil > [page]
     defineField({
       name: 'schemaAreaServed',
       title: 'areaServed',

@@ -12,11 +12,21 @@ import { fetchAllSeoPageSlugs, fetchSeoPage } from '@/services/seoPage.service';
 import { SanityProps, SeoPage } from '@/types';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
+function buildBreadcrumbs(isFrench: boolean, page: SeoPage) {
+  const lang = isFrench ? 'fr' : 'en';
+  return [
+    { name: isFrench ? 'Accueil' : 'Home', url: `${META.url}/${lang}` },
+    { name: page.hero.h1[lang], url: `${META.url}/${lang}/${page.slug.current}` },
+  ];
+}
+
 export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSanityData(page);
   const { isFrench } = useLanguage();
 
   if (!data) return null;
+
+  const breadcrumbs = buildBreadcrumbs(isFrench, data);
 
   return (
     <div className="seo">
@@ -33,15 +43,15 @@ export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof ge
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildJsonLd(data, isFrench)),
+          __html: JSON.stringify(buildJsonLd(data, isFrench, breadcrumbs)),
         }}
       />
 
       <SeoPageHeroSection
-        breadcrumbItems={data.schemaBreadcrumbItems ?? []}
+        breadcrumbItems={breadcrumbs}
         hero={data.hero}
         isFrench={isFrench}
-        location="Paris | Rotteradam"
+        location="Paris | Rotterdam"
         totalAwards={17}
       />
 
@@ -59,7 +69,11 @@ export default function SeoPageRoute({ page }: InferGetStaticPropsType<typeof ge
 
 // ——— JSON-LD ———
 
-function buildJsonLd(page: SeoPage, isFrench: boolean) {
+function buildJsonLd(
+  page: SeoPage,
+  isFrench: boolean,
+  breadcrumbs: { name: string; url: string }[],
+) {
   const graphs: object[] = [];
   const lang = isFrench ? 'fr' : 'en';
 
@@ -74,18 +88,16 @@ function buildJsonLd(page: SeoPage, isFrench: boolean) {
   if (page.schemaServiceType?.length) serviceNode.serviceType = page.schemaServiceType;
   graphs.push(serviceNode);
 
-  // BreadcrumbList
-  if (page.schemaBreadcrumbItems?.length) {
-    graphs.push({
-      '@type': 'BreadcrumbList',
-      itemListElement: page.schemaBreadcrumbItems.map((item, idx) => ({
-        '@type': 'ListItem',
-        position: idx + 1,
-        name: item.name,
-        item: item.url,
-      })),
-    });
-  }
+  // BreadcrumbList — généré automatiquement : Accueil > [page]
+  graphs.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  });
 
   // FAQPage — collecte toutes les sections FAQ
   const faqSections = page.content?.filter((s) => s._type === 'seoPageSectionFaq') ?? [];

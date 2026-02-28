@@ -12,11 +12,26 @@ import { fetchDataInfos } from '@/services/data.service';
 import { BlogPost, SanityProps } from '@/types';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
+function buildBreadcrumbs(isFrench: boolean, slug: string, title: string) {
+  const lang = isFrench ? 'fr' : 'en';
+  return [
+    { name: isFrench ? 'Accueil' : 'Home', url: `${META.url}/${lang}` },
+    { name: 'Blog', url: `${META.url}/${lang}/blog` },
+    { name: title, url: `${META.url}/${lang}/blog/${slug}` },
+  ];
+}
+
 export default function BlogPostRoute({ post }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSanityData(post);
   const { isFrench } = useLanguage();
 
   if (!data) return null;
+
+  const breadcrumbs = buildBreadcrumbs(
+    isFrench,
+    data.slug.current,
+    data.h1[isFrench ? 'fr' : 'en'],
+  );
 
   return (
     <div className="seo">
@@ -32,12 +47,12 @@ export default function BlogPostRoute({ post }: InferGetStaticPropsType<typeof g
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildJsonLd(data, isFrench)),
+          __html: JSON.stringify(buildJsonLd(data, isFrench, breadcrumbs)),
         }}
       />
 
       <BlogPostHeroSection
-        breadcrumbItems={data.schemaBreadcrumbItems ?? []}
+        breadcrumbItems={breadcrumbs}
         isFrench={isFrench}
         location="Paris | Rotterdam"
         post={data}
@@ -61,7 +76,11 @@ export default function BlogPostRoute({ post }: InferGetStaticPropsType<typeof g
 
 // ——— JSON-LD ———
 
-function buildJsonLd(post: BlogPost, isFrench: boolean) {
+function buildJsonLd(
+  post: BlogPost,
+  isFrench: boolean,
+  breadcrumbs: { name: string; url: string }[],
+) {
   const graphs: object[] = [];
   const lang = isFrench ? 'fr' : 'en';
 
@@ -84,18 +103,16 @@ function buildJsonLd(post: BlogPost, isFrench: boolean) {
   if (post.updatedAt) articleNode.dateModified = post.updatedAt;
   graphs.push(articleNode);
 
-  // BreadcrumbList
-  if (post.schemaBreadcrumbItems?.length) {
-    graphs.push({
-      '@type': 'BreadcrumbList',
-      itemListElement: post.schemaBreadcrumbItems.map((item, idx) => ({
-        '@type': 'ListItem',
-        position: idx + 1,
-        name: item.name,
-        item: item.url,
-      })),
-    });
-  }
+  // BreadcrumbList — généré automatiquement : Accueil > Blog > [article]
+  graphs.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  });
 
   // FAQPage — collecte toutes les sections FAQ
   const faqSections = post.content?.filter((s) => s._type === 'blogPostSectionFaq') ?? [];
@@ -124,7 +141,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: (slugs ?? []).flatMap(({ slug }: { slug: string }) =>
-      langs.map((lang) => ({ params: { lang, slug } })),
+      langs.map((lang) => ({ params: { lang, article: slug } })),
     ),
     fallback: 'blocking',
   };
@@ -134,7 +151,7 @@ export const getStaticProps: GetStaticProps<{
   post: SanityProps<BlogPost>;
 }> = async (context) => {
   const { params, draftMode = false } = context;
-  const slug = params?.slug as string;
+  const slug = params?.article as string;
 
   const dataInfos = await fetchDataInfos(context);
   const post = await fetchBlogPost(slug, { draftMode });
