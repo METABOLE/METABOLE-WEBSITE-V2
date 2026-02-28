@@ -1,6 +1,7 @@
 import {
   DatabaseIcon,
   DiamondIcon,
+  DocumentIcon,
   FeedbackIcon,
   ProjectsIcon,
   StarIcon,
@@ -17,8 +18,9 @@ const SITE_DATA_ID = 'site-data';
 
 export const structure: StructureResolver = (S, context) =>
   S.list()
-    .title('Content')
+    .title('WEBSITE')
     .items([
+      S.divider().title('GENERAL'),
       S.listItem()
         .title('DONNÉES DU SITE')
         .icon(DatabaseIcon)
@@ -30,6 +32,7 @@ export const structure: StructureResolver = (S, context) =>
         S,
         context,
       }),
+      S.divider().title('HOME'),
       orderableDocumentListDeskItem({
         type: 'expertise',
         title: 'EXPERTISE',
@@ -65,6 +68,7 @@ export const structure: StructureResolver = (S, context) =>
         S,
         context,
       }),
+      S.divider().title('ABOUT'),
       orderableDocumentListDeskItem({
         type: 'values',
         title: 'VALUES',
@@ -79,4 +83,13 @@ export const structure: StructureResolver = (S, context) =>
         S,
         context,
       }),
+      S.divider().title('SEO'),
+      S.listItem()
+        .title('PAGE SEO')
+        .icon(DocumentIcon)
+        .child(S.documentTypeList('seoPage').title('Pages SEO')),
+      S.listItem()
+        .title('ARTICLE DE BLOG')
+        .icon(DocumentIcon)
+        .child(S.documentTypeList('blogPost').title('Articles de blog')),
     ]);
